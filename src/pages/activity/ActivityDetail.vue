@@ -559,12 +559,12 @@ export default {
         });
     },
     getWallet() {
-      this.$http
-        .post(this.host + this.api.uc.wallet + this.activityDetail.acceptUnit, {})
-        .then(response => {
-          var resp = response.body;
-          this.mybalance = resp.data.balance || "";
-        });
+      // this.$http
+      //   .post(this.host + this.api.uc.wallet + this.activityDetail.acceptUnit, {})
+      //   .then(response => {
+      //     var resp = response.body;
+      //     this.mybalance = resp.data.balance || "";
+      //   });
     },
     getMyRecords(){
         let param = {};
@@ -599,7 +599,7 @@ export default {
               this.validEmail = true;
             }
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -623,7 +623,7 @@ export default {
                 }
               }, 1000);
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
               this.disbtn = false;
             }
           });
@@ -650,7 +650,7 @@ export default {
                   }
                 }, 1000);
               } else {
-                this.$Message.error(resp.message);
+                // this.$Message.error(resp.message);
                 this.disbtn = false;
               }
             });

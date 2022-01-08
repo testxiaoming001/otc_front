@@ -123,7 +123,7 @@ export default {
       tableColumnsRecharge: [
         {
           title: this.$t("uc.finance.withdraw.symbol"),
-          key: "unit"
+          key: "type"
         },
         {
           title: this.$t("uc.finance.withdraw.address"),
@@ -221,51 +221,54 @@ export default {
       this.$http
         .post(this.host + "/uc/approve/security/setting")
         .then(response => {
-          var resp = response.body;
-          if (resp.code == 0) {
-            if (resp.data.mobilePhone) {
-              this.formValidateAddr.mobileNo = resp.data.mobilePhone;
-              this.validPhone = true;
-              this.validEmail = false;
-            } else {
-              this.formValidateAddr.email = resp.data.email;
-              this.validPhone = false;
-              this.validEmail = true;
-            }
-          } else {
-            this.$Message.error(resp.message);
-          }
+          // var resp = response.body;
+          // if (resp.code == 0) {
+          //   if (resp.data.mobilePhone) {
+          //     this.formValidateAddr.mobileNo = resp.data.mobilePhone;
+          //     this.validPhone = true;
+          //     this.validEmail = false;
+          //   } else {
+          //     this.formValidateAddr.email = resp.data.email;
+          //     this.validPhone = false;
+          //     this.validEmail = true;
+          //   }
+          // } else {
+          //   // this.$Message.error(resp.message);
+          // }
         });
     },
     getCoin() {
       //币种
-      this.$http
-        .post(this.host + "/uc/withdraw/support/coin")
-        .then(response => {
-          var resp = response.body;
-          if (resp.code == 0) {
-            for (let i = 0; i < resp.data.length; i++) {
-              this.coinList.push(resp.data[i]);
-            }
-          } else {
-            this.$Message.error(resp.message);
-          }
-        });
+      // TODO
+      this.coinList = ['erc20','trc20','btc']
+      // this.$http
+      //   .post(this.host + "/uc/withdraw/support/coin")
+      //   .then(response => {
+      //     var resp = response.body;
+      //     if (resp.code == 0) {
+      //       for (let i = 0; i < resp.data.length; i++) {
+      //         this.coinList.push(resp.data[i]);
+      //       }
+      //     } else {
+      //       // this.$Message.error(resp.message);
+      //     }
+      //   });
     },
     getList(pageNo, pageSize) {
       //获取地址
       let params = {};
       params["pageNo"] = pageNo;
       params["pageSize"] = pageSize;
+      params["token"] = localStorage.getItem('TOKEN');
       this.$http
-        .post(this.host + "/uc/withdraw/address/page", params)
+        .post(this.apiHost + "/user/usdt_address_list", params)
         .then(response => {
           var resp = response.body;
-          if (resp.code == 0 && resp.data.content) {
-            this.dataRecharge = resp.data.content;
-            this.dataCount = resp.data.totalElement;
+          if (resp.code == 1) {
+            this.dataRecharge = resp.data;
+            this.dataCount = resp.data.length;
           } else {
-            this.$Message.error(resp.message);
+            this.$Message.error(resp.msg);
           }
           this.loading = false;
         });
@@ -293,7 +296,7 @@ export default {
                 }
               }, 1000);
             } else {
-              this.$Message.error(resp.message);
+              // // this.$Message.error(resp.message);
               this.disbtn = false;
             }
           });
@@ -320,7 +323,7 @@ export default {
                   }
                 }, 1000);
               } else {
-                this.$Message.error(resp.message);
+                // // this.$Message.error(resp.message);
                 this.disbtn = false;
               }
             });
@@ -342,10 +345,13 @@ export default {
         this.$Message.warning(this.$t("uc.finance.withdraw.symboltip"));
       } else if (!this.withdrawAddr) {
         this.$Message.warning(this.$t("uc.finance.withdraw.addresstip"));
-      } else if (!this.remark) {
-        this.$Message.warning(this.$t("uc.finance.withdraw.remarktip"));
-      } else if (this.coinType && this.remark && this.withdrawAddr) {
-        this.modal2 = true;
+      } 
+      // else if (!this.remark) {
+        // this.$Message.warning(this.$t("uc.finance.withdraw.remarktip"));
+      // } 
+      else if (this.coinType  && this.withdrawAddr) {
+        // this.modal2 = true;
+        this.handleSubmit('formValidateAddr')
       }
     },
     changePage(index) {
@@ -358,20 +364,22 @@ export default {
         title: title,
         content: content,
         onOk: () => {
-          let params = {};
-          params["id"] = id;
-          this.$http
-            .post(this.host + "/uc/withdraw/address/delete", params)
-            .then(response => {
-              var resp = response.body;
-              if (resp.code == 0) {
-                this.$Message.success(resp.message);
-                this.refresh();
-              } else {
-                this.$Message.error(resp.message);
-              }
-              this.loading = false;
-            });
+          // TODO 缺少删除接口
+          this.$Message.success('删除成功!')
+          // let params = {};
+          // params["id"] = id;
+          // this.$http
+          //   .post(this.host + "/uc/withdraw/address/delete", params)
+          //   .then(response => {
+          //     var resp = response.body;
+          //     if (resp.code == 0) {
+          //       this.$Message.success(resp.message);
+          //       this.refresh();
+          //     } else {
+          //       // this.$Message.error(resp.message);
+          //     }
+          //     this.loading = false;
+          //   });
         },
         onCancel: () => {}
       });
@@ -388,27 +396,20 @@ export default {
     submit(name) {
       let param = {};
       param["address"] = this.withdrawAddr;
-      param["unit"] = this.coinType;
-      if (this.validPhone) {
-        param["aims"] = this.formValidateAddr.mobileNo;
-        param["code"] = this.formValidateAddr.vailCode2;
-      } else {
-        param["aims"] = this.formValidateAddr.email;
-        param["code"] = this.formValidateAddr.vailCode1;
-      }
+      param["type"] = this.coinType;
       param["remark"] = this.remark;
-
+      param["token"] = localStorage.getItem('TOKEN');
       this.$http
-        .post(this.host + "/uc/withdraw/address/add", param)
+        .post(this.apiHost + "/user/set_usdt_address", param)
         .then(response => {
           var resp = response.body;
-          if (resp.code == 0) {
+          if (resp.code == 1) {
             this.$Message.success(this.$t("uc.finance.withdraw.savemsg2"));
-            this.formValidateAddr.vailCode2 = "";
+            // this.formValidateAddr.vailCode2 = "";
             this.refresh();
-            this.modal2 = false;
+            // this.modal2 = false;
           } else {
-            this.$Message.error(resp.message);
+            this.$Message.error(resp.msg);
           }
         });
     }

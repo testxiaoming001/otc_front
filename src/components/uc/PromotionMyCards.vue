@@ -128,7 +128,7 @@ export default {
               duration: 30
             });
         } else {
-          this.$Message.error(resp.message);
+          // this.$Message.error(resp.message);
         }
         this.modal_loading = false;
       });

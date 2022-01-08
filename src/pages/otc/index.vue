@@ -179,7 +179,7 @@ export default {
             this.$Message.success(this.$t('common.logintip'));
             this.$router.push('/login');
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         })
       } else if (index == 1) {
@@ -191,7 +191,7 @@ export default {
             this.$Message.success(this.$t('common.logintip'));
             this.$router.push('/login');
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         })
       }

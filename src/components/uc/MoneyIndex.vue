@@ -106,7 +106,7 @@ export default {
               this.$Message.success(this.$t("uc.finance.money.matchsuccess"));
               this.GCCMatchAmount = this.GCCMatchAmount - this.matchAmount;
             } else {
-              this.$Message.error(resp.message);
+              // // this.$Message.error(resp.message);
             }
           });
       }
@@ -146,7 +146,7 @@ export default {
               );
             }, 3000);
           } else {
-            this.$Message.error(resp.message);
+            // // this.$Message.error(resp.message);
             this.$Spin.hide();
           }
         });

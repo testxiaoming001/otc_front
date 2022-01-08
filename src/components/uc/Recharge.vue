@@ -181,7 +181,7 @@ export default {
                 self.$Spin.hide();
               }, 3000);
             } else {
-              this.$Message.error(resp.message);
+              // // this.$Message.error(resp.message);
               self.$Spin.hide();
             }
           });
@@ -189,20 +189,20 @@ export default {
     },
     getMoney() {
       //获取
-      this.$http.post(this.host + this.api.uc.wallet).then(response => {
-        var resp = response.body;
-        if (resp.code == 0) {
-          for (let i = 0; i < resp.data.length; i++) {
-            var coin = resp.data[i];
-            if (coin.coin.canRecharge == 1) {
-              this.coinList.push(coin);
-            }
-          }
-          this.changeCoin(this.coinType);
-        } else {
-          this.$Message.error(resp.message);
-        }
-      });
+      // this.$http.post(this.host + this.api.uc.wallet).then(response => {
+      //   var resp = response.body;
+      //   if (resp.code == 0) {
+      //     for (let i = 0; i < resp.data.length; i++) {
+      //       var coin = resp.data[i];
+      //       if (coin.coin.canRecharge == 1) {
+      //         this.coinList.push(coin);
+      //       }
+      //     }
+      //     this.changeCoin(this.coinType);
+      //   } else {
+      //     // this.$Message.error(resp.message);
+      //   }
+      // });
     },
     getList(pageN) {
       //获取tableRecharge
@@ -224,7 +224,7 @@ export default {
             }
             this.loading = false;
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -247,7 +247,7 @@ export default {
               self.$router.push("/uc/safe");
             }
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     }

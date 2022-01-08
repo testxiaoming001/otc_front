@@ -736,7 +736,7 @@ export default {
       //       location.href = "/";
       //     }, 1500);
       //   } else {
-      //     this.$Message.error(resp.message);
+      //     // this.$Message.error(resp.message);
       //   }
       // });
       this.$store.commit("setMember", null);

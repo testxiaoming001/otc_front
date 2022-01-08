@@ -275,7 +275,7 @@ export default {
             this.clearValues();
             this.$Message.success(resp.message);
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -301,7 +301,7 @@ export default {
               this.coinType = this.currentCoin.unit;
             }
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -320,7 +320,7 @@ export default {
             this.transaction.total = resp.data.totalElements;
             this.transaction.page = resp.data.number;
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
           this.loading = false;
         });
@@ -447,7 +447,7 @@ export default {
               self.$router.push("/uc/safe");
             }
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     }

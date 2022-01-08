@@ -171,7 +171,7 @@ export default {
               this.coinType = this.coinType;
             }
           } else {
-            this.$Message.error(resp.message);
+            // // this.$Message.error(resp.message);
           }
         });
     },
@@ -229,7 +229,7 @@ export default {
               this.tableRecord = trueData.content;
             }
           } else {
-            this.$Message.error(resp.message);
+            // // this.$Message.error(resp.message);
           }
           this.loading = false;
         });

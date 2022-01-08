@@ -758,7 +758,7 @@ export default {
               this.getMember();
               this.choseItem = 0;
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -777,7 +777,7 @@ export default {
               this.getMember();
               this.choseItem = 0;
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -796,7 +796,7 @@ export default {
               this.getMember();
               this.choseItem = 0;
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -823,7 +823,7 @@ export default {
                 self.$router.push("/login");
               }, 2000);
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -844,7 +844,7 @@ export default {
               this.getMember();
               this.choseItem = 0;
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -889,7 +889,7 @@ export default {
               this.getMember();
               this.choseItem = 0;
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -930,7 +930,7 @@ export default {
                   }
                 }, 1000);
               } else {
-                this.$Message.error(resp.message);
+                // this.$Message.error(resp.message);
               }
             });
         } else {
@@ -955,7 +955,7 @@ export default {
                   }
                 }, 1000);
               } else {
-                this.$Message.error(resp.message);
+                // this.$Message.error(resp.message);
               }
             });
         } else {
@@ -977,7 +977,7 @@ export default {
                 }
               }, 1000);
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       } else if (index == 5) {
@@ -996,7 +996,7 @@ export default {
                 }
               }, 1000);
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }

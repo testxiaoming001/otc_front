@@ -111,7 +111,7 @@ export default {
           this.totalPage = resp.data.totalPages;
           this.totalNum = resp.data.totalElements;
         } else {
-          // this.$Message.error(resp.message);
+          // // this.$Message.error(resp.message);
           // this.$Message.error(this.$t('common.logintip'));
           this.$Message.error(this.loginmsg);
         }
@@ -136,7 +136,7 @@ export default {
           this.totalPage = resp.data.totalPages;
           this.totalNum = resp.data.totalElements;
         } else {
-          this.$Message.error(resp.message);
+          // this.$Message.error(resp.message);
         }
         this.loading = false;
       });

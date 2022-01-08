@@ -343,7 +343,7 @@ export default {
             this.sendOrderStatusNotice(1);
             this.getDetail();
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -369,7 +369,7 @@ export default {
             this.sendOrderStatusNotice(3);
             this.getDetail();
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -390,7 +390,7 @@ export default {
               this.sendOrderStatusNotice(4);
               this.getDetail();
             } else {
-              this.$Message.error(resp.message);
+              // this.$Message.error(resp.message);
             }
           });
       }
@@ -412,7 +412,7 @@ export default {
             this.sendOrderStatusNotice(5);
             this.getDetail();
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -455,7 +455,7 @@ export default {
               this.statusText = this.$t("otc.chat.result_5");
             }
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },

@@ -175,7 +175,7 @@ export default {
             this.total = parseInt(resp.totalElement);
             this.tableRecord = data.bonus;
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -232,7 +232,7 @@ export default {
             this.loading = false;
             this.page = resp.number;
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },

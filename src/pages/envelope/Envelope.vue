@@ -166,7 +166,7 @@ export default {
           var resp = response.body;
           resp.code == 0 && this.$Message.success(resp.message);
           resp.code == 0 && this.settime();
-          resp.code != 0 && this.$Message.error(resp.message);
+          // resp.code != 0 &&  this.$Message.error(resp.message);
         });
       }
     },

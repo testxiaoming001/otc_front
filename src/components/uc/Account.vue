@@ -421,7 +421,7 @@ export default {
                     this.getAccount()
                     this.choseItem = 0
                   } else {
-                    this.$Message.error(resp.message);
+                    // this.$Message.error(resp.message);
                   }
                 })
               }else { //设置
@@ -432,7 +432,7 @@ export default {
                         this.getAccount()
                         this.choseItem = 0
                     } else {
-                        this.$Message.error(resp.message);
+                        // this.$Message.error(resp.message);
                     }
                 })
               }
@@ -453,7 +453,7 @@ export default {
                       this.getAccount()
                       this.choseItem = 0
                     } else {
-                      this.$Message.error(resp.message);
+                      // this.$Message.error(resp.message);
                     }
                   })
                 }
@@ -474,7 +474,7 @@ export default {
                     this.getAccount()
                     this.choseItem = 0
                   } else {
-                    this.$Message.error(resp.message);
+                    // this.$Message.error(resp.message);
                   }
                 })
               }else{
@@ -485,7 +485,7 @@ export default {
                         this.getAccount()
                         this.choseItem = 0
                     } else {
-                        this.$Message.error(resp.message);
+                        // this.$Message.error(resp.message);
                     }
                 })
               }

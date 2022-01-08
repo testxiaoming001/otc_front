@@ -245,7 +245,7 @@ export default {
               .replace(/^\s+|\s+$/g, "")
               .slice(0, 1);
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -272,7 +272,7 @@ export default {
                   self.$router.push("/chat?tradeId=" + resp.data);
                 }, 2000);
               } else {
-                this.$Message.error(resp.message);
+                // this.$Message.error(resp.message);
               }
             });
         } else if (this.user.advertiseType == 0) {
@@ -294,7 +294,7 @@ export default {
                   self.$router.push("/chat?tradeId=" + resp.data);
                 }, 2000);
               } else {
-                this.$Message.error(resp.message);
+                // this.$Message.error(resp.message);
               }
             });
         }
@@ -312,7 +312,7 @@ export default {
       //       self.$router.push('/chat?tradeId=' + resp.data);
       //     }, 2000)
       //   } else {
-      //     this.$Message.error(resp.message);
+      //     // this.$Message.error(resp.message);
       //   }
       // })
     },

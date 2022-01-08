@@ -23,11 +23,12 @@ Vue.use(VueRouter);
 Vue.use(vueResource);
 Vue.use(VueI18n);
 
-Vue.prototype.rootHost = "https://www.xxxx.com"; //BIZZAN
-Vue.prototype.host = "https://api.xxxx.com"; //BIZZAN
+// Vue.prototype.rootHost = "https://www.xxxx.com"; //BIZZAN
+// Vue.prototype.host = "https://api.xxxx.com"; //BIZZAN
 
-// Vue.prototype.rootHost = ""; //BIZZAN
-// Vue.prototype.host = ""; //BIZZAN
+Vue.prototype.rootHost = ""; //BIZZAN
+Vue.prototype.host = ""; //BIZZAN
+
 Vue.prototype.apiHost = process.env.NODE_ENV === 'production'? "http://148.66.134.184:83/apiv1":'/v2'; //BIZZAN
 
 Vue.prototype.api = Api;

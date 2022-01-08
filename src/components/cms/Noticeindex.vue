@@ -71,7 +71,7 @@ export default {
                     this.$Message.success('请先登录');
                     this.$router.push('/login');
                 } else {
-                    this.$Message.error(resp.message);
+                    // this.$Message.error(resp.message);
                 }
             })
 

@@ -266,7 +266,7 @@ export default {
               self.$router.push("/uc/safe");
             }
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -293,7 +293,7 @@ export default {
             this.modal_return = false;
             this.getSetting();
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -454,7 +454,7 @@ export default {
             this.modal_apply = false;
             this.certStatus = 1;
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     }

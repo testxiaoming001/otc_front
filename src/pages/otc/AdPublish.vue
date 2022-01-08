@@ -473,7 +473,7 @@ export default {
                     that.$router.push("/uc/ad");
                   }, 3000);
                 } else {
-                  this.$Message.error(resp.message);
+                  // this.$Message.error(resp.message);
                   this.disAllowBtn = false;
                 }
                 //  this.disAllowBtn=false
@@ -492,7 +492,7 @@ export default {
                     that.$router.push("/uc/ad");
                   }, 3000);
                 } else {
-                  this.$Message.error(resp.message);
+                  // this.$Message.error(resp.message);
                   this.disAllowBtn = false;
                 }
                 // this.disAllowBtn=false
@@ -566,7 +566,7 @@ export default {
       //             this.getAccount()
       //         }
       //     } else {
-      //         this.$Message.error(resp.message);
+      //         // this.$Message.error(resp.message);
       //     }
       // })
     },
@@ -597,7 +597,7 @@ export default {
             }
           } else {
             this.msg = resp.message;
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
@@ -636,7 +636,7 @@ export default {
             }
             this.form.autoword = resp.data.autoword;
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
           this.isSpinShow = false;
         });
@@ -694,7 +694,7 @@ export default {
         this.price = (cankoNew * lv).toLocaleString();
         this.symbol = resp.data[0].unit;
       } else {
-        this.$Message.error(resp.message);
+        // this.$Message.error(resp.message);
       }
       //修改
       if (this.$route.query.id) {

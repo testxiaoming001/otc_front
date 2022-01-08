@@ -345,7 +345,7 @@ export default {
               .replace(/^\s+|\s+$/g, "")
               .slice(0, 1);
           } else {
-            this.$Message.error(resp.message);
+            // this.$Message.error(resp.message);
           }
         });
     },
