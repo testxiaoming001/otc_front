@@ -5,7 +5,7 @@
         <div class="leftwrapper">
           <!-- <img src="../src/assets/images/clock.png" alt="" class="clock"> -->
           <Icon type="ios-clock-outline" class="clock"></Icon>
-          <span>{{time|dateFormat}}&#160;&#160;{{utc}}</span>
+          <span>{{ time | dateFormat }}&#160;&#160;{{ utc }}</span>
         </div>
       </div>
       <div class="layout">
@@ -19,58 +19,91 @@
               <Menu :active-name="activeNav" width="auto" :open-names="['1']">
                 <Submenu name="1">
                   <router-link to="/">
-                    <MenuItem name="nav-index">{{$t("header.index")}}</MenuItem>
+                    <MenuItem name="nav-index">{{
+                      $t("header.index")
+                    }}</MenuItem>
                   </router-link>
                   <router-link to="/exchange">
-                    <MenuItem name="nav-exchange">{{$t("header.exchange")}}</MenuItem>
+                    <MenuItem name="nav-exchange">{{
+                      $t("header.exchange")
+                    }}</MenuItem>
                   </router-link>
                   <router-link to="/ctc">
-                    <MenuItem name="nav-ctc">{{$t("header.ctc")}}</MenuItem>
+                    <MenuItem name="nav-ctc">{{ $t("header.ctc") }}</MenuItem>
                   </router-link>
                   <router-link to="/otc/trade/usdt" style="display:none;">
-                    <MenuItem name="nav-otc">{{$t("header.otc")}}</MenuItem>
+                    <MenuItem name="nav-otc">{{ $t("header.otc") }}</MenuItem>
                   </router-link>
                   <router-link to="/lab" style="position:relative;">
-                    <MenuItem name="nav-lab">{{$t("header.lab")}}</MenuItem>
+                    <MenuItem name="nav-lab">{{ $t("header.lab") }}</MenuItem>
                   </router-link>
                   <router-link to="/invite">
-                    <MenuItem name="nav-invite">{{$t("header.invite")}}</MenuItem>
+                    <MenuItem name="nav-invite">{{
+                      $t("header.invite")
+                    }}</MenuItem>
                   </router-link>
                   <router-link to="/announcement/0">
-                    <MenuItem name="nav-service">{{$t("header.service")}}</MenuItem>
+                    <MenuItem name="nav-service">{{
+                      $t("header.service")
+                    }}</MenuItem>
                   </router-link>
                   <router-link to="/whitepaper">
-                    <MenuItem name="nav-whitepaper">{{$t("header.whitepaper")}}</MenuItem>
+                    <MenuItem name="nav-whitepaper">{{
+                      $t("header.whitepaper")
+                    }}</MenuItem>
                   </router-link>
                 </Submenu>
               </Menu>
             </div>
             <div class="header_nav_mobile_triggle" @click="toggleMemu()">
-              <Icon type="md-menu" style="font-size: 26px;color:#cccccc;"/>
+              <Icon type="md-menu" style="font-size: 26px;color:#cccccc;" />
             </div>
             <div class="header_nav" style="float:right;margin-left: 10px;">
-              <Menu mode="horizontal" width="auto" @on-select="changelanguage" style="height: 50px;line-height:50px;">
-                  <Submenu name="lang">
-                      <template slot="title" class="lang-title">
-                        <span style="display: none;">{{languageValue}}</span>
-                        <img class="lang-img" v-if="lang=='简体中文'" src="./assets/images/lang-zh.png"></img>
-                        <img class="lang-img" v-if="lang=='English'" src="./assets/images/lang-en.png"></img>
-                      </template>
-                      <MenuItem name="zh" class="lang-item"><img src="./assets/images/lang-zh.png"></img>简体中文</MenuItem>
-                      <MenuItem name="en" class="lang-item"><img src="./assets/images/lang-en.png"></img>ENGLISH</MenuItem>
-                  </Submenu>
+              <Menu
+                mode="horizontal"
+                width="auto"
+                @on-select="changelanguage"
+                style="height: 50px;line-height:50px;"
+              >
+                <Submenu name="lang">
+                  <template slot="title" class="lang-title">
+                    <span style="display: none;">{{ languageValue }}</span>
+                    <img
+                      class="lang-img"
+                      v-if="lang == '简体中文'"
+                      src="./assets/images/lang-zh.png"
+                    />
+                    <img
+                      class="lang-img"
+                      v-if="lang == 'English'"
+                      src="./assets/images/lang-en.png"
+                    />
+                  </template>
+                  <MenuItem name="zh" class="lang-item"
+                    ><img src="./assets/images/lang-zh.png" />简体中文</MenuItem
+                  >
+                  <MenuItem name="en" class="lang-item"
+                    ><img src="./assets/images/lang-en.png" />ENGLISH</MenuItem
+                  >
+                </Submenu>
               </Menu>
             </div>
             <div class="rightwrapper">
-              <poptip placement="bottom" width="120" class="appdownload" trigger="hover">
-                <a href="javascript:;" style="font-size:14px;">{{$t("header.appdownlaod")}}
+              <poptip
+                placement="bottom"
+                width="120"
+                class="appdownload"
+                trigger="hover"
+              >
+                <a href="javascript:;" style="font-size:14px;"
+                  >{{ $t("header.appdownlaod") }}
                   <Icon type="md-arrow-dropdown" size="18" />
                 </a>
                 <div class="api" slot="content">
                   <div class="ios">
-                    <img src="../src/assets/images/appdownload.png" alt="">
+                    <img src="../src/assets/images/appdownload.png" alt="" />
                     <div class="tips">
-                      <span>{{$t("header.scandownload")}}</span>
+                      <span>{{ $t("header.scandownload") }}</span>
                     </div>
                   </div>
                 </div>
@@ -81,35 +114,47 @@
               <!-- 登录 -->
               <div class="login_register isLogin" v-if="isLogin">
                 <div class="mymsg">
-                  <router-link to="/uc/safe">{{$t("header.usercenter")}}</router-link>
+                  <router-link to="/uc/safe">{{
+                    $t("header.usercenter")
+                  }}</router-link>
                 </div>
                 <Dropdown>
                   <a href="javascript:void(0)">
                     <Icon type="md-person" size="20" />
-                    <span>{{strpo(member.username)}}</span>
+                    <span v-if="member.username">{{
+                      strpo(member.username)
+                    }}</span>
                     <Icon type="md-arrow-dropdown" size="16" />
                   </a>
                   <DropdownMenu slot="list">
-                      <DropdownItem>
-                        <router-link to="/uc/money">
-                          <Icon type="logo-bitcoin" /> &nbsp;{{$t("header.assetmanage")}}
-                        </router-link>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <router-link to="/uc/entrust/current">
-                          <Icon type="md-swap" /> &nbsp;{{$t("header.trademanage")}}
-                        </router-link>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <router-link to="/uc/innovation/myorders">
-                          <Icon type="md-swap" /> &nbsp;{{$t("header.innovationmanage")}}
-                        </router-link>
-                      </DropdownItem>
-                      <DropdownItem>
-                        <div @click="logout">
-                          <Icon type="md-log-out" /> &nbsp;{{$t("common.logout")}}
-                        </div>
-                      </DropdownItem>
+                    <DropdownItem>
+                      <router-link to="/uc/money">
+                        <Icon type="logo-bitcoin" /> &nbsp;{{
+                          $t("header.assetmanage")
+                        }}
+                      </router-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <router-link to="/uc/entrust/current">
+                        <Icon type="md-swap" /> &nbsp;{{
+                          $t("header.trademanage")
+                        }}
+                      </router-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <router-link to="/uc/innovation/myorders">
+                        <Icon type="md-swap" /> &nbsp;{{
+                          $t("header.innovationmanage")
+                        }}
+                      </router-link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <div @click="logout">
+                        <Icon type="md-log-out" /> &nbsp;{{
+                          $t("common.logout")
+                        }}
+                      </div>
+                    </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
@@ -118,10 +163,12 @@
                 <Menu active-name11="1-1" width="auto" :open-names="['2']">
                   <Submenu name="2" id="login_register_theme">
                     <router-link to="/login" id="login">
-                      <MenuItem name="1-1">{{$t("common.login")}}</MenuItem>
+                      <MenuItem name="1-1">{{ $t("common.login") }}</MenuItem>
                     </router-link>
                     <router-link to="/register" id="register">
-                      <MenuItem name="1-2">{{$t("common.register")}}</MenuItem>
+                      <MenuItem name="1-2">{{
+                        $t("common.register")
+                      }}</MenuItem>
                     </router-link>
                   </Submenu>
                 </Menu>
@@ -133,68 +180,130 @@
       <router-view v-if="isRouterAlive"></router-view>
       <!-- </div> -->
     </div>
-    <Drawer :closable="true" width="40" v-model="navDrawerModal" class="header_nav_mobile">
-        <Menu :active-name="activeNav" width="auto" @on-select="changelanguage">
-            <MenuItem name="nav-index" style="text-align:left;">{{$t("header.index")}}</MenuItem>
-            <MenuItem name="nav-exchange" style="text-align:left;">{{$t("header.exchange")}}</MenuItem>
-            <MenuItem name="nav-ctc" style="text-align:left;">{{$t("header.ctc")}}</MenuItem>
-            <router-link to="/otc/trade/usdt" style="display:none;">
-              <MenuItem name="nav-otc" style="text-align:left;">{{$t("header.otc")}}</MenuItem>
-            </router-link>
-            <router-link to="/lab">
-              <MenuItem name="nav-lab" style="text-align:left;color:#bdc2ca;">{{$t("header.lab")}}</MenuItem>
-            </router-link>
-            <MenuItem name="nav-invite" style="text-align:left;">{{$t("header.invite")}}</MenuItem>
-            <router-link to="/announcement/0">
-              <MenuItem name="nav-service" style="text-align:left;color:#bdc2ca;">{{$t("header.service")}}</MenuItem>
-            </router-link>
-            <router-link to="/whitepaper">
-              <MenuItem name="nav-whitepaper" style="text-align:left;">{{$t("header.whitepaper")}}</MenuItem>
-            </router-link>
-            <Submenu name="nav-login" id="login_register_theme" v-if="!isLogin">
-              <template slot="title" class="lang-title">
-                  <span style="color:#bdc2ca;">{{$t("common.loginregister")}}</span>
-              </template>
-              <router-link to="/login" id="login">
-                <MenuItem name="1-1" class="lang-item" style="padding-left:20px!important;">{{$t("common.login")}}</MenuItem>
-              </router-link>
-              <router-link to="/register" id="register">
-                <MenuItem name="1-2" class="lang-item" style="padding-left:20px!important;">{{$t("common.register")}}</MenuItem>
-              </router-link>
-            </Submenu>
-            <Submenu name="nav_personal" v-if="isLogin">
-                <template slot="title" class="lang-title">
-                  <span style="color:#bdc2ca;">{{$t("header.usercenter")}}</span>
-                </template>
-                <router-link to="/uc/safe">
-                  <MenuItem name="nav_safe" class="lang-item" style="padding-left:20px!important;">{{$t("uc.member.securitysetting")}}</MenuItem>
-                </router-link>
-                <router-link to="/uc/money">
-                  <MenuItem name="nav_assets" class="lang-item" style="padding-left:20px!important;">{{$t("header.assetmanage")}}</MenuItem>
-                </router-link>
-                <router-link to="/uc/innovation/myminings">
-                  <MenuItem name="nav_innnovationmanage" class="lang-item" style="padding-left:20px!important;">{{$t("header.innovationmanage")}}</MenuItem>
-                </router-link>
-            </Submenu>
-            <div style="height: 1px;width:100%;background:rgb(59, 69, 85);margin-top:10px;margin-bottom:10px;"></div>
-            <Submenu name="lang">
-                <template slot="title" class="lang-title">
-                  <span style="color:#bdc2ca;">{{languageValue}}</span>
-                </template>
-                <MenuItem name="zh" class="lang-item" style="padding-left:20px!important;"><img src="./assets/images/lang-zh.png"></img>简体中文</MenuItem>
-                <MenuItem name="en" class="lang-item" style="padding-left:20px!important;"><img src="./assets/images/lang-en.png"></img>ENGLISH</MenuItem>
-            </Submenu>
-            <router-link to="/app">
-              <MenuItem name="nav-appdownload"style="text-align:left;color:#bdc2ca;">{{$t("header.appdownlaod")}}</MenuItem>
-            </router-link>
-        </Menu>
+    <Drawer
+      :closable="true"
+      width="40"
+      v-model="navDrawerModal"
+      class="header_nav_mobile"
+    >
+      <Menu :active-name="activeNav" width="auto" @on-select="changelanguage">
+        <MenuItem name="nav-index" style="text-align:left;">{{
+          $t("header.index")
+        }}</MenuItem>
+        <MenuItem name="nav-exchange" style="text-align:left;">{{
+          $t("header.exchange")
+        }}</MenuItem>
+        <MenuItem name="nav-ctc" style="text-align:left;">{{
+          $t("header.ctc")
+        }}</MenuItem>
+        <router-link to="/otc/trade/usdt" style="display:none;">
+          <MenuItem name="nav-otc" style="text-align:left;">{{
+            $t("header.otc")
+          }}</MenuItem>
+        </router-link>
+        <router-link to="/lab">
+          <MenuItem name="nav-lab" style="text-align:left;color:#bdc2ca;">{{
+            $t("header.lab")
+          }}</MenuItem>
+        </router-link>
+        <MenuItem name="nav-invite" style="text-align:left;">{{
+          $t("header.invite")
+        }}</MenuItem>
+        <router-link to="/announcement/0">
+          <MenuItem name="nav-service" style="text-align:left;color:#bdc2ca;">{{
+            $t("header.service")
+          }}</MenuItem>
+        </router-link>
+        <router-link to="/whitepaper">
+          <MenuItem name="nav-whitepaper" style="text-align:left;">{{
+            $t("header.whitepaper")
+          }}</MenuItem>
+        </router-link>
+        <Submenu name="nav-login" id="login_register_theme" v-if="!isLogin">
+          <template slot="title" class="lang-title">
+            <span style="color:#bdc2ca;">{{ $t("common.loginregister") }}</span>
+          </template>
+          <router-link to="/login" id="login">
+            <MenuItem
+              name="1-1"
+              class="lang-item"
+              style="padding-left:20px!important;"
+              >{{ $t("common.login") }}</MenuItem
+            >
+          </router-link>
+          <router-link to="/register" id="register">
+            <MenuItem
+              name="1-2"
+              class="lang-item"
+              style="padding-left:20px!important;"
+              >{{ $t("common.register") }}</MenuItem
+            >
+          </router-link>
+        </Submenu>
+        <Submenu name="nav_personal" v-if="isLogin">
+          <template slot="title" class="lang-title">
+            <span style="color:#bdc2ca;">{{ $t("header.usercenter") }}</span>
+          </template>
+          <router-link to="/uc/safe">
+            <MenuItem
+              name="nav_safe"
+              class="lang-item"
+              style="padding-left:20px!important;"
+              >{{ $t("uc.member.securitysetting") }}</MenuItem
+            >
+          </router-link>
+          <router-link to="/uc/money">
+            <MenuItem
+              name="nav_assets"
+              class="lang-item"
+              style="padding-left:20px!important;"
+              >{{ $t("header.assetmanage") }}</MenuItem
+            >
+          </router-link>
+          <router-link to="/uc/innovation/myminings">
+            <MenuItem
+              name="nav_innnovationmanage"
+              class="lang-item"
+              style="padding-left:20px!important;"
+              >{{ $t("header.innovationmanage") }}</MenuItem
+            >
+          </router-link>
+        </Submenu>
+        <div
+          style="height: 1px;width:100%;background:rgb(59, 69, 85);margin-top:10px;margin-bottom:10px;"
+        ></div>
+        <Submenu name="lang">
+          <template slot="title" class="lang-title">
+            <span style="color:#bdc2ca;">{{ languageValue }}</span>
+          </template>
+          <MenuItem
+            name="zh"
+            class="lang-item"
+            style="padding-left:20px!important;"
+            ><img src="./assets/images/lang-zh.png" />简体中文</MenuItem
+          >
+          <MenuItem
+            name="en"
+            class="lang-item"
+            style="padding-left:20px!important;"
+            ><img src="./assets/images/lang-en.png" />ENGLISH</MenuItem
+          >
+        </Submenu>
+        <router-link to="/app">
+          <MenuItem
+            name="nav-appdownload"
+            style="text-align:left;color:#bdc2ca;"
+            >{{ $t("header.appdownlaod") }}</MenuItem
+          >
+        </router-link>
+      </Menu>
     </Drawer>
     <div class="footer">
       <div class="footer_content">
         <div class="footer_left">
-          <img  src="./assets/images/logo-bottom.png" style="margin:0" ></img>
+          <img src="./assets/images/logo-bottom.png" style="margin:0" />
           <!-- <h3>Caymanex.Pro</h3> -->
-          <p style="letter-spacing:2px;">{{$t("footer.gsmc")}}</p>
+          <p style="letter-spacing:2px;">{{ $t("footer.gsmc") }}</p>
           <p>Copyright © 2019 - Bizzan.com All rights reserved.&nbsp;&nbsp;</p>
           <div class="social-list">
             <ul>
@@ -203,7 +312,10 @@
                   <Icon custom="i-icon iconfont iconweixin" />
                 </li>
                 <div slot="content">
-                    <img style="width: 130px;border-radius: 5px;" src="./assets/images/wechatqrcode.jpg"></img>
+                  <img
+                    style="width: 130px;border-radius: 5px;"
+                    src="./assets/images/wechatqrcode.jpg"
+                  />
                 </div>
               </Tooltip>
               <Tooltip content="Biyong" theme="dark" placement="top">
@@ -211,7 +323,10 @@
                   <Icon custom="i-icon iconfont iconbiyonglogo" />
                 </li>
                 <div slot="content">
-                    <img style="width: 130px;border-radius: 5px;" src="./assets/images/biyongqrcode.png"></img>
+                  <img
+                    style="width: 130px;border-radius: 5px;"
+                    src="./assets/images/biyongqrcode.png"
+                  />
                 </div>
               </Tooltip>
               <Tooltip content="Telegram" theme="dark" placement="top">
@@ -219,45 +334,71 @@
                   <Icon custom="i-icon iconfont icontelegram1" />
                 </li>
                 <div slot="content">
-                    <img style="width: 130px;border-radius: 5px;" src="./assets/images/telegramqrcode.jpg"></img>
+                  <img
+                    style="width: 130px;border-radius: 5px;"
+                    src="./assets/images/telegramqrcode.jpg"
+                  />
                 </div>
               </Tooltip>
-              <Tooltip content="https://weibo.com/bizzan" theme="dark" placement="top">
+              <Tooltip
+                content="https://weibo.com/bizzan"
+                theme="dark"
+                placement="top"
+              >
                 <li>
                   <Icon custom="i-icon iconfont iconweibo" />
                 </li>
               </Tooltip>
-              <Tooltip content="https://twitter.com/BIZZANGlobal" theme="dark" placement="top">
+              <Tooltip
+                content="https://twitter.com/BIZZANGlobal"
+                theme="dark"
+                placement="top"
+              >
                 <li>
                   <Icon type="logo-twitter" />
                 </li>
               </Tooltip>
-              <Tooltip content="https://medium.com/@BIZZAN" theme="dark" placement="top">
+              <Tooltip
+                content="https://medium.com/@BIZZAN"
+                theme="dark"
+                placement="top"
+              >
                 <li>
                   <Icon custom="i-icon iconfont iconmedium" />
                 </li>
               </Tooltip>
-              <Tooltip content="https://www.reddit.com/u/bizzanglobal" theme="dark" placement="top">
+              <Tooltip
+                content="https://www.reddit.com/u/bizzanglobal"
+                theme="dark"
+                placement="top"
+              >
                 <li>
                   <Icon custom="i-icon iconfont iconreddit" />
                 </li>
               </Tooltip>
-              <Tooltip content="coming" theme="dark" placement="top" style="display:none;">
+              <Tooltip
+                content="coming"
+                theme="dark"
+                placement="top"
+                style="display:none;"
+              >
                 <li>
                   <Icon type="logo-facebook" />
                 </li>
               </Tooltip>
-
             </ul>
           </div>
         </div>
-        <div class="footer_right" style="margin-left: 5%;border-left: 1px solid #243051;padding-left: 5%;">
+        <div
+          class="footer_right"
+          style="margin-left: 5%;border-left: 1px solid #243051;padding-left: 5%;"
+        >
           <ul>
             <li class="footer_title">
-              <span>{{$t("footer.yqlj")}}</span>
+              <span>{{ $t("footer.yqlj") }}</span>
             </li>
             <li>
-              <a target="_blank"  href="https://www.feixiaohao.com/">非小号</a>
+              <a target="_blank" href="https://www.feixiaohao.com/">非小号</a>
             </li>
             <li>
               <a target="_blank" href="https://www.8btc.com/">巴比特</a>
@@ -273,67 +414,111 @@
         <div class="footer_right">
           <ul>
             <li class="footer_title">
-              <span>{{$t("footer.gsjj")}}</span>
+              <span>{{ $t("footer.gsjj") }}</span>
             </li>
             <li>
-              <router-link target="_blank" to="/about-us">{{$t("footer.gywm")}}</router-link>
+              <router-link target="_blank" to="/about-us">{{
+                $t("footer.gywm")
+              }}</router-link>
             </li>
             <li>
-              <router-link target="_blank" to="/helpdetail?cate=6&id=39&cateTitle=其他">{{$t("footer.jrwm")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helpdetail?cate=6&id=39&cateTitle=其他"
+                >{{ $t("footer.jrwm") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/announcement/0">{{$t("footer.notice")}}</router-link>
+              <router-link target="_blank" to="/announcement/0">{{
+                $t("footer.notice")
+              }}</router-link>
             </li>
             <li class="wechatclick">
               <poptip width="80" trigger="hover" placement="right">
-                <a href="javascript:;" class="wechat">{{$t("footer.apidoc")}}</a>
+                <a href="javascript:;" class="wechat">{{
+                  $t("footer.apidoc")
+                }}</a>
                 <div slot="content">
-                  <p style="text-align:center;">{{$t("footer.zwkf")}}</p>
+                  <p style="text-align:center;">{{ $t("footer.zwkf") }}</p>
                 </div>
               </poptip>
             </li>
           </ul>
           <ul>
             <li class="footer_title">
-              <span>{{$t("footer.bzzx")}}</span>
+              <span>{{ $t("footer.bzzx") }}</span>
             </li>
             <li>
-              <router-link target="_blank" to="/helplist?cate=0&cateTitle=新手指南">{{$t("footer.xszn")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helplist?cate=0&cateTitle=新手指南"
+                >{{ $t("footer.xszn") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/helplist?cate=1&cateTitle=常见问题">{{$t("footer.cjwt")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helplist?cate=1&cateTitle=常见问题"
+                >{{ $t("footer.cjwt") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/helplist?cate=2&cateTitle=交易指南">{{$t("footer.jyzn")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helplist?cate=2&cateTitle=交易指南"
+                >{{ $t("footer.jyzn") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/helplist?cate=3&cateTitle=币种资料">{{$t("footer.bzzl")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helplist?cate=3&cateTitle=币种资料"
+                >{{ $t("footer.bzzl") }}</router-link
+              >
             </li>
           </ul>
           <ul>
             <li class="footer_title">
-              <span>{{$t("footer.tkxy")}}</span>
+              <span>{{ $t("footer.tkxy") }}</span>
             </li>
             <li>
-              <router-link target="_blank" to="/helpdetail?cate=5&id=2&cateTitle=条款协议">{{$t("footer.mztk")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helpdetail?cate=5&id=2&cateTitle=条款协议"
+                >{{ $t("footer.mztk") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/helpdetail?cate=5&id=3&cateTitle=条款协议">{{$t("footer.ystk")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helpdetail?cate=5&id=3&cateTitle=条款协议"
+                >{{ $t("footer.ystk") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/helpdetail?cate=5&id=5&cateTitle=条款协议">{{$t("footer.fwtk")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helpdetail?cate=5&id=5&cateTitle=条款协议"
+                >{{ $t("footer.fwtk") }}</router-link
+              >
             </li>
             <li>
-              <router-link target="_blank" to="/helpdetail?cate=5&id=38&cateTitle=条款协议">{{$t("footer.fltk")}}</router-link>
+              <router-link
+                target="_blank"
+                to="/helpdetail?cate=5&id=38&cateTitle=条款协议"
+                >{{ $t("footer.fltk") }}</router-link
+              >
             </li>
           </ul>
           <ul>
             <li class="footer_title">
-              <span>{{$t("footer.lxwm")}}</span>
+              <span>{{ $t("footer.lxwm") }}</span>
             </li>
             <li class="wechatclick">
               <poptip width="200" trigger="hover" placement="right">
-                <a href="javascript:;" class="wechat">{{$t("footer.kfyx")}}</a>
+                <a href="javascript:;" class="wechat">{{
+                  $t("footer.kfyx")
+                }}</a>
                 <div slot="content">
                   <p style="text-align:center;">service@bizzan.com</p>
                 </div>
@@ -341,7 +526,9 @@
             </li>
             <li class="wechatclick">
               <poptip width="200" trigger="hover" placement="right">
-                <a href="javascript:;" class="wechat">{{$t("footer.swhz")}}</a>
+                <a href="javascript:;" class="wechat">{{
+                  $t("footer.swhz")
+                }}</a>
                 <div slot="content">
                   <p style="text-align:center;">support@bizzan.com</p>
                 </div>
@@ -349,7 +536,9 @@
             </li>
             <li class="wechatclick">
               <poptip width="200" trigger="hover" placement="right">
-                <a href="javascript:;" class="wechat">{{$t("footer.sbsq")}}</a>
+                <a href="javascript:;" class="wechat">{{
+                  $t("footer.sbsq")
+                }}</a>
                 <div slot="content">
                   <p style="text-align:center;">list@bizzan.com</p>
                 </div>
@@ -357,7 +546,9 @@
             </li>
             <li class="wechatclick">
               <poptip width="200" trigger="hover" placement="right">
-                <a href="javascript:;" class="wechat">{{$t("footer.tsjb")}}</a>
+                <a href="javascript:;" class="wechat">{{
+                  $t("footer.tsjb")
+                }}</a>
                 <div slot="content">
                   <p style="text-align:center;">ceo@bizzan.com</p>
                 </div>
@@ -377,10 +568,10 @@ import Vue from "vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "app",
-  provide () {
+  provide() {
     return {
-      reload: this.reload
-    }
+      reload: this.reload,
+    };
   },
   data() {
     return {
@@ -390,29 +581,40 @@ export default {
       time: null,
       content: " ",
       navDrawerModal: false,
-      wechat: this.$t("footer.wechat")
+      wechat: this.$t("footer.wechat"),
     };
   },
   watch: {
     activeNav: function() {
       switch (this.activeNav) {
         case "nav-exchange":
-          window.document.title = (this.lang == "简体中文" ? "交易中心" : "Exchange") + " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
+          window.document.title =
+            (this.lang == "简体中文" ? "交易中心" : "Exchange") +
+            " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
           break;
         case "nav-service":
-          window.document.title = (this.lang == "简体中文" ? "公告" : "Announcement") + " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
+          window.document.title =
+            (this.lang == "简体中文" ? "公告" : "Announcement") +
+            " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
           break;
         case "nav-about":
-          window.document.title = (this.lang == "简体中文" ? "关于" : "About") + " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
+          window.document.title =
+            (this.lang == "简体中文" ? "关于" : "About") +
+            " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
           break;
         case "nav-lab":
-          window.document.title = (this.lang == "简体中文" ? "创新实验室" : "Lab") + " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
+          window.document.title =
+            (this.lang == "简体中文" ? "创新实验室" : "Lab") +
+            " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
           break;
         case "nav-invite":
-          window.document.title = (this.lang == "简体中文" ? "推广合伙人" : "Promotion") + " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
+          window.document.title =
+            (this.lang == "简体中文" ? "推广合伙人" : "Promotion") +
+            " - BIZZAN | 币严 | 全球比特币交易平台 | 全球数字货币交易平台";
           break;
         default:
-          window.document.title = "币严 | 币严官网 - 全球比特币交易平台 | 全球数字货币交易平台";
+          window.document.title =
+            "币严 | 币严官网 - 全球比特币交易平台 | 全球数字货币交易平台";
           break;
       }
     },
@@ -420,18 +622,27 @@ export default {
       this.pageView = "page-view";
       if (to.path == "/reg") {
         this.pageView = "page-view2";
-        if(!this.isMobile()){
-            if(this.$route.query.code != undefined && this.$route.query.code != "" && this.$route.query.code != null){
-                this.$router.replace('/register?code='+this.$route.query.code);
-            }else{
-                this.$router.replace('/register');
-            }
+        if (!this.isMobile()) {
+          if (
+            this.$route.query.code != undefined &&
+            this.$route.query.code != "" &&
+            this.$route.query.code != null
+          ) {
+            this.$router.replace("/register?code=" + this.$route.query.code);
+          } else {
+            this.$router.replace("/register");
+          }
         }
       }
 
-      if(to.path == "/" || to.path == "/index" || to.path == "/ctc" || to.path == "/exchange") {
-        if(this.isMobile()){
-          this.$router.replace('/reg');
+      if (
+        to.path == "/" ||
+        to.path == "/index" ||
+        to.path == "/ctc" ||
+        to.path == "/exchange"
+      ) {
+        if (this.isMobile()) {
+          this.$router.replace("/reg");
         }
       }
 
@@ -440,13 +651,11 @@ export default {
       }
 
       // 红包页面
-      if(to.path.length > 11 && to.path.substr(0,9) == "/envelope"){
+      if (to.path.length > 11 && to.path.substr(0, 9) == "/envelope") {
         this.pageView = "page-view3";
       }
     },
-    exchangeSkin() {
-
-    }
+    exchangeSkin() {},
   },
   computed: {
     activeNav: function() {
@@ -468,7 +677,7 @@ export default {
     },
     exchangeSkin() {
       return this.$store.state.exchangeSkin;
-    }
+    },
   },
   created: function() {
     this.initialize();
@@ -481,22 +690,24 @@ export default {
 
     // 隐藏加载层
     let initLoading = document.getElementById("initLoading");
-    if(initLoading != null){
+    if (initLoading != null) {
       document.body.removeChild(initLoading);
     }
   },
   methods: {
-    reload () {
+    reload() {
       this.isRouterAlive = false;
-      this.$nextTick(function () {
+      this.$nextTick(function() {
         this.isRouterAlive = true;
-      })
+      });
     },
     isMobile() {
-　　let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
-    　　return flag;
+      let flag = navigator.userAgent.match(
+        /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+      );
+      return flag;
     },
-    toggleMemu(){
+    toggleMemu() {
       this.navDrawerModal = !this.navDrawerModal;
     },
     strpo(str) {
@@ -516,26 +727,29 @@ export default {
       this.checkLogin();
     },
     logout() {
-      this.$http.post(this.host + "/uc/loginout", {}).then(response => {
-        var resp = response.body;
-        if (resp.code == 0) {
-          this.$Message.success(resp.message);
-          this.$store.commit("setMember", null);
-          setTimeout(() => {
-            location.href = "/";
-          }, 1500);
-        } else {
-          this.$Message.error(resp.message);
-        }
-      });
+      // this.$http.post(this.host + "/uc/loginout", {}).then(response => {
+      //   var resp = response.body;
+      //   if (resp.code == 0) {
+      //     this.$Message.success(resp.message);
+      //     this.$store.commit("setMember", null);
+      //     setTimeout(() => {
+      //       location.href = "/";
+      //     }, 1500);
+      //   } else {
+      //     this.$Message.error(resp.message);
+      //   }
+      // });
+      this.$store.commit("setMember", null);
+      localStorage.setItem("TOKEN", null);
+      location.href = "/login";
     },
     checkLogin() {
-      this.$http.post(this.host + "/uc/check/login", {}).then(response => {
-        var result = response.body;
-        if (result.code == 0 && result.data == false) {
-          this.$store.commit("setMember", null);
-        }
-      });
+      // this.$http.post(this.host + "/uc/check/login", {}).then(response => {
+      //   var result = response.body;
+      //   if (result.code == 0 && result.data == false) {
+      //     this.$store.commit("setMember", null);
+      //   }
+      // });
     },
     changelanguage: function(name) {
       console.log("change language: " + name);
@@ -549,42 +763,42 @@ export default {
         this.$i18n.locale = "zh";
         this.reload();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-
 <style scoped lang="scss">
-@media screen and (max-width:768px){
-  .header_nav_mobile_triggle{
-    display: inline-block!important;
+@media screen and (max-width: 768px) {
+  .header_nav_mobile_triggle {
+    display: inline-block !important;
   }
-  .footer_content{
+  .footer_content {
     padding: 70px 2% 85px 5%;
   }
-  .page-view, .page-view2{
-    .page-content{
-      .layout{
+  .page-view,
+  .page-view2 {
+    .page-content {
+      .layout {
         height: 45px;
-        .layout-ceiling{
-          padding: 5px 10px!important;
-          .layout-ceiling-main{
-            height: 35px!important;
-            line-height: 35px!important;
+        .layout-ceiling {
+          padding: 5px 10px !important;
+          .layout-ceiling-main {
+            height: 35px !important;
+            line-height: 35px !important;
           }
-          .layout-logo{
-            width: 200px!important;
-            height: 35px!important;
+          .layout-logo {
+            width: 200px !important;
+            height: 35px !important;
           }
         }
       }
     }
   }
 }
-.header_nav_mobile_triggle{
+.header_nav_mobile_triggle {
   display: none;
-  float:right;
+  float: right;
   padding: 0 5px 0 20px;
 }
 .page-view2 .nav-pdf {
@@ -624,7 +838,7 @@ export default {
       z-index: 10;
       .layout-ceiling {
         padding: 5px 20px;
-        .layout-logo{
+        .layout-logo {
           width: 300px;
           height: 48px;
           background: url(./assets/images/logo.png) no-repeat;
@@ -650,7 +864,7 @@ export default {
                   }
                   li.ivu-menu-item.ivu-menu-item-active.ivu-menu-item-selected {
                     color: #f0a70a;
-                        border-bottom: 3px solid #ffa800;
+                    border-bottom: 3px solid #ffa800;
                   }
                 }
                 .router-link-exact-active.router-link-active {
@@ -669,7 +883,7 @@ export default {
           }
         }
         .rr {
-          float:right;
+          float: right;
           z-index: 10;
           .mymsg {
             float: left;
@@ -680,8 +894,8 @@ export default {
               padding-right: 20px;
               border-right: 1px solid #828ea1;
             }
-            a:hover{
-              color:#FFF;
+            a:hover {
+              color: #fff;
             }
           }
           .login_register {
@@ -710,11 +924,11 @@ export default {
                   }
                 }
               }
-              #login{
+              #login {
                 border-right: 1px solid #273c55;
               }
               #register {
-                color: #f0a70a!important;
+                color: #f0a70a !important;
                 &:hover {
                   li {
                     color: #fff;
@@ -732,8 +946,8 @@ export default {
                   margin-left: 0;
                   color: #828ea1;
                 }
-                a:hover{
-                  color:#FFF;
+                a:hover {
+                  color: #fff;
                 }
               }
               .ivu-select-dropdown {
@@ -812,12 +1026,12 @@ export default {
   }
 }
 .page-view2 {
-  .ivu-select-single .ivu-select-selection{
+  .ivu-select-single .ivu-select-selection {
     background-color: #0c1621;
-    &:hover{
+    &:hover {
       border-color: transparent;
     }
-    &:focus{
+    &:focus {
       border-color: transparent;
     }
   }
@@ -932,7 +1146,6 @@ export default {
           position: absolute;
         }
         .layout-ceiling-main {
-
           height: 50px;
           line-height: 50px;
           margin-left: 218px;
@@ -973,7 +1186,7 @@ export default {
         .rr {
           display: none;
           z-index: 10;
-          float:right;
+          float: right;
           .mymsg {
             float: left;
             padding-right: 20px;
@@ -982,8 +1195,8 @@ export default {
               padding-right: 20px;
               border-right: 1px solid #828ea1;
             }
-            a:hover{
-              color: #FFF;
+            a:hover {
+              color: #fff;
             }
           }
           .login_register {
@@ -1012,11 +1225,11 @@ export default {
                   }
                 }
               }
-              #login{
+              #login {
                 border-right: 1px solid #273c55;
               }
               #register {
-                color: #f0a70a!important;
+                color: #f0a70a !important;
                 &:hover {
                   li {
                     color: #fff;
@@ -1027,10 +1240,10 @@ export default {
           }
           .isLogin {
             a {
-              color:#828ea1;
+              color: #828ea1;
             }
-            a:hover{
-              color: #FFF;
+            a:hover {
+              color: #fff;
             }
             .ivu-dropdown {
               display: block;
@@ -1115,9 +1328,9 @@ export default {
       }
     }
   }
-  .footer{
-    .footer_content{
-      .footer_right{
+  .footer {
+    .footer_content {
+      .footer_right {
         display: none;
       }
     }
@@ -1125,19 +1338,19 @@ export default {
 }
 
 .page-view3 {
-  background: linear-gradient(150deg, #c3333d, #bc000d, #ff1d2c);;
+  background: linear-gradient(150deg, #c3333d, #bc000d, #ff1d2c);
   min-height: 100%;
-  background-color: #FFF;
-  .page-content{
-    padding-bottom: 20px!important;
-    .layout{
+  background-color: #fff;
+  .page-content {
+    padding-bottom: 20px !important;
+    .layout {
       display: none;
     }
-    .time_download{
+    .time_download {
       display: none;
     }
   }
-  .footer{
+  .footer {
     display: none;
   }
 }
@@ -1208,7 +1421,7 @@ export default {
 .ivu-poptip-popper {
   // border-top-color:#27313e;
   .ivu-poptip-arrow:after {
-    left: 0!important;
+    left: 0 !important;
     border-right-color: #27313e !important;
   }
 }
@@ -1262,7 +1475,7 @@ export default {
         color: #ccc;
       }
     }
-    .ivu-table-row:hover{
+    .ivu-table-row:hover {
       background: #1e2834;
     }
     .ivu-table-row td {
@@ -1294,7 +1507,7 @@ export default {
     .layout {
       .layout-ceiling {
         background: #172636;
-        box-shadow: 0 0 5px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
         .layout-ceiling-main {
           .header_nav {
             .ivu-menu-vertical.ivu-menu-light {
@@ -1446,11 +1659,19 @@ body {
   /*padding: 0 15px;*/
 }
 
-@media screen and (max-width:768px){
-  .header_nav{ display:none; }
-  .login-container{ display: none; }
-  .footer_right{display:none;}
-  .rightwrapper{display:none;}
+@media screen and (max-width: 768px) {
+  .header_nav {
+    display: none;
+  }
+  .login-container {
+    display: none;
+  }
+  .footer_right {
+    display: none;
+  }
+  .rightwrapper {
+    display: none;
+  }
 }
 
 .header_nav {
@@ -1518,7 +1739,7 @@ body {
 .ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item {
   padding-left: 0 !important;
   padding-right: 0;
-  color: rgba(130,142,161,1);
+  color: rgba(130, 142, 161, 1);
   font-size: 14px;
   border-right: 0 !important;
 }
@@ -1668,8 +1889,8 @@ body {
   float: left;
   margin: 0 30px;
 }
-.footer_right ul li{
-  list-style-type:none;
+.footer_right ul li {
+  list-style-type: none;
 }
 .footer_right ul li a {
   color: #828ea1;
@@ -1677,8 +1898,8 @@ body {
   display: block;
   font-size: 12px;
 }
-.footer_right ul li a:hover{
-  color: #FFFFFF;
+.footer_right ul li a:hover {
+  color: #ffffff;
 }
 .footer_title {
   font-size: 13px;
@@ -1757,7 +1978,7 @@ body {
   // background-color: #f0ac19;
   // border-color: #f0ac19;
   // color: #fff;
-  font-weight:bold;
+  font-weight: bold;
 }
 .ivu-page-next:hover,
 .ivu-page-prev:hover {
@@ -1991,7 +2212,7 @@ fieldset[disabled] .ivu-input {
 }
 .ivu-btn.ivu-btn-default {
   background-color: #27313e;
-  color: #FFF;
+  color: #fff;
   &:hover {
     color: #f0a70a;
     // background: #27313e;
@@ -2099,216 +2320,248 @@ fieldset[disabled] .ivu-input {
   background-color: #27313e;
 }
 
-.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item-active, .ivu-menu-light.ivu-menu-horizontal .ivu-menu-item:hover, .ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu-active, .ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu:hover{
-  border-bottom:0!important;
-  color: #828ea1!important;
+.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item-active,
+.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item:hover,
+.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu-active,
+.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu:hover {
+  border-bottom: 0 !important;
+  color: #828ea1 !important;
 }
-.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item:hover{
-  background: #2f3e51!important;
+.ivu-menu-horizontal
+  .ivu-menu-submenu
+  .ivu-select-dropdown
+  .ivu-menu-item:hover {
+  background: #2f3e51 !important;
 }
-.ivu-menu-horizontal.ivu-menu-light{
-  background:transparent!important;
+.ivu-menu-horizontal.ivu-menu-light {
+  background: transparent !important;
 }
-.ivu-menu-horizontal.ivu-menu-light:after{
-  height: 0!important;
+.ivu-menu-horizontal.ivu-menu-light:after {
+  height: 0 !important;
 }
-.ivu-select-dropdown{
-  border-radius: 0!important;
+.ivu-select-dropdown {
+  border-radius: 0 !important;
 }
-.lang-img{
-    height: 20px;
-    margin-bottom: -5px;
-    margin-right: 5px;
+.lang-img {
+  height: 20px;
+  margin-bottom: -5px;
+  margin-right: 5px;
 }
-.lang-item{
-  text-align:left;
-  img{
+.lang-item {
+  text-align: left;
+  img {
     height: 20px;
     margin-bottom: -5px;
     margin-right: 5px;
   }
-  &:hover{
-    background:#2f3e51;
+  &:hover {
+    background: #2f3e51;
   }
 }
-.ivu-message-notice-content{
+.ivu-message-notice-content {
   background: #324368;
   color: #a3bbcc;
 }
 
-.social-list{
-  ul{
+.social-list {
+  ul {
     list-style: none;
     padding-top: 5px;
-    li{
+    li {
       transition: all 0.5s;
-      width: 25px;height:25px;line-height:25px;border-radius:2px;background:rgb(57, 69, 89);text-align:center;float: left;margin-right:8px;color:#a3b6c6;
-      &:hover{
-        color: #FFF;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      border-radius: 2px;
+      background: rgb(57, 69, 89);
+      text-align: center;
+      float: left;
+      margin-right: 8px;
+      color: #a3b6c6;
+      &:hover {
+        color: #fff;
         cursor: pointer;
       }
     }
   }
 }
-.ivu-tooltip-inner{
+.ivu-tooltip-inner {
   background: #394559;
 }
-.ivu-tooltip-arrow{
+.ivu-tooltip-arrow {
   border-bottom-color: #394559;
 }
-.ivu-notice-notice{
+.ivu-notice-notice {
   background: #21364d;
 }
-.ivu-notice-title{
-  color: #FFFFFF;
+.ivu-notice-title {
+  color: #ffffff;
 }
-.ivu-notice-desc{
-  color: #FFFFFF;
+.ivu-notice-desc {
+  color: #ffffff;
 }
-.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets{
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal > .swiper-pagination-bullets {
   bottom: -5px;
 }
-.swiper-pagination-bullet{
-  background: #FFF;
+.swiper-pagination-bullet {
+  background: #fff;
   border-radius: 2px;
   height: 3px;
   width: 15px;
   opacity: 0.3;
   transition: all 0.5s;
 }
-.swiper-pagination-bullet-active{
-  background: #f0a70a!important;
-  width:30px;
+.swiper-pagination-bullet-active {
+  background: #f0a70a !important;
+  width: 30px;
   opacity: 1;
 }
-.login_right .ivu-select-dropdown{
+.login_right .ivu-select-dropdown {
   background: #212b36;
 }
-.login_right .ivu-select-dropdown .ivu-select-item{
+.login_right .ivu-select-dropdown .ivu-select-item {
   text-align: left;
 }
-.ivu-form-item-error .ivu-input-group-append, .ivu-form-item-error .ivu-input-group-prepend,.ivu-input-group-append, .ivu-input-group-prepend{
+.ivu-form-item-error .ivu-input-group-append,
+.ivu-form-item-error .ivu-input-group-prepend,
+.ivu-input-group-append,
+.ivu-input-group-prepend {
   background-color: #17212e;
   border-bottom: 1px solid #27313e;
-  border-top:none;
+  border-top: none;
   border-left: none;
   border-right: none;
 }
-.ivu-select-single .ivu-select-selection{
+.ivu-select-single .ivu-select-selection {
   background-color: #17212e;
 }
-.login_form{
+.login_form {
   /* WebKit browsers */
   input::-webkit-input-placeholder {
-    color: #8a8a8acf!important;
-    font-size: 0.95rem!important;
-    letter-spacing: 1px!important;
+    color: #8a8a8acf !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 1px !important;
   }
   /* Mozilla Firefox 4 to 18 */
   input:-moz-placeholder {
-    color: #8a8a8a!important;
-    font-size: 13px!important;
-    letter-spacing: 1px!important;
+    color: #8a8a8a !important;
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
   }
   /* Mozilla Firefox 19+ */
   input::-moz-placeholder {
-    color: #8a8a8a!important;
-    font-size: 13px!important;
-    letter-spacing: 1px!important;
+    color: #8a8a8a !important;
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
   }
   /* Internet Explorer 10+ */
   input::-ms-input-placeholder {
-    color: #8a8a8a!important;
-    font-size: 13px!important;
-    letter-spacing: 1px!important;
+    color: #8a8a8a !important;
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
   }
 
-  .ivu-input-group-prepend{
+  .ivu-input-group-prepend {
     font-size: 0.95rem;
     letter-spacing: 1px;
   }
 }
 
-.login_form .login_right form.ivu-form.ivu-form-label-right.ivu-form-inline .password .ivu-form-item-content .ivu-input-wrapper.ivu-input-type .ivu-input{
+.login_form
+  .login_right
+  form.ivu-form.ivu-form-label-right.ivu-form-inline
+  .password
+  .ivu-form-item-content
+  .ivu-input-wrapper.ivu-input-type
+  .ivu-input {
   letter-spacing: 8px;
 }
 
-.ivu-menu-light{
-  background: transparent!important;
+.ivu-menu-light {
+  background: transparent !important;
 }
 
-
-.ivu-spin-fullscreen-wrapper{
-      background: #46597a70!important;
+.ivu-spin-fullscreen-wrapper {
+  background: #46597a70 !important;
 }
 
-.ivu-spin{
-  color:#f0a70a!important;
+.ivu-spin {
+  color: #f0a70a !important;
 }
-.ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow{
+.ivu-poptip-popper[x-placement^="bottom"] .ivu-poptip-arrow {
   border-bottom-color: #27313e;
 }
-.ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow:after{
+.ivu-poptip-popper[x-placement^="bottom"] .ivu-poptip-arrow:after {
   border-bottom-color: #27313e;
 }
 
 .ivu-poptip-title-inner {
-    color: #CCC;
-    font-size: 14px;
+  color: #ccc;
+  font-size: 14px;
 }
 .ivu-poptip-title:after {
-    background-color: #394253;
+  background-color: #394253;
 }
-.tag-hot{
-    display: inline-block;
-    padding: 0 4px;
-    background: #FF0000;
-    color: #FFF;
-    line-height: 16px;
-    font-size: 10px;
-    margin-left: 5px;
-    margin-top: -5px;
-    border-radius: 2px;
-    position: absolute;
-    top: 16px;
-    font-weight: 600;
+.tag-hot {
+  display: inline-block;
+  padding: 0 4px;
+  background: #ff0000;
+  color: #fff;
+  line-height: 16px;
+  font-size: 10px;
+  margin-left: 5px;
+  margin-top: -5px;
+  border-radius: 2px;
+  position: absolute;
+  top: 16px;
+  font-weight: 600;
 }
-.page{
-  text-align:right;
+.page {
+  text-align: right;
   margin-top: 10px;
-  .ivu-page{
-    .ivu-page-prev, .ivu-page-next{
-      background: transparent!important;
+  .ivu-page {
+    .ivu-page-prev,
+    .ivu-page-next {
+      background: transparent !important;
       color: #000;
       border: none;
     }
-    .ivu-page-item{
-      background-color: transparent!important;
+    .ivu-page-item {
+      background-color: transparent !important;
       color: #000;
       border: none;
     }
   }
 }
-.ivu-progress-bg{
-  border-radius: 0!important;
+.ivu-progress-bg {
+  border-radius: 0 !important;
   background-color: #ff8100;
   max-width: 100%;
 }
-.ivu-progress-success .ivu-progress-bg{
-  background-color: #ff8100!important;
+.ivu-progress-success .ivu-progress-bg {
+  background-color: #ff8100 !important;
 }
-.header_nav_mobile .ivu-menu-vertical .ivu-menu-item, .header_nav_mobile .ivu-menu-vertical .ivu-menu-submenu-title{
+.header_nav_mobile .ivu-menu-vertical .ivu-menu-item,
+.header_nav_mobile .ivu-menu-vertical .ivu-menu-submenu-title {
   padding: 8px 24px 8px 5px;
   color: #828ea1;
 }
-.header_nav_mobile .ivu-drawer-wrap .ivu-drawer-no-header .ivu-drawer-content .ivu-drawer-body{
+.header_nav_mobile
+  .ivu-drawer-wrap
+  .ivu-drawer-no-header
+  .ivu-drawer-content
+  .ivu-drawer-body {
   background: #2b323a;
   padding-top: 60px;
 }
-.header_nav_mobile .ivu-menu-vertical.ivu-menu-light:after{
-  background:transparent!important;
+.header_nav_mobile .ivu-menu-vertical.ivu-menu-light:after {
+  background: transparent !important;
 }
-.header_nav_mobile .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu){
+.header_nav_mobile
+  .ivu-menu-light.ivu-menu-vertical
+  .ivu-menu-item-active:not(.ivu-menu-submenu) {
   color: #f0a70a;
 }
 </style>

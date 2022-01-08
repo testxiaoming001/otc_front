@@ -385,10 +385,10 @@ export default {
       this.$store.commit("navigate", "nav-other");
       this.$store.state.HeaderActiveName = "0";
       this.$store.state.HeaderActiveName = "1-6";
-      if (!localStorage.TOKEN || !localStorage.MEMBER) {
-        this.$Message.success(this.$t("common.logintip"));
-        this.$router.push("/login");
-      }
+      // if (!localStorage.TOKEN || !localStorage.MEMBER) {
+      //   this.$Message.success(this.$t("common.logintip"));
+      //   this.$router.push("/login");
+      // }
     },
     toggleMemu(){
       this.ucNavDrawerModal = !this.ucNavDrawerModal;

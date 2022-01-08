@@ -2,8 +2,8 @@
   <div class="login_form">
     <div class="login_right">
       <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
-        <div class="login_title">{{$t('uc.login.login')}}</div>
-        <FormItem prop="user">
+        <div class="login_title">{{ $t("uc.login.login") }}</div>
+        <!-- <FormItem prop="user">
           <Input name="user" type="text" v-model="formInline.user" :placeholder="$t('uc.login.usertip')" class="user">
             <Select v-model="country" slot="prepend" style="width: 65px">
               <Option value="+86" label="+86"><span>+86</span><span style="margin-left:10px;color:#ccc">中国</span></Option>
@@ -22,33 +22,71 @@
               <Option value="+90" label="+90"><span>+90</span><span style="margin-left:10px;color:#ccc">土耳其</span></Option>
             </Select>
           </Input>
-        </FormItem>
-        <FormItem prop="password" class="password">
-          <Input type="password" v-model="formInline.password" :placeholder="$t('uc.login.pwdtip')" @on-keyup="onKeyup">
+        </FormItem> -->
+        <FormItem prop="username">
+          <Input
+            type="text"
+            v-model="formInline.username"
+            :placeholder="$t('uc.regist.username')"
+          >
           </Input>
         </FormItem>
-        <p id="notice" class="hide">{{$t('uc.login.validatemsg')}}</p>
+        <FormItem prop="password" class="password">
+          <Input
+            type="password"
+            v-model="formInline.password"
+            :placeholder="$t('uc.login.pwdtip')"
+          >
+          </Input>
+        </FormItem>
+        <FormItem prop="verfy_code" class="password">
+          <Input
+            type="text"
+            v-model="formInline.verfy_code"
+            :placeholder="$t('uc.regist.verfycodetip')"
+            style="width:50%;float: left;"
+            @on-keyup="onKeyup"
+          >
+          </Input>
+          <img
+            src="http://148.66.134.184:83/apiv1/index/verfy_img"
+            @click="refrshImage"
+            v-if="imageShow"
+            style="
+            height: 32px;
+            width: auto;
+            display: inline-block;cursor: pointer;"
+          />
+        </FormItem>
+        <p id="notice" class="hide">{{ $t("uc.login.validatemsg") }}</p>
         <p style="height:30px;">
-          <router-link to="/findPwd" style="color:#979797;float:right;padding-right:10px;font-size:12px;">
-            {{$t('uc.login.forget')}}
+          <router-link
+            to="/findPwd"
+            style="color:#979797;float:right;padding-right:10px;font-size:12px;"
+          >
+            {{ $t("uc.login.forget") }}
           </router-link>
         </p>
         <FormItem style="margin-bottom:15px;">
-          <Button class="login_btn">{{$t('uc.login.login')}}</Button>
+          <Button class="login_btn" @click="handleSubmit('formInline')">{{
+            $t("uc.login.login")
+          }}</Button>
         </FormItem>
-        <div class='to_register'>
-          <span>{{$t('uc.login.noaccount')}}</span>
-          <router-link to="/register">{{$t('uc.login.goregister')}}</router-link>
+        <div class="to_register">
+          <span>{{ $t("uc.login.noaccount") }}</span>
+          <router-link to="/register">{{
+            $t("uc.login.goregister")
+          }}</router-link>
         </div>
       </Form>
-
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 /* 验证码 */
 .login_form {
-  background: #0b1520 url(../../assets/images/login_bg.png) no-repeat center center;
+  background: #0b1520 url(../../assets/images/login_bg.png) no-repeat center
+    center;
   height: 760px;
   position: relative;
   overflow: hidden;
@@ -57,15 +95,15 @@
     position: absolute;
     background: #17212e;
     width: 350px;
-    height: 330px;
+    height: 400px;
     left: 50%;
     top: 50%;
     margin-left: -175px;
-    margin-top: -165px;
+    margin-top: -200px;
     border-top: 4px solid #f0ac19;
     border-radius: 5px;
     form.ivu-form.ivu-form-label-right.ivu-form-inline {
-      .login_title{
+      .login_title {
         height: 70px;
         color: #fff;
       }
@@ -137,34 +175,50 @@ export default {
   data() {
     return {
       country: "+86",
+      imageShow: true,
       captchaObj: null,
       _captchaResult: null,
       formInline: {
-        user: "",
-        password: ""
+        username: "",
+        verfy_code: "",
+        password: "",
       },
       ruleInline: {
+        verfy_code: [
+          {
+            required: true,
+            message: this.$t("uc.regist.verfycodetip"),
+            trigger: "blur",
+          },
+        ],
         user: [
           {
             required: true,
             message: this.$t("uc.login.loginvalidate"),
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
+        ],
+        username: [
+          {
+            required: true,
+            message: this.$t("uc.regist.usernametip"),
+            trigger: "blur",
+          },
         ],
         password: [
           {
             required: true,
             message: this.$t("uc.login.pwdvalidate1"),
-            trigger: "blur"
+            trigger: "blur",
           },
           {
             type: "string",
             min: 6,
             message: this.$t("uc.login.pwdvalidate2"),
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   created: function() {
@@ -173,9 +227,15 @@ export default {
   computed: {
     isLogin: function() {
       return this.$store.getters.isLogin;
-    }
+    },
   },
   methods: {
+    refrshImage() {
+      this.imageShow = false;
+      setTimeout(() => {
+        this.imageShow = true;
+      }, 100);
+    },
     init() {
       this.$store.commit("navigate", "nav-other");
       this.$store.state.HeaderActiveName = "0";
@@ -188,7 +248,7 @@ export default {
     },
     onKeyup(ev) {
       if (ev.keyCode == 13) {
-        $(".login_btn").click();
+        this.handleSubmit("formInline");
       }
     },
     initGtCaptcha() {
@@ -202,16 +262,18 @@ export default {
             offline: !res.body.success, //表示用户后台检测极验服务器是否宕机
             new_captcha: res.body.new_captcha, //用于宕机时表示是新验证码的宕机
             product: "bind",
-            width: "100%"
+            width: "100%",
           },
           this.handler
         );
       });
     },
     handler(captchaObj) {
-      captchaObj.onReady(() => {
+      captchaObj
+        .onReady(() => {
           $("#wait").hide();
-        }).onSuccess(() => {
+        })
+        .onSuccess(() => {
           let result = (this._captchaResult = captchaObj.getValidate());
           if (!result) {
             this.$Message.error("请完成验证");
@@ -219,17 +281,17 @@ export default {
             this.handleSubmit("formInline");
           }
         });
-      $(".login_btn").click(() => {
-        let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/,
-          tel = this.formInline.user,
-          flagtel = reg.test(tel),
-          flagpass = this.formInline.password.length >= 6 ? true : false;
-        flagtel && flagpass && captchaObj.verify();
-        (!flagtel || !flagpass) && this.$Message.error("请填写完整的信息");
-      });
+      // $(".login_btn").click(() => {
+      //   let reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/,
+      //     tel = this.formInline.user,
+      //     flagtel = reg.test(tel),
+      //     flagpass = this.formInline.password.length >= 6 ? true : false;
+      //   flagtel && flagpass && captchaObj.verify();
+      //   (!flagtel || !flagpass) && this.$Message.error("请填写完整的信息");
+      // });
     },
     logout() {
-      this.$http.post(this.host + "/uc/logout", {}).then(response => {
+      this.$http.post(this.host + "/uc/logout", {}).then((response) => {
         var resp = response.body;
         if (resp.code == 0) {
           localStorage.setItem("MEMBER", JSON.stringify(null));
@@ -241,38 +303,41 @@ export default {
       });
     },
     handleSubmit(name) {
-      var result = this._captchaResult;
-      if (!result) {
-        $("#notice").show();
-        setTimeout(function() {
-          $("#notice").hide();
-        }, 2000);
-      } else {
-        this.$refs[name].validate(valid => {
-          if (valid) {
-            var params = {};
-            params["username"] = this.formInline.user;
-            params["password"] = this.formInline.password;
-            this.$http.post(this.host + this.api.uc.login, params).then(response => {
-                var resp = response.body;
-                if (resp.code == 0) {
-                  this.$Message.success(this.$t("uc.login.success"));
-                  this.$store.commit("setMember", response.body.data);
-                  if (this.$route.query.key != null && this.$route.query.key != "") {
-                    localStorage.setItem("USERKEY", this.$route.query.key);
-                  }
-                  this.$router.push("/uc/safe");
-                } else {
-                  this.$Message.error(resp.message);
-                }
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          var params = {
+            username: this.formInline.username,
+            password: this.formInline.password,
+            verfy_code: this.formInline.verfy_code,
+          };
+          this.$http.post(this.apiHost+"/index/user_login", params).then((response) => {
+            var resp = response.body;
+            if (resp.code == 1) {
+              this.$Message.success(this.$t("uc.login.success"));
+              this.$store.commit("setMember", {
+                username: params.username,
+                token: resp.data.token,
+                userid: resp.data.userid,
+                add_admin_id: resp.data.add_admin_id,
+                have_screrity: resp.data.have_screrity,
               });
-          } else {
-
-          }
-        });
-      }
-    }
-  }
+              // if (
+              //   this.$route.query.key != null &&
+              //   this.$route.query.key != ""
+              // ) {
+              // }
+              localStorage.setItem("USERKEY", resp.data.token);
+              localStorage.setItem("TOKEN", resp.data.token);
+              this.$router.push("/uc/safe");
+            } else {
+              this.$Message.error(resp.msg);
+            }
+          });
+        } else {
+        }
+      });
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -283,17 +348,19 @@ export default {
         .ivu-form-item-content {
           .ivu-input-wrapper.ivu-input-type {
             .ivu-input {
-              background-color:transparent;
+              background-color: transparent;
               font-size: 14px;
               border: none;
               border-bottom: 1px solid #27313e;
-              border-radius:0;
+              border-radius: 0;
               // color:#fff;
               &:focus {
                 border: none;
                 border-bottom: 1px solid #27313e;
-                -moz-box-shadow: 2px 2px 5px transparent, -2px -2px 4px transparent;
-                -webkit-box-shadow: 2px 2px 5px transparent, -2px -2px 4px transparent;
+                -moz-box-shadow: 2px 2px 5px transparent,
+                  -2px -2px 4px transparent;
+                -webkit-box-shadow: 2px 2px 5px transparent,
+                  -2px -2px 4px transparent;
                 box-shadow: 2px 2px 5px transparent, -2px -2px 4px transparent;
               }
             }
@@ -304,37 +371,40 @@ export default {
   }
 }
 
-.ivu-select-single .ivu-select-selection .ivu-select-placeholder, .ivu-select-single .ivu-select-selection .ivu-select-selected-value{
+.ivu-select-single .ivu-select-selection .ivu-select-placeholder,
+.ivu-select-single .ivu-select-selection .ivu-select-selected-value {
   padding-right: 10px;
   padding-left: 3px;
 }
-.ivu-select-single .ivu-select-selection .ivu-select-arrow{
+.ivu-select-single .ivu-select-selection .ivu-select-arrow {
   right: 2px;
 }
 
-.ivu-form-item-error .ivu-input-group-append, .ivu-form-item-error .ivu-input-group-prepend{
+.ivu-form-item-error .ivu-input-group-append,
+.ivu-form-item-error .ivu-input-group-prepend {
   background-color: #17212e;
   border-color: transparent;
 }
-.ivu-form-item-error .ivu-select-arrow{
+.ivu-form-item-error .ivu-select-arrow {
   color: #808695;
 }
 
-.login_right .ivu-select-dropdown{
+.login_right .ivu-select-dropdown {
   background: #1c2a32;
 }
 </style>
 <style>
-  .ivu-select-single .ivu-select-selection .ivu-select-placeholder, .ivu-select-single .ivu-select-selection .ivu-select-selected-value{
-    padding-right: 20px;
-  }
-  .ivu-select-arrow{
-    right: 4px;
-  }
+.ivu-select-single .ivu-select-selection .ivu-select-placeholder,
+.ivu-select-single .ivu-select-selection .ivu-select-selected-value {
+  padding-right: 20px;
+}
+.ivu-select-arrow {
+  right: 4px;
+}
 
-  .ivu-select-item span:first-child{
-    display: inline-block;
-    width: 30px;
-    text-align: left;
-  }
+.ivu-select-item span:first-child {
+  display: inline-block;
+  width: 30px;
+  text-align: left;
+}
 </style>

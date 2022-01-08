@@ -20,7 +20,7 @@
                 <p class="describe">{{$t('uc.finance.recharge.address')}}</p>
                 <div class="title">
                   <Input v-model="qrcode.value" readonly style="width: 400px;color:#8c979f;"></Input>
-                  <a v-show="isShowGetAddress"class="link-copy" @click="resetAddress">{{$t('uc.finance.recharge.getaddress')}}</a>
+                  <a v-show="isShowGetAddress" class="link-copy" @click="resetAddress">{{$t('uc.finance.recharge.getaddress')}}</a>
                   <a v-clipboard:copy="qrcode.value" v-clipboard:success="onCopy" v-clipboard:error="onError" href="javascript:;" id="copyBtn" class="link-copy">{{$t('uc.finance.recharge.copy')}}</a>
                   <a id="showQRcode" class="link-qrcode" href="javascript:;" @click="showEwm"> {{$t('uc.finance.recharge.qrcode')}}
                     <Modal v-model="isShowEwm" width="280">

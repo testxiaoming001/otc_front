@@ -9,7 +9,7 @@
                             <span class="user-avatar-in">{{usernameS}}</span>
                         </div>
                         <div class="user-name" style="line-height:52px">
-                            <span style="line-height:52px">{{user.username}}</span>
+                            <span style="line-height:52px">{{user.user_name}}</span>
                         </div>
                     </div>
                     <Row class="user-right">
@@ -264,6 +264,10 @@
                                 <!-- 设置 -->
                                 <div class="detail-list" v-show="user.fundsVerified!=1">
                                     <Form ref="formValidate7" :model="formValidate7" :rules="ruleValidate" :label-width="85">
+                                                <!-- oldMPw -->
+                                        <FormItem :label="$t('uc.safe.fundoldpwd')" prop="pw7" v-if="user.is_set_safety_password">
+                                            <Input v-model="formValidate7.pw7old" size="large" type="password"></Input>
+                                        </FormItem>
                                         <!-- newMPw -->
                                         <FormItem :label="$t('uc.safe.fundpwd')" prop="pw7">
                                             <Input v-model="formValidate7.pw7" size="large" type="password"></Input>
@@ -485,6 +489,7 @@ export default {
         idCard: ""
       },
       formValidate7: {
+        pw7old: "",
         pw7: "",
         pw7Confirm: ""
       },
@@ -823,10 +828,11 @@ export default {
           });
       }
       //修改资金密码
+      // TODO
       if (name == "formValidate5") {
         let param = {};
-        param["oldPassword"] = this.formValidate5.oldPw;
-        param["newPassword"] = this.formValidate5.newMPw;
+        param["old_password"] = this.formValidate5.oldPw;
+        param["password"] = this.formValidate5.newMPw;
         // param['code'] = this.formValidate5.vailCode5
         this.$http
           .post(this.host + "/uc/approve/update/transaction/password", param)
@@ -845,17 +851,25 @@ export default {
       //设置资金密码
       if (name == "formValidate7") {
         let param = {};
-        param["jyPassword"] = this.formValidate7.pw7;
+        param["old_password"] = this.formValidate7.pw7old;
+        param["password"] = this.formValidate7.pw7;
+        param["re_password"] = this.formValidate7.pw7;
+        param["token"] = localStorage.getItem('TOKEN');
+        this.formValidate7 = {
+          pw7old:'',
+          pw7:'',
+          pw7Confirm:'',
+        }
         this.$http
-          .post(this.host + "/uc/approve/transaction/password", param)
+          .post(this.apiHost+"/user/set_safety_password", param)
           .then(response => {
             var resp = response.body;
-            if (resp.code == 0) {
+            if (resp.code == 1) {
               this.$Message.success(this.$t("uc.safe.save_success"));
               this.getMember();
               this.choseItem = 0;
             } else {
-              this.$Message.error(resp.message);
+              this.$Message.error(resp.msg);
             }
           });
       }
@@ -987,16 +1001,17 @@ export default {
           });
       }
     },
+    // TODO
     getMember() {
-      //获取个人安全信息
-      var self = this;
       this.$http
-        .post(this.host + "/uc/approve/security/setting")
+        .post(this.apiHost+"/user/user_info",{
+          token:localStorage.getItem('TOKEN')
+        })
         .then(response => {
           var resp = response.body;
-          if (resp.code == 0) {
+          if (resp.code == 1) {
             this.user = resp.data;
-            this.usernameS = this.user.username.slice(0,1);
+            this.usernameS = resp.data.user_name.slice(0,1);
           } else {
             this.$Message.error(this.loginmsg);
             // this.$Message.error(this.$t('common.logintip'));
@@ -1014,10 +1029,13 @@ export default {
   },
   created() {
     this.getMember();
-    let level = this.$store.getters.member.memberRate;
-    level == 0 && (this.memberlevel = "普通会员");
-    level == 1 && (this.memberlevel = "超级群主");
-    level == 2 && (this.memberlevel = "超级合伙人");
+    this.$nextTick(() => {
+      // let level =(this.$store.getters&&this.$store.getters.member&& this.$store.getters.member.memberRate)||0;
+      let level = this.user.user_level
+      level == 0 && (this.memberlevel = "普通会员");
+      level == 1 && (this.memberlevel = "超级群主");
+      level == 2 && (this.memberlevel = "超级合伙人");
+    })
   }
 };
 </script>

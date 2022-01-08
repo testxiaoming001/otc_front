@@ -26,16 +26,20 @@ Vue.use(VueI18n);
 Vue.prototype.rootHost = "https://www.xxxx.com"; //BIZZAN
 Vue.prototype.host = "https://api.xxxx.com"; //BIZZAN
 
+// Vue.prototype.rootHost = ""; //BIZZAN
+// Vue.prototype.host = ""; //BIZZAN
+Vue.prototype.apiHost = process.env.NODE_ENV === 'production'? "http://148.66.134.184:83/apiv1":'/v2'; //BIZZAN
+
 Vue.prototype.api = Api;
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-Vue.http.options.headers = {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-    'Content-Type': 'application/json;charset=utf-8'
-};
+// Vue.http.options.headers = {
+//     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+//     'Content-Type': 'application/json;charset=utf-8'
+// };
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     routes
 });
 
@@ -50,8 +54,8 @@ router.beforeEach((to, from, next) => {
     next();
 });
 
-router.afterEach((to,from,next) => {
-    window.scrollTo(0,0);
+router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0);
     iView.LoadingBar.finish();
 });
 
@@ -65,38 +69,39 @@ const i18n = new VueI18n({
 
 Vue.http.interceptors.push((request, next) => {
     //登录成功后将后台返回的TOKEN在本地存下来,每次请求从sessionStorage中拿到存储的TOKEN值
-    request.headers.set('x-auth-token', localStorage.getItem('TOKEN'));
-    next((response) => {
-        //登录极验证时需获取后台返回的TOKEN值
-        var xAuthToken = response.headers.get('x-auth-token');
-        if (xAuthToken != null && xAuthToken != '') {
-            localStorage.setItem('TOKEN', xAuthToken);
-        }
-
-        if (response.body.code == '4000' || response.body.code == '3000') {
-            store.commit('setMember', null);
-            router.push('/login');
-            return false;
-        }
-        return response;
-    });
+    localStorage.getItem('TOKEN') && request.headers.set('token', localStorage.getItem('TOKEN'));
+    next()
+    // next((response) => {
+    //     //登录极验证时需获取后台返回的TOKEN值
+    //     var xAuthToken = response.headers.get('x-auth-token');
+    //     if (xAuthToken != null && xAuthToken != '') {
+    //         localStorage.setItem('TOKEN', xAuthToken);
+    //     }
+    //     // 预先屏蔽报错接口
+    //     // if (response.body.code == 0) {
+    //     //     store.commit('setMember', null);
+    //     //     router.push('/login');
+    //     //     return false;
+    //     // }
+    //     return response;
+    // });
 });
 
 Vue.config.productionTip = false;
 
-Vue.filter('timeFormat', function(tick) {
+Vue.filter('timeFormat', function (tick) {
     return moment(tick).format("HH:mm:ss");
 });
 
-Vue.filter('dateFormat', function(tick) {
+Vue.filter('dateFormat', function (tick) {
     return moment(tick).format("YYYY-MM-DD HH:mm:ss");
 });
 
-Vue.filter('toFixed', function(number, scale) {
+Vue.filter('toFixed', function (number, scale) {
     return new Number(number).toFixed(scale);
 });
 
-Vue.filter('toPercent', function(point) {
+Vue.filter('toPercent', function (point) {
     var str = Number(point * 100).toFixed(1);
     str += "%";
     return str;
