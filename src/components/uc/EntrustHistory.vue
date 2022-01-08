@@ -310,7 +310,9 @@ export default {
             this.orders = rows;
           }
           this.loading = false;
-        });
+        }).catch(err=>{
+          this.loading = false;
+        })
     },
     getSymbol() {
       this.$http.post(this.host + this.api.market.thumb, {}).then(response => {

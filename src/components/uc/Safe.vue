@@ -1013,7 +1013,7 @@ export default {
             this.user = resp.data;
             this.usernameS = resp.data.user_name.slice(0,1);
           } else {
-            this.$Message.error(this.loginmsg);
+            // this.$Message.error(this.loginmsg);
             // this.$Message.error(this.$t('common.logintip'));
           }
         });

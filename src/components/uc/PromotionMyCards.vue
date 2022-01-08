@@ -5,43 +5,92 @@
         <div class="shaow">
           <div class="money_table">
             <div style="width: 100%;height: 50px;">
-              <div class="header-btn" @click="exchangeCard">{{$t('uc.promotion.exchangewithcode')}}</div>
+              <div class="header-btn" @click="exchangeCard">
+                {{ $t("uc.promotion.exchangewithcode") }}
+              </div>
             </div>
-            <Table :columns="tableColumnsCard" :data="tableCardList" :loading="loading" :disabled-hover="true"></Table>
+            <Table
+              :columns="tableColumnsCard"
+              :data="tableCardList"
+              :loading="loading"
+              :disabled-hover="true"
+            ></Table>
           </div>
         </div>
       </div>
     </div>
 
     <Modal
-        v-model="showModal"
-        :title="this.$t('uc.promotion.inputcardno')"
-        width="360">
-        <p slot="header" style="color:#f60;text-align:left">
-            <Icon type="ios-information-circle"></Icon>
-            <span>{{$t('uc.promotion.inputcardno')}}</span>
-        </p>
-        <div style="text-align:center">
-            <Input v-model="cardNo" :placeholder="this.$t('uc.promotion.inputcardno')"/>
-        </div>
-        <div slot="footer">
-            <Button type="error" size="large" long :loading="modal_loading" @click="exchange">{{$t('uc.promotion.exchange')}}</Button>
-        </div>
+      v-model="showModal"
+      :title="this.$t('uc.promotion.inputcardno')"
+      width="360"
+    >
+      <p slot="header" style="color:#f60;text-align:left">
+        <Icon type="ios-information-circle"></Icon>
+        <span>{{ $t("uc.promotion.inputcardno") }}</span>
+      </p>
+      <div style="text-align:center">
+        <Input
+          v-model="cardNo"
+          :placeholder="this.$t('uc.promotion.inputcardno')"
+        />
+      </div>
+      <div slot="footer">
+        <Button
+          type="error"
+          size="large"
+          long
+          :loading="modal_loading"
+          @click="exchange"
+          >{{ $t("uc.promotion.exchange") }}</Button
+        >
+      </div>
     </Modal>
 
-    <Drawer :title="promotionTitle" :closable="false" v-model="showPromotionModal" width="350" style="text-align:center;">
-      <div style="position:relative;width: 318px;" id="promotionImage" ref="promotionImage">
-        <img style="width:100%;display:block;" src="../../assets/images/promotion/promotionbg1.jpg"></img>
-        <p style="position:absolute;top: 210px;text-align:center;width: 100%;text-align:center;font-size:26px;color:#F90;font-weight:bold;">{{promotionCode}}</p>
-        <p style="position:absolute;top: 250px;text-align:center;width: 100%;text-align:center;">推广合伙人专属兑换码</p>
+    <Drawer
+      :title="promotionTitle"
+      :closable="false"
+      v-model="showPromotionModal"
+      width="350"
+      style="text-align:center;"
+    >
+      <div
+        style="position:relative;width: 318px;"
+        id="promotionImage"
+        ref="promotionImage"
+      >
+        <img
+          style="width:100%;display:block;"
+          src="../../assets/images/promotion/promotionbg1.jpg"
+        />
+        <p
+          style="position:absolute;top: 210px;text-align:center;width: 100%;text-align:center;font-size:26px;color:#F90;font-weight:bold;"
+        >
+          {{ promotionCode }}
+        </p>
+        <p
+          style="position:absolute;top: 250px;text-align:center;width: 100%;text-align:center;"
+        >
+          推广合伙人专属兑换码
+        </p>
       </div>
-      <p style="text-align:center;font-size:12px;color:#888;margin-top: 10px;">{{$t('invite.imagetips')}}</p>
-      <Button type="error" size="large" :loading="saveImageLoading" long style="margin-top: 20px;" @click="saveImage">{{$t('invite.saveimage')}}</Button>
+      <p style="text-align:center;font-size:12px;color:#888;margin-top: 10px;">
+        {{ $t("invite.imagetips") }}
+      </p>
+      <Button
+        type="error"
+        size="large"
+        :loading="saveImageLoading"
+        long
+        style="margin-top: 20px;"
+        @click="saveImage"
+        >{{ $t("invite.saveimage") }}</Button
+      >
     </Drawer>
   </div>
 </template>
 <script>
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 
 export default {
   components: {},
@@ -56,12 +105,12 @@ export default {
       showPromotionModal: false,
       saveImageLoading: false,
       promotionTitle: "",
-      promotionCode: ""
+      promotionCode: "",
     };
   },
   methods: {
     getMyCardList() {
-      this.$http.post(this.host + this.api.uc.mycardlist).then(response => {
+      this.$http.post(this.host + this.api.uc.mycardlist).then((response) => {
         var resp = response.body;
         if (resp.code == 0) {
           this.tableCardList = resp.data;
@@ -72,67 +121,69 @@ export default {
       });
     },
     dataURLToBlob(dataurl) {
-        let arr = dataurl.split(',');
-        let mime = arr[0].match(/:(.*?);/)[1];
-        let bstr = atob(arr[1]);
-        let n = bstr.length;
-        let u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], { type: mime });
+      let arr = dataurl.split(",");
+      let mime = arr[0].match(/:(.*?);/)[1];
+      let bstr = atob(arr[1]);
+      let n = bstr.length;
+      let u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
     },
-    saveImage(){
+    saveImage() {
       this.save("promotionImage", "推广合伙人图片");
       this.saveImageLoading = true;
     },
     save(divText, imgText) {
-        let canvasID = this.$refs[divText];
-        let that = this;
-        let a = document.createElement('a');
-        html2canvas(canvasID, {useCORS:true}).then(canvas => {
-            let dom = document.body.appendChild(canvas);
-            dom.style.display = 'none';
-            a.style.display = 'none';
-            document.body.removeChild(dom);
-            let blob = that.dataURLToBlob(dom.toDataURL('image/png'));
-            a.setAttribute('href', URL.createObjectURL(blob));
-            //这块是保存图片操作  可以设置保存的图片的信息
-            a.setAttribute('download', imgText + '.png');
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(blob);
-            document.body.removeChild(a);
-            this.saveImageLoading = false;
-        });
+      let canvasID = this.$refs[divText];
+      let that = this;
+      let a = document.createElement("a");
+      html2canvas(canvasID, { useCORS: true }).then((canvas) => {
+        let dom = document.body.appendChild(canvas);
+        dom.style.display = "none";
+        a.style.display = "none";
+        document.body.removeChild(dom);
+        let blob = that.dataURLToBlob(dom.toDataURL("image/png"));
+        a.setAttribute("href", URL.createObjectURL(blob));
+        //这块是保存图片操作  可以设置保存的图片的信息
+        a.setAttribute("download", imgText + ".png");
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(blob);
+        document.body.removeChild(a);
+        this.saveImageLoading = false;
+      });
     },
     exchangeCard() {
       this.showModal = true;
     },
     exchange() {
-      if(this.cardNo == "" || this.cardNo == null) {
-        this.$Message.error(this.$t('uc.promotion.inputcardno'));
+      if (this.cardNo == "" || this.cardNo == null) {
+        this.$Message.error(this.$t("uc.promotion.inputcardno"));
         return;
       }
       let param = {};
       param["cardNo"] = this.cardNo;
 
       this.modal_loading = true;
-      this.$http.post(this.host + this.api.uc.exchangecard, param).then(response => {
-        var resp = response.body;
-        if (resp.code == 0) {
-          this.showModal = false;
-          this.$Notice.success({
+      this.$http
+        .post(this.host + this.api.uc.exchangecard, param)
+        .then((response) => {
+          var resp = response.body;
+          if (resp.code == 0) {
+            this.showModal = false;
+            this.$Notice.success({
               title: this.$t("uc.promotion.exchangesuccess"),
-              desc:resp.message,
-              duration: 30
+              desc: resp.message,
+              duration: 30,
             });
-        } else {
-          // this.$Message.error(resp.message);
-        }
-        this.modal_loading = false;
-      });
-    }
+          } else {
+            // this.$Message.error(resp.message);
+          }
+          this.modal_loading = false;
+        });
+    },
   },
   created() {
     this.getMyCardList();
@@ -145,23 +196,21 @@ export default {
         title: this.$t("uc.promotion.card_column1"),
         key: "cardName",
         width: 200,
-        align: "center"
+        align: "center",
       });
       columns.push({
         title: this.$t("uc.promotion.card_column0"),
         key: "cardNo",
         width: 150,
-        align: "center"
+        align: "center",
       });
       columns.push({
         title: this.$t("uc.promotion.card_column2"),
         key: "unit",
         align: "center",
         render(h, params) {
-          return h(
-            "span",{},params.row.coin.unit
-          );
-        }
+          return h("span", {}, params.row.coin.unit);
+        },
       });
       columns.push({
         title: this.$t("uc.promotion.card_column3"),
@@ -172,12 +221,12 @@ export default {
             "span",
             {
               attrs: {
-                title: params.row.amount
-              }
+                title: params.row.amount,
+              },
             },
             self.toFloor(params.row.amount || "0")
           );
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.promotion.card_column5"),
@@ -187,12 +236,12 @@ export default {
             "span",
             {
               attrs: {
-                title: params.row.count
-              }
+                title: params.row.count,
+              },
             },
             self.toFloor(params.row.count || "0")
           );
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.promotion.card_column6"),
@@ -202,12 +251,12 @@ export default {
             "span",
             {
               attrs: {
-                title: params.row.exchangeCount
-              }
+                title: params.row.exchangeCount,
+              },
             },
             self.toFloor(params.row.exchangeCount || "0")
           );
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.promotion.card_column7"),
@@ -218,12 +267,12 @@ export default {
             "span",
             {
               attrs: {
-                title: params.row.createTime
-              }
+                title: params.row.createTime,
+              },
             },
             self.toFloor(params.row.createTime || "0")
           );
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.finance.money.operate"),
@@ -231,30 +280,30 @@ export default {
         align: "center",
         render: function(h, params) {
           return h(
-                  "Button",
-                  {
-                    props: {
-                      type: "info",
-                      size: "small"
-                    },
-                    on: {
-                      click: function() {
-                        self.showPromotionModal = true;
-                        self.promotionTitle = params.row.cardName;
-                        self.promotionCode = params.row.cardNo;
-                        window.pageYOffset = 0;
-                        document.documentElement.scrollTop = 0;
-                        document.body.scrollTop = 0;
-                      }
-                    }
-                  },
-                  self.$t("uc.promotion.gopromotion")
-                );
-        }
+            "Button",
+            {
+              props: {
+                type: "info",
+                size: "small",
+              },
+              on: {
+                click: function() {
+                  self.showPromotionModal = true;
+                  self.promotionTitle = params.row.cardName;
+                  self.promotionCode = params.row.cardNo;
+                  window.pageYOffset = 0;
+                  document.documentElement.scrollTop = 0;
+                  document.body.scrollTop = 0;
+                },
+              },
+            },
+            self.$t("uc.promotion.gopromotion")
+          );
+        },
       });
       return columns;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -265,14 +314,14 @@ export default {
       padding: 5px;
     }
     .money_table {
-      .search{
+      .search {
         width: 200px;
         margin-bottom: 10px;
       }
       .ivu-table-wrapper {
-        .ivu-table-header{
+        .ivu-table-header {
           background: #27313e;
-          th{
+          th {
             color: #fff;
           }
         }
@@ -342,14 +391,17 @@ export default {
   }
 }
 
-.demo-spin-icon-load{
+.demo-spin-icon-load {
   animation: ani-demo-spin 1s linear infinite;
 }
 
-.header-btn{
-  float:right;padding: 5px 15px;border: 1px solid #f0ac19;color: #f0ac19;
+.header-btn {
+  float: right;
+  padding: 5px 15px;
+  border: 1px solid #f0ac19;
+  color: #f0ac19;
   margin-left: 20px;
-  &:hover{
+  &:hover {
     background: #f0ac19;
     color: #000;
     cursor: pointer;

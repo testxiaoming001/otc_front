@@ -6,58 +6,129 @@
           <Tabs value="name1" @on-click="showItem">
             <TabPane :label="$t('uc.otcorder.unpaid')" name="name1">
               <div class="order-table">
-                <Table :no-data-text="$t('common.nodata')" :columns="tableColumnsOrder" :data="tableOrder" :loading="loading" :disabled-hover="true"></Table>
+                <Table
+                  :no-data-text="$t('common.nodata')"
+                  :columns="tableColumnsOrder"
+                  :data="tableOrder"
+                  :loading="loading"
+                  :disabled-hover="true"
+                ></Table>
                 <div style="margin: 10px;overflow: hidden" class="page">
                   <div style="float: right;">
-                    <Page v-if="totalPage > 0" :total="totalNum" :current="currentPage" show-total @on-change="changePage" :page-size="pageSize"></Page>
+                    <Page
+                      v-if="totalPage > 0"
+                      :total="totalNum"
+                      :current="currentPage"
+                      show-total
+                      @on-change="changePage"
+                      :page-size="pageSize"
+                    ></Page>
                   </div>
                 </div>
               </div>
             </TabPane>
             <TabPane :label="$t('uc.otcorder.paided')" name="name2">
               <div class="order-table">
-                <Table :no-data-text="$t('common.nodata')" :columns="tableColumnsOrder" :data="tableOrder" :loading="loading" :disabled-hover="true"></Table>
+                <Table
+                  :no-data-text="$t('common.nodata')"
+                  :columns="tableColumnsOrder"
+                  :data="tableOrder"
+                  :loading="loading"
+                  :disabled-hover="true"
+                ></Table>
                 <div style="margin: 10px;overflow: hidden" class="page">
                   <div style="float: right;">
-                    <Page v-if="totalPage > 0" :total="totalNum" :current="currentPage" show-total @on-change="changePage" :page-size="pageSize"></Page>
+                    <Page
+                      v-if="totalPage > 0"
+                      :total="totalNum"
+                      :current="currentPage"
+                      show-total
+                      @on-change="changePage"
+                      :page-size="pageSize"
+                    ></Page>
                   </div>
                 </div>
               </div>
             </TabPane>
             <TabPane :label="$t('uc.otcorder.finished')" name="name3">
               <div class="order-table">
-                <Table :no-data-text="$t('common.nodata')" :columns="tableColumnsOrder" :data="tableOrder" :loading="loading" :disabled-hover="true"></Table>
+                <Table
+                  :no-data-text="$t('common.nodata')"
+                  :columns="tableColumnsOrder"
+                  :data="tableOrder"
+                  :loading="loading"
+                  :disabled-hover="true"
+                ></Table>
                 <div style="margin: 10px;overflow: hidden" class="page">
                   <div style="float: right;">
-                    <Page v-if="totalPage > 0" :total="totalNum" :current="currentPage" show-total @on-change="changePage" :page-size="pageSize"></Page>
+                    <Page
+                      v-if="totalPage > 0"
+                      :total="totalNum"
+                      :current="currentPage"
+                      show-total
+                      @on-change="changePage"
+                      :page-size="pageSize"
+                    ></Page>
                   </div>
                 </div>
               </div>
             </TabPane>
             <TabPane :label="$t('uc.otcorder.canceled')" name="name0">
               <div class="order-table">
-                <Table :no-data-text="$t('common.nodata')" :columns="tableColumnsOrder" :data="tableOrder" :loading="loading" :disabled-hover="true"></Table>
+                <Table
+                  :no-data-text="$t('common.nodata')"
+                  :columns="tableColumnsOrder"
+                  :data="tableOrder"
+                  :loading="loading"
+                  :disabled-hover="true"
+                ></Table>
                 <div style="margin: 10px;overflow: hidden" class="page">
                   <div style="float: right;">
-                    <Page v-if="totalPage > 0" :total="totalNum" :pageSize="pageSize" show-total :current="currentPage" @on-change="changePage"></Page>
+                    <Page
+                      v-if="totalPage > 0"
+                      :total="totalNum"
+                      :pageSize="pageSize"
+                      show-total
+                      :current="currentPage"
+                      @on-change="changePage"
+                    ></Page>
                   </div>
                 </div>
               </div>
             </TabPane>
             <TabPane :label="$t('uc.otcorder.appealing')" name="name4">
               <div class="order-table">
-                <Table :no-data-text="$t('common.nodata')" :columns="tableColumnsOrder" :data="tableOrder" :loading="loading" :disabled-hover="true"></Table>
+                <Table
+                  :no-data-text="$t('common.nodata')"
+                  :columns="tableColumnsOrder"
+                  :data="tableOrder"
+                  :loading="loading"
+                  :disabled-hover="true"
+                ></Table>
                 <div style="margin: 10px;overflow: hidden" class="page">
                   <div style="float: right;">
-                    <Page v-if="totalPage > 0" :total="totalNum" :current="currentPage" show-total @on-change="changePage" :page-size="pageSize"></Page>
+                    <Page
+                      v-if="totalPage > 0"
+                      :total="totalNum"
+                      :current="currentPage"
+                      show-total
+                      @on-change="changePage"
+                      :page-size="pageSize"
+                    ></Page>
                   </div>
                 </div>
               </div>
             </TabPane>
-            <Input v-model="ordKeyword" slot="extra" @on-click="handleSearch" icon="ios-search" :placeholder="$t('uc.otcorder.searchtip')" style="width: 250px;margin-right: 20px;"></Input>
+            <Input
+              v-model="ordKeyword"
+              slot="extra"
+              @on-click="handleSearch"
+              icon="ios-search"
+              :placeholder="$t('uc.otcorder.searchtip')"
+              style="width: 250px;margin-right: 20px;"
+            ></Input>
           </Tabs>
         </div>
-
       </div>
     </div>
   </div>
@@ -76,7 +147,7 @@ export default {
       pageSize: 10,
       totalNum: 0,
       currentPage: 1,
-      loginmsg: this.$t("common.logintip")
+      loginmsg: this.$t("common.logintip"),
     };
   },
   methods: {
@@ -104,19 +175,23 @@ export default {
       params["pageNo"] = pageNo;
       params["pageSize"] = this.pageSize;
       this.currentPage = pageNo + 1;
-      this.$http.post(this.host + "/otc/order/self", params).then(response => {
-        var resp = response.body;
-        if (resp.code == 0 && resp.data.content) {
-          this.tableOrder = resp.data.content;
-          this.totalPage = resp.data.totalPages;
-          this.totalNum = resp.data.totalElements;
-        } else {
-          // // this.$Message.error(resp.message);
-          // this.$Message.error(this.$t('common.logintip'));
-          this.$Message.error(this.loginmsg);
-        }
-        this.loading = false;
-      });
+      this.$http
+        .post(this.host + "/otc/order/self", params)
+        .then((response) => {
+          var resp = response.body;
+          if (resp.code == 0 && resp.data.content) {
+            this.tableOrder = resp.data.content;
+            this.totalPage = resp.data.totalPages;
+            this.totalNum = resp.data.totalElements;
+          } else {
+            // // this.$Message.error(resp.message);
+            // this.$Message.error(this.$t('common.logintip'));
+            // this.$Message.error(this.loginmsg);
+          }
+          this.loading = false;
+        }).catch(()=>{
+          this.loading = false;
+        })
     },
     init() {},
     handleSearch() {
@@ -129,17 +204,19 @@ export default {
         params["orderSn"] = this.ordKeyword;
       }
       this.currentPage = 1;
-      this.$http.post(this.host + "/otc/order/self", params).then(response => {
-        var resp = response.body;
-        if (resp.code == 0 && resp.data.content) {
-          this.tableOrder = resp.data.content;
-          this.totalPage = resp.data.totalPages;
-          this.totalNum = resp.data.totalElements;
-        } else {
-          // this.$Message.error(resp.message);
-        }
-        this.loading = false;
-      });
+      this.$http
+        .post(this.host + "/otc/order/self", params)
+        .then((response) => {
+          var resp = response.body;
+          if (resp.code == 0 && resp.data.content) {
+            this.tableOrder = resp.data.content;
+            this.totalPage = resp.data.totalPages;
+            this.totalNum = resp.data.totalElements;
+          } else {
+            // this.$Message.error(resp.message);
+          }
+          this.loading = false;
+        });
     },
     showItem(name) {
       if (name == "name1") {
@@ -167,7 +244,7 @@ export default {
         return result;
       });
       return newStr.slice(0, 1) + str2;
-    }
+    },
   },
   created() {
     this.changePage(0);
@@ -192,25 +269,25 @@ export default {
                 on: {
                   click: function() {
                     self.$router.push("/chat?tradeId=" + params.row.orderSn);
-                  }
-                }
+                  },
+                },
               },
               params.row.orderSn
-            )
+            ),
           ]);
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.otcorder.created"),
         key: "createTime",
         minWidth: 90,
-        align: "center"
+        align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.symbol"),
         key: "unit",
         // width: 80,
-        align: "center"
+        align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.type"),
@@ -225,7 +302,7 @@ export default {
             text = self.$t("uc.otcorder.type_sell");
           }
           return h("div", [h("p", text)]);
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.otcorder.tradename"),
@@ -241,33 +318,33 @@ export default {
                 on: {
                   click: function() {
                     self.$router.push("/checkuser?id=" + params.row.name);
-                  }
-                }
+                  },
+                },
               },
               params.row.name
-            )
+            ),
           ]);
-        }
+        },
       });
       columns.push({
         title: this.$t("uc.otcorder.amount"),
         key: "amount",
-        align: "center"
+        align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.money"),
         key: "money",
-        align: "center"
+        align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.fee"),
         key: "commission",
-        align: "center"
+        align: "center",
       });
 
       return columns;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -313,7 +390,7 @@ export default {
   .order_box {
     .ivu-tabs {
       // overflow:initial;
-      color:#fff;
+      color: #fff;
       .ivu-tabs-content.ivu-tabs-content-animated {
         .ivu-tabs-tabpane {
           .ivu-table-wrapper {
@@ -326,7 +403,7 @@ export default {
         }
       }
       .ivu-tabs-bar {
-        border-color:#273742 !important;
+        border-color: #273742 !important;
         .ivu-tabs-nav-container {
           .ivu-tabs-nav-scroll {
             .ivu-tabs-ink-bar.ivu-tabs-ink-bar-animated {

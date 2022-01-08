@@ -313,7 +313,9 @@ export default {
             console.log(this.orders);
           }
           this.loading = false;
-        });
+        }).catch(err=>{
+          this.loading = false;
+        })
     },
     getSymbol() {
       this.$http.post(this.host + this.api.market.thumb, {}).then(response => {
@@ -334,10 +336,10 @@ export default {
               if (resp.code == 0) {
                 this.getHistoryOrder();
               } else {
-                this.$Notice.error({
-                  title: this.$t("exchange.tip"),
-                  desc: resp.message
-                });
+                // this.$Notice.error({
+                //   title: this.$t("exchange.tip"),
+                //   desc: resp.message
+                // });
               }
             });
         }

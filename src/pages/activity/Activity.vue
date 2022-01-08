@@ -9,7 +9,7 @@
           <Tabs :animated="false" style="width:100%;" @on-click="tabChange">
             <TabPane :label="$t('activity.all')" name="all">
               <div class="activity-container">
-                <div class="tips-line" v-if="activityList.all.loaded && activityList.all.total == 0"><img src="../../assets/images/emptydata.png"></img></div>
+                <div class="tips-line" v-if="activityList.all.loaded && activityList.all.total == 0"><img src="../../assets/images/emptydata.png" /></div>
                 <div class="tips-line" v-if="!activityList.all.loaded"><Spin size="large"></Spin></div>
                 <div class="activity-item" v-for="(item, index) in activityList.all.items" :key="index">
                   <div class="activity-type" v-if="item.type==1">{{$t('activity.activitytype1')}}</div>
@@ -17,7 +17,7 @@
                   <div class="activity-type" v-if="item.type==3">{{$t('activity.activitytype3')}}</div>
                   <div class="activity-type" v-if="item.type==4">{{$t('activity.activitytype4')}}</div>
                   <Row>
-                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl"></img></Col>
+                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl" /></Col>
                       <Col :xs="24" :sm="24" :md="20" :lg="20">
                         <div class="title">
                           <span>{{item.title}}</span>
@@ -69,7 +69,7 @@
             </TabPane>
             <TabPane :label="$t('activity.prepare')" name="step0">
               <div class="activity-container">
-                <div class="tips-line" v-if="activityList.step0.loaded && activityList.step0.total == 0"><img src="../../assets/images/emptydata.png"></img></div>
+                <div class="tips-line" v-if="activityList.step0.loaded && activityList.step0.total == 0"><img src="../../assets/images/emptydata.png" /></div>
                 <div class="tips-line" v-if="!activityList.step0.loaded"><Spin size="large"></Spin></div>
                 <div class="activity-item" v-for="(item, index) in activityList.step0.items" :key="index">
                   <div class="activity-type" v-if="item.type==1">{{$t('activity.activitytype1')}}</div>
@@ -77,7 +77,7 @@
                   <div class="activity-type" v-if="item.type==3">{{$t('activity.activitytype3')}}</div>
                   <div class="activity-type" v-if="item.type==4">{{$t('activity.activitytype4')}}</div>
                   <Row>
-                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl"></img></Col>
+                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl" /></Col>
                       <Col :xs="24" :sm="24" :md="20" :lg="20">
                         <div class="title">
                           <span>{{item.title}}</span>
@@ -129,7 +129,7 @@
             </TabPane>
             <TabPane :label="$t('activity.ongoing')" name="step1">
               <div class="activity-container">
-                <div class="tips-line" v-if="activityList.step1.loaded && activityList.step1.total == 0"><img src="../../assets/images/emptydata.png"></img></div>
+                <div class="tips-line" v-if="activityList.step1.loaded && activityList.step1.total == 0"><img src="../../assets/images/emptydata.png" /></div>
                 <div class="tips-line" v-if="!activityList.step1.loaded"><Spin size="large"></Spin></div>
                 <div class="activity-item" v-for="(item, index) in activityList.step1.items" :key="index">
                   <div class="activity-type" v-if="item.type==1">{{$t('activity.activitytype1')}}</div>
@@ -137,7 +137,7 @@
                   <div class="activity-type" v-if="item.type==3">{{$t('activity.activitytype3')}}</div>
                   <div class="activity-type" v-if="item.type==4">{{$t('activity.activitytype4')}}</div>
                   <Row>
-                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl"></img></Col>
+                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl" /></Col>
                       <Col :xs="24" :sm="24" :md="20" :lg="20">
                         <div class="title">
                           <span>{{item.title}}</span>
@@ -189,7 +189,7 @@
             </TabPane>
             <TabPane :label="$t('activity.distributing')" name="step2">
               <div class="activity-container">
-                <div class="tips-line" v-if="activityList.step2.loaded && activityList.step2.total == 0"><img src="../../assets/images/emptydata.png"></img></div>
+                <div class="tips-line" v-if="activityList.step2.loaded && activityList.step2.total == 0"><img src="../../assets/images/emptydata.png" /></div>
                 <div class="tips-line" v-if="!activityList.step2.loaded"><Spin size="large"></Spin></div>
                 <div class="activity-item" v-for="(item, index) in activityList.step2.items" :key="index">
                   <div class="activity-type" v-if="item.type==1">{{$t('activity.activitytype1')}}</div>
@@ -197,7 +197,7 @@
                   <div class="activity-type" v-if="item.type==3">{{$t('activity.activitytype3')}}</div>
                   <div class="activity-type" v-if="item.type==4">{{$t('activity.activitytype4')}}</div>
                   <Row>
-                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl"></img></Col>
+                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl" /></Col>
                       <Col :xs="24" :sm="24" :md="20" :lg="20">
                         <div class="title">
                           <span>{{item.title}}</span>
@@ -249,7 +249,7 @@
             </TabPane>
             <TabPane :label="$t('activity.completed')" name="step3">
               <div class="activity-container">
-                <div class="tips-line" v-if="activityList.step3.loaded && activityList.step3.total == 0"><img src="../../assets/images/emptydata.png"></img></div>
+                <div class="tips-line" v-if="activityList.step3.loaded && activityList.step3.total == 0"><img src="../../assets/images/emptydata.png" /></div>
                 <div class="tips-line" v-if="!activityList.step3.loaded"><Spin size="large"></Spin></div>
                 <div class="activity-item" v-for="(item, index) in activityList.step3.items" :key="index">
                   <div class="activity-type" v-if="item.type==1">{{$t('activity.activitytype1')}}</div>
@@ -257,7 +257,7 @@
                   <div class="activity-type" v-if="item.type==3">{{$t('activity.activitytype3')}}</div>
                   <div class="activity-type" v-if="item.type==4">{{$t('activity.activitytype4')}}</div>
                   <Row>
-                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl"></img></Col>
+                      <Col :xs="24" :sm="24" :md="4" :lg="4"><img :src="item.smallImageUrl" /></Col>
                       <Col :xs="24" :sm="24" :md="20" :lg="20">
                         <div class="title">
                           <span>{{item.title}}</span>
@@ -312,7 +312,7 @@
     </div>
     <div class="app_bottom">
       <div class="left_logo">
-        <img style="float:left;" src="../../assets/images/applogo.png"></img>
+        <img style="float:left;" src="../../assets/images/applogo.png" />
         <div style="float:left;height: 40px;line-height:40px;color:#000;">{{$t("cms.downloadslogan")}}</div>
       </div>
       <div class="right_btn_wrap"><router-link to="/app" class="right_btn">{{$t("cms.download")}}</router-link></div>

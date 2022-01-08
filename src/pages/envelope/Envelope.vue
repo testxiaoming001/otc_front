@@ -1,7 +1,7 @@
 <template>
   <div class="envelope">
     <div v-if="hasInviteUser" style="width:80%;height: 35px;padding: 5px 0 5px 0px;border-radius: 35px;background-color:rgb(157, 0, 0);margin-left:10%;text-align:center;display: flex;flex-direction:row;justify-content:center;margin-bottom:10px;">
-      <img style="width: 25px; height: 25px;margin-right: 10px;border-radius: 25px;" :src="inviteUserAvatar"></img>
+      <img style="width: 25px; height: 25px;margin-right: 10px;border-radius: 25px;" :src="inviteUserAvatar" />
       <div style="height: 30px;line-height:30px;color: #EEE;">{{inviteUserId}} 邀您领红包！</div>
     </div>
     <div style="position:absolute;top: 40px;width: 100%;text-align:center;padding-top: 50px;">
@@ -10,10 +10,10 @@
       <p style="text-align:center;padding: 15px 0px;font-size:36px;letter-spacing:1px;width:100%;color:#fb272a;font-weight:bold;">{{envelopeInfo.totalAmount}} {{envelopeInfo.unit}}</p>
       <p style="text-align:center;padding: 15px 0px;font-size:14px;letter-spacing:1px;width:100%;color:rgb(227, 205, 187);">已领取：{{envelopeInfo.receiveCount}}/{{envelopeInfo.count}}</p>
       <p style="text-align:center;padding: 20px 0px;font-size:14px;letter-spacing:1px;width:100%;color:#555;margin-top: 40px;">
-        <img style="width: 100%;height:60px;width:60px;border-radius:60px;" :src="envelopeInfo.logo"></img>
+        <img style="width: 100%;height:60px;width:60px;border-radius:60px;" :src="envelopeInfo.logo" />
       </p>
     </div>
-    <img style="width: 100%;" :src="envelopeInfo.bgImage"></img>
+    <img style="width: 100%;" :src="envelopeInfo.bgImage" />
     <p style="margin-top: -80px;margin-bottom: 80px;text-align:center;color: rgb(255, 136, 79);font-size:13px;">该红包通过币严(BIZZAN.COM)发出</p>
     <div class="input-panel"  v-if="!hasReceived &&  envelopeInfo.state == 0">
       <div style="color: rgb(177, 177, 177);font-size: 16px;margin: 10px 0 20px 0;" v-html="envelopeInfo.detail"></div>

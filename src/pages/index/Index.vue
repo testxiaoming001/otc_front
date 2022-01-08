@@ -5,7 +5,7 @@
         <div class="topnav">
           <div class="carl">
             <div class="notice-list">
-              <div class="notice-item" v-for="(item,index) in FAQList">
+              <div class="notice-item" v-for="(item,index) in FAQList" :key="index" >
                 <div class="cal_content">
                   <span></span>
                   <router-link target="_blank" :to="{path: '/announcement/' + item.id}">[ {{item.createTime}} ] {{strde(item.title)}}</router-link>
@@ -22,20 +22,20 @@
         <!-- <div v-if="lang==='简体中文'"> -->
 
         <div class="spin-wrap banner-panel">
-          <img style="height: 100%;" src="../../assets/images/bannerbg.png"></img>
+          <img style="height: 100%;" src="../../assets/images/bannerbg.png" />
           <p style="text-align:center;font-size:40px;color:#fff;position:absolute;top: 70px;width:100%;letter-spacing:5px;text-shadow: 0px 0px 10px #000000;">{{$t("common.slogan")}}</p>
           <p style="text-align:center;font-size:20px;color:#828ea1;position:absolute;top: 130px;width:100%;letter-spacing:2px;">{{$t("common.subslogan")}}</p>
           <div class="activity-list" v-show="picShow">
             <div class="swiper-container" id="swiper_container">
               <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(item,index) in picList">
+                <div class="swiper-slide" v-for="(item,index) in picList" :key="index" >
                   <a v-if="item.linkUrl&&item.linkUrl!=' '&&item.linkUrl!='1'" :href="item.linkUrl" target="_blank">
                     <div class="activity-item">
-                      <img :src="item.url"></img>
+                      <img :src="item.url" />
                     </div>
                   </a>
                   <div v-else class="activity-item">
-                    <img :src="item.url"></img>
+                    <img :src="item.url" />
                   </div>
                 </div>
               </div>
@@ -53,8 +53,8 @@
           <div class="agent-list">
             <div class="agent-item">
               <div class="agent-img">
-                <img v-if="langPram=='EN'" src="../../assets/images/new_1usd.png"></img>
-                <img v-else="langPram=='CN'" src="../../assets/images/new_1cny.png"></img>
+                <img v-if="langPram=='EN'" src="../../assets/images/new_1usd.png" />
+                <img v-else-if="langPram=='CN'" src="../../assets/images/new_1cny.png" />
               </div>
               <router-link to="/helpdetail?cate=0&id=20&cateTitle=新手指南" target="_blank">
                 <div class="agent-detail">
@@ -65,7 +65,7 @@
             </div>
             <div class="agent-item">
               <div class="agent-img">
-                <img src="../../assets/images/new_3.png"></img>
+                <img src="../../assets/images/new_3.png" />
               </div>
               <router-link to="/helplist?cate=2&cateTitle=交易指南" target="_blank">
                 <div class="agent-detail">
@@ -76,7 +76,7 @@
             </div>
             <div class="agent-item">
               <div class="agent-img">
-                <img src="../../assets/images/new_2.png"></img>
+                <img src="../../assets/images/new_2.png" />
               </div>
               <router-link to="/helplist?cate=6&cateTitle=基础入门" target="_blank">
                 <div class="agent-detail">
@@ -87,7 +87,7 @@
             </div>
             <div class="agent-item">
               <div class="agent-img">
-                <img src="../../assets/images/new_4.png"></img>
+                <img src="../../assets/images/new_4.png" />
               </div>
               <router-link to="/helpdetail?cate=0&id=28&cateTitle=新手指南" target="_blank">
                 <div class="agent-detail">
@@ -171,7 +171,7 @@
     </div>
     <div class="app_bottom">
       <div class="left_logo">
-        <img style="float:left;" src="../../assets/images/applogo.png"></img>
+        <img style="float:left;" src="../../assets/images/applogo.png" />
         <div style="float:left;height: 40px;line-height:40px;color:#000;">{{$t("cms.downloadslogan")}}</div>
       </div>
       <div class="right_btn_wrap"><router-link target="_blank" to="/app" class="right_btn">{{$t("cms.download")}}</router-link></div>

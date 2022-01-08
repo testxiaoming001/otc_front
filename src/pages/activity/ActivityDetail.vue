@@ -6,7 +6,7 @@
                 <Col :xs="24" :sm="24" :md="16" :lg="16" style="min-height: 600px;margin-bottom:10px;">
                     <div class="left-container">
                         <div class="title">
-                            <img  :src="activityDetail.smallImageUrl"></img>
+                            <img  :src="activityDetail.smallImageUrl" />
                             <div class="title-text">
                                 <h1>{{activityDetail.title}}</h1>
                                 <p>{{activityDetail.detail}}</p>
@@ -146,7 +146,7 @@
                             <Button type="warning" size="large" long disabled  v-else>{{$t('activity.attend')}}</Button>
                         </div>
                         <p class="mobile-tip">{{$t('activity.tipsmobile1')}}</p>
-                        <img v-if="activityDetail.step==3" src="../../assets/images/completed.png" style="position: absolute;top:-10px;right:15px;width: 110px;"></img>
+                        <img v-if="activityDetail.step==3" src="../../assets/images/completed.png" style="position: absolute;top:-10px;right:15px;width: 110px;" />
                     </div>
                     <div class="memo">
                         <p style="font-size:14px;margin-bottom:10px;">{{$t('activity.attention')}}：</p>
@@ -215,7 +215,7 @@
 
         <div class="app_bottom">
           <div class="left_logo">
-            <img style="float:left;" src="../../assets/images/applogo.png"></img>
+            <img style="float:left;" src="../../assets/images/applogo.png" />
             <div style="float:left;height: 40px;line-height:40px;color:#000;">{{$t("cms.downloadslogan")}}</div>
           </div>
           <div class="right_btn_wrap"><router-link to="/app" class="right_btn">{{$t("cms.download")}}</router-link></div>

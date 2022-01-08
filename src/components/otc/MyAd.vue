@@ -2,14 +2,29 @@
   <div class="nav-rights">
     <div class="my_ad_box">
       <div class="add_ad">
-        <Button icon="plus-round" @click="publish">{{$t('otc.myad.post')}}</Button>
+        <Button icon="plus-round" @click="publish">{{
+          $t("otc.myad.post")
+        }}</Button>
       </div>
-      <Alert>{{$t('otc.myad.alert')}}</Alert>
+      <Alert>{{ $t("otc.myad.alert") }}</Alert>
       <div class="order-table">
-        <Table :columns="tableColumnsAdv" :data="tableAdv" :no-data-text="$t('common.nodata')" :loading="loading" class="tables" :disabled-hover="true"></Table>
+        <Table
+          :columns="tableColumnsAdv"
+          :data="tableAdv"
+          :no-data-text="$t('common.nodata')"
+          :loading="loading"
+          class="tables"
+          :disabled-hover="true"
+        ></Table>
         <div style="margin: 10px;overflow: hidden" id="pages">
           <div style="float: right;">
-            <Page v-if="totalPage > 0" :pageSize="pageNumber" :total="totalPage" :current="currentPage" @on-change="changePage"></Page>
+            <Page
+              v-if="totalPage > 0"
+              :pageSize="pageNumber"
+              :total="totalPage"
+              :current="currentPage"
+              @on-change="changePage"
+            ></Page>
           </div>
         </div>
       </div>
@@ -29,24 +44,24 @@ export default {
       tableColumnsAdv: [
         {
           title: self.$t("otc.myad.no"),
-          key: "id",
+          key: "trade_ad_id",
           width: 55,
-          align: "center"
+          align: "center",
         },
         {
           title: self.$t("otc.myad.type"),
-          key: "advertiseType",
+          key: "ad_type",
           width: 90,
           align: "center",
           render: (h, params) => {
             let text = "";
-            if (params.row.advertiseType == 0) {
+            if (params.row.ad_type == 0) {
               text = self.$t("otc.myad.buy");
-            } else if (params.row.advertiseType == 1) {
+            } else if (params.row.ad_type == 1) {
               text = self.$t("otc.myad.sell");
             }
             return h("div", [h("p", text)]);
-          }
+          },
         },
         {
           title: self.$t("otc.myad.limit"),
@@ -55,27 +70,27 @@ export default {
           align: "center",
           render: (h, params) => {
             return h("div", [
-              h("p", params.row.minLimit + "~" + params.row.maxLimit)
+              h("p", params.row.low_limit + "~" + params.row.high_limit),
             ]);
-          }
+          },
         },
         {
           title: self.$t("otc.myad.remain"),
           key: "remainAmount",
           width: 90,
-          align: "center"
+          align: "center",
         },
         {
           title: self.$t("otc.myad.coin"),
           key: "coinUnit",
           width: 100,
-          align: "center"
+          align: "center",
         },
         {
           title: self.$t("otc.myad.created"),
           key: "createTime",
           width: 160,
-          align: "center"
+          align: "center",
         },
         {
           title: self.$t("otc.myad.operate"),
@@ -92,24 +107,30 @@ export default {
                       if (params.row.status == 0) {
                         self.$Message.error(self.$t("otc.myad.errmsg"));
                       } else {
-                        self.$router.push("/uc/ad/update?id=" + params.row.id);
+                        self.$router.push({
+                          path: "/uc/ad/update",
+                          query: {
+                            id: params.row.trade_ad_id,
+                            row: params.row,
+                          },
+                        });
                       }
-                    }
-                  }
+                    },
+                  },
                 },
                 [
                   h(
                     "Button",
                     {
                       props: {
-                        size: "small"
+                        size: "small",
                       },
                       style: {
-                        marginRight: "8px"
-                      }
+                        marginRight: "8px",
+                      },
                     },
                     self.$t("otc.myad.update")
-                  )
+                  ),
                 ]
               ),
               h(
@@ -117,10 +138,10 @@ export default {
                 {
                   props: {
                     type: "primary",
-                    size: "small"
+                    size: "small",
                   },
                   style: {
-                    marginRight: "8px"
+                    marginRight: "8px",
                   },
                   on: {
                     click: () => {
@@ -131,7 +152,7 @@ export default {
                         // canshu['status'] = params.row.status == 0 ? 1 : 0
                         self.$http
                           .post(self.host + "/otc/advertise/on/shelves", canshu)
-                          .then(response => {
+                          .then((response) => {
                             var resp = response.body;
                             if (resp.code == 0) {
                               self.$Message.success(resp.message);
@@ -150,7 +171,7 @@ export default {
                             self.host + "/otc/advertise/off/shelves",
                             canshu
                           )
-                          .then(response => {
+                          .then((response) => {
                             var resp = response.body;
                             if (resp.code == 0) {
                               self.$Message.success(resp.message);
@@ -161,8 +182,8 @@ export default {
                             }
                           });
                       }
-                    }
-                  }
+                    },
+                  },
                 },
                 params.row.status == 0
                   ? self.$t("otc.myad.dropoff")
@@ -173,7 +194,7 @@ export default {
                 {
                   props: {
                     type: "error",
-                    size: "small"
+                    size: "small",
                   },
                   on: {
                     click: () => {
@@ -187,7 +208,7 @@ export default {
                           onOk: () => {
                             self.$http
                               .post(self.host + "/otc/advertise/delete", canshu)
-                              .then(response => {
+                              .then((response) => {
                                 var resp = response.body;
                                 if (resp.code == 0) {
                                   self.$Message.success(resp.message);
@@ -196,23 +217,23 @@ export default {
                                   self.$Message.error(resp.message);
                                 }
                               });
-                          }
+                          },
                         });
                       } else {
                         self.$Message.error("下架广告后才可以删除！");
                       }
-                    }
-                  }
+                    },
+                  },
                 },
                 self.$t("otc.myad.delete")
-              )
+              ),
             ]);
-          }
-        }
+          },
+        },
       ],
       totalPage: 0,
       pageNumber: 10,
-      currentPage: 1
+      currentPage: 1,
     };
   },
   methods: {
@@ -231,41 +252,48 @@ export default {
     changePage() {},
     getAd() {
       //获取个人广告
-      this.$http.post(this.host + "/otc/advertise/all").then(response => {
-        var resp = response.body;
-        if (resp.code == 0) {
-          this.tableAdv = resp.data.content;
-          // console.log(this.tableAdv);
-          for (var i = 0; i < this.tableAdv.length; i++) {
-            this.tableAdv[i].coinUnit = this.tableAdv[i].coin.unit;
+      this.$http
+        .post(this.apiHost + "/user/adv_lists", {
+          token: localStorage.getItem("TOKEN"),
+        })
+        .then((response) => {
+          var resp = response.body;
+          if (resp.code == 1) {
+            this.tableAdv = resp.data;
+            // console.log(this.tableAdv);
+            // for (var i = 0; i < this.tableAdv.length; i++) {
+            //   this.tableAdv[i].coinUnit = this.tableAdv[i].coin.unit;
+            // }
+            this.loading = false;
+            //this.dataCount = resp.data.length
+            this.totalPage = resp.data.totalElements;
+          } else {
+            // // this.$Message.error(resp.message);
+            // this.$Message.error(this.$t('common.logintip'));
+            // this.$Message.error(this.loginmsg);
           }
+        })
+        .finally(() => {
           this.loading = false;
-          //this.dataCount = resp.data.length
-          this.totalPage = resp.data.totalElements;
-        } else {
-          // // this.$Message.error(resp.message);
-          // this.$Message.error(this.$t('common.logintip'));
-          this.$Message.error(this.loginmsg);
-        }
-      });
+        });
     },
     publish() {
       this.$router.push(this.api.otc.createAd);
-    }
+    },
   },
   computed: {
     lang: function() {
       return this.$store.state.lang;
-    }
+    },
   },
   watch: {
     lang: function() {
       this.updateLangData();
-    }
+    },
   },
   created() {
     this.getAd();
-  }
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -313,21 +341,21 @@ export default {
               background: #fff;
             }
             button.ivu-btn.ivu-btn-default {
-              border:1px solid #00b275;
+              border: 1px solid #00b275;
               background-color: transparent;
               span {
                 color: #00b275;
               }
             }
             button.ivu-btn.ivu-btn-primary {
-              border:1px solid #f0ac19;
+              border: 1px solid #f0ac19;
               background-color: transparent;
               span {
                 color: #f0ac19;
               }
             }
             button.ivu-btn.ivu-btn-error {
-              border:1px solid #f15057;
+              border: 1px solid #f15057;
               background-color: transparent;
               span {
                 color: #f15057;

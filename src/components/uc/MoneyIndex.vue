@@ -64,8 +64,9 @@ export default {
           this.loading = false;
           this.tableMoneyShow = this.tableMoney;
         } else {
-          this.$Message.error(this.loginmsg);
+          // this.$Message.error(this.loginmsg);
         }
+          this.loading = false;
       });
     },
     getGCCMatchAmount() {

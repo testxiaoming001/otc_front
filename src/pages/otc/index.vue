@@ -3,123 +3,168 @@
     <carousel-show></carousel-show>
     <div id="cont">
       <div id="adv">
-        <h1 class="advH">{{$t('otc.index.title')}}</h1>
+        <h1 class="advH">{{ $t("otc.index.title") }}</h1>
         <div class="advBtn">
           <button-group>
-            <i-button v-for="(item,index) in btnList" @click="addClass(index)" :class="{'ivu-btn-primary':index==choseBtn,'ivu-btn-default':index!=choseBtn}">{{item.text}}</i-button>
+            <i-button
+              v-for="(item, index) in btnList"
+              :key="index"
+              @click="addClass(index)"
+              :class="{
+                'ivu-btn-primary': index == choseBtn,
+                'ivu-btn-default': index != choseBtn,
+              }"
+              >{{ item.text }}</i-button
+            >
           </button-group>
         </div>
         <div class="item1" v-show="isitem1">
           <Row type="flex" justify="space-around" class="code-row-bg adv_box">
-            <Col span="6" v-for="(item,index) in cardListBuy0" class="card-item">
-            <Card>
-              <router-link :to="'/tradeInfo?tradeId='+item.advertiseId" class="tread-list trade-item">
-                <div class="trade-body">
-                  <div class="user-info">
-                    <div class="user-face user-avatar-public">
-                      <span class="user-avatar-in">{{item.memberName.replace(/^\s+|\s+$/g, "").slice(0, 1)}}</span>
-                      <!-- <span class="online-status-box user-states" data-tuid="280000" data-tid="26896">
+            <Col
+              span="6"
+              v-for="(item, index) in cardListBuy0"
+              class="card-item"
+              :key="index"
+            >
+              <Card>
+                <router-link
+                  :to="'/tradeInfo?tradeId=' + item.advertiseId"
+                  class="tread-list trade-item"
+                >
+                  <div class="trade-body">
+                    <div class="user-info">
+                      <div class="user-face user-avatar-public">
+                        <span class="user-avatar-in">{{
+                          item.memberName.replace(/^\s+|\s+$/g, "").slice(0, 1)
+                        }}</span>
+                        <!-- <span class="online-status-box user-states" data-tuid="280000" data-tid="26896">
                                                                       <span class="circles"></span>
                                                                   </span> -->
+                      </div>
+                      <div class="user-name">
+                        {{ item.memberName }}
+                      </div>
+                      <!-- <div class="states merchant"></div> -->
                     </div>
-                    <div class="user-name">
-                      {{item.memberName}}
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.exchangetimes") }}：</span>
+                      {{ item.transactions }}
                     </div>
-                    <!-- <div class="states merchant"></div> -->
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.exchangeprice") }}：</span>
+                      <span style="font-weight: bold">
+                        {{ item.price }}
+                      </span>
+                      CNY
+                    </div>
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.exchangelimit") }}：</span>
+                      {{ item.minLimit }}-{{ item.maxLimit }} CNY
+                    </div>
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.paymode") }}：</span
+                      >{{ item.payMode }}
+                    </div>
+                    <div class="tradeBtn">
+                      <Button
+                        type="primary"
+                        icon="ios-cart-outline"
+                        size="large"
+                        long
+                        >{{ $t("otc.index.buy") }}{{ item.coin }}</Button
+                      >
+                    </div>
                   </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.exchangetimes')}}：</span>
-                    {{item.transactions}}
-                  </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.exchangeprice')}}：</span>
-                    <span style="font-weight: bold">
-                      {{item.price}}
-                    </span>
-                    CNY
-                  </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.exchangelimit')}}：</span>
-                    {{item.minLimit}}-{{item.maxLimit}} CNY
-                  </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.paymode')}}：</span>{{item.payMode}}
-                  </div>
-                  <div class="tradeBtn">
-                    <Button type="primary" icon="ios-cart-outline" size="large" long>{{$t('otc.index.buy')}}{{item.coin}}</Button>
-                  </div>
-                </div>
-              </router-link>
-            </Card>
+                </router-link>
+              </Card>
             </Col>
           </Row>
         </div>
         <div class="item2" v-show="!isitem1">
           <Row type="flex" justify="space-around" class="code-row-bg adv_box">
-            <Col span="6" v-for="(item,index) in cardListBuy1" class="card-item">
-            <Card>
-              <router-link :to="'/tradeInfo?tradeId='+item.advertiseId" class="tread-list trade-item">
-                <div class="trade-body">
-                  <div class="user-info">
-                    <div class="user-face user-avatar-public">
-                      <span class="user-avatar-in">{{item.memberName.replace(/^\s+|\s+$/g, "").slice(0, 1)}}</span>
-                      <!-- <span class="online-status-box user-states" data-tuid="280000" data-tid="26896">
+            <Col
+              span="6"
+              v-for="(item, index) in cardListBuy1"
+              class="card-item"
+              :key="index"
+            >
+              <Card>
+                <router-link
+                  :to="'/tradeInfo?tradeId=' + item.advertiseId"
+                  class="tread-list trade-item"
+                >
+                  <div class="trade-body">
+                    <div class="user-info">
+                      <div class="user-face user-avatar-public">
+                        <span class="user-avatar-in">{{
+                          item.memberName.replace(/^\s+|\s+$/g, "").slice(0, 1)
+                        }}</span>
+                        <!-- <span class="online-status-box user-states" data-tuid="280000" data-tid="26896">
                                                                       <span class="circles"></span>
                                                                   </span> -->
+                      </div>
+                      <div class="user-name">
+                        {{ item.memberName }}
+                      </div>
+                      <!-- <div class="states merchant"></div> -->
                     </div>
-                    <div class="user-name">
-                      {{item.memberName}}
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.exchangetimes") }}：</span>
+                      {{ item.transactions }}
                     </div>
-                    <!-- <div class="states merchant"></div> -->
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.exchangeprice") }}：</span>
+                      <span style="font-weight: bold">
+                        {{ item.price }}
+                      </span>
+                      CNY
+                    </div>
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.exchangelimit") }}：</span>
+                      {{ item.minLimit }}-{{ item.maxLimit }} CNY
+                    </div>
+                    <div class="trade-info">
+                      <span>{{ $t("otc.index.paymode") }}：</span
+                      >{{ item.payMode }}
+                    </div>
+                    <div class="tradeBtn">
+                      <Button
+                        type="primary"
+                        icon="ios-color-wand-outline"
+                        size="large"
+                        long
+                        >{{ $t("otc.index.sell") }}{{ item.coin }}</Button
+                      >
+                    </div>
                   </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.exchangetimes')}}：</span>
-                    {{item.transactions}}
-                  </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.exchangeprice')}}：</span>
-                    <span style="font-weight: bold">
-                      {{item.price}}
-                    </span>
-                    CNY
-                  </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.exchangelimit')}}：</span>
-                    {{item.minLimit}}-{{item.maxLimit}} CNY
-                  </div>
-                  <div class="trade-info">
-                    <span>{{$t('otc.index.paymode')}}：</span>{{item.payMode}}
-                  </div>
-                  <div class="tradeBtn">
-                    <Button type="primary" icon="ios-color-wand-outline" size="large" long>{{$t('otc.index.sell')}}{{item.coin}}</Button>
-                  </div>
-                </div>
-              </router-link>
-            </Card>
+                </router-link>
+              </Card>
             </Col>
           </Row>
         </div>
         <div class="morebox">
-          <router-link to="/tradingcenter/coin1buy">{{$t('otc.index.viewmore')}}&gt;&gt;</router-link>
+          <router-link to="/tradingcenter/coin1buy"
+            >{{ $t("otc.index.viewmore") }}&gt;&gt;</router-link
+          >
         </div>
         <!-- adv -->
         <div class="index-bot">
           <div class="ww">
             <Row type="flex" justify="space-around" class="code-row-bg">
               <Col span="5" class="bot_item">
-              <img src="../assets/img/index_bot1.png" alt="">
-              <h5>{{$t('otc.index.bot1')}}</h5>
-              <p>{{$t('otc.index.bot1_tip')}}</p>
+                <img src="../assets/img/index_bot1.png" alt="" />
+                <h5>{{ $t("otc.index.bot1") }}</h5>
+                <p>{{ $t("otc.index.bot1_tip") }}</p>
               </Col>
               <Col span="5" class="bot_item">
-              <img src="../assets/img/index_bot2.png" alt="">
-              <h5>{{$t('otc.index.bot2')}}</h5>
-              <p>{{$t('otc.index.bot2_tip')}}</p>
+                <img src="../assets/img/index_bot2.png" alt="" />
+                <h5>{{ $t("otc.index.bot2") }}</h5>
+                <p>{{ $t("otc.index.bot2_tip") }}</p>
               </Col>
               <Col span="5" class="bot_item">
-              <img src="../assets/img/index_bot3.png" alt="">
-              <h5>{{$t('otc.index.bot3')}}</h5>
-              <p>{{$t('otc.index.bot3_tip')}}</p>
+                <img src="../assets/img/index_bot3.png" alt="" />
+                <h5>{{ $t("otc.index.bot3") }}</h5>
+                <p>{{ $t("otc.index.bot3_tip") }}</p>
               </Col>
             </Row>
           </div>
@@ -130,10 +175,10 @@
   </div>
 </template>
 <script>
-import carouselShow from '../components/carousel'
+import carouselShow from "../components/carousel";
 export default {
   components: {
-    carouselShow
+    carouselShow,
   },
   data() {
     return {
@@ -141,19 +186,17 @@ export default {
       isitem1: true,
       btnList: [
         {
-          text: this.$t('otc.index.ibuy')
+          text: this.$t("otc.index.ibuy"),
         },
         {
-          text: this.$t('otc.index.isell')
+          text: this.$t("otc.index.isell"),
         },
       ],
       cardListBuy0: [],
       cardListBuy1: [],
-    }
+    };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     addClass(index) {
       this.choseBtn = index;
@@ -162,46 +205,49 @@ export default {
       } else {
         this.isitem1 = false;
       }
-      this.getAd(index)
+      this.getAd(index);
     },
     init() {
-      this.$store.state.HeaderActiveName = '1';
-      this.getAd(0)
-      this.getAd(1)
+      this.$store.state.HeaderActiveName = "1";
+      this.getAd(0);
+      this.getAd(1);
     },
     getAd(index) {
       if (index == 0) {
-        this.$http.post(this.host + '/api/advertise/excellent', { 'advertiseType': 0 }).then(response => {
-          var resp = response.body;
-          if (resp.code == 0) {
-            this.cardListBuy0 = resp.data.slice(0, 4)
-          } else if (resp.code == 4000) {
-            this.$Message.success(this.$t('common.logintip'));
-            this.$router.push('/login');
-          } else {
-            // this.$Message.error(resp.message);
-          }
-        })
+        this.$http
+          .post(this.host + "/api/advertise/excellent", { advertiseType: 0 })
+          .then((response) => {
+            var resp = response.body;
+            if (resp.code == 0) {
+              this.cardListBuy0 = resp.data.slice(0, 4);
+            } else if (resp.code == 4000) {
+              this.$Message.success(this.$t("common.logintip"));
+              this.$router.push("/login");
+            } else {
+              // this.$Message.error(resp.message);
+            }
+          });
       } else if (index == 1) {
-        this.$http.post(this.host + '/api/advertise/excellent', { 'advertiseType': 1 }).then(response => {
-          var resp = response.body;
-          if (resp.code == 0) {
-            this.cardListBuy1 = resp.data.slice(0, 4)
-          } else if (resp.code == 4000) {
-            this.$Message.success(this.$t('common.logintip'));
-            this.$router.push('/login');
-          } else {
-            // this.$Message.error(resp.message);
-          }
-        })
+        this.$http
+          .post(this.host + "/api/advertise/excellent", { advertiseType: 1 })
+          .then((response) => {
+            var resp = response.body;
+            if (resp.code == 0) {
+              this.cardListBuy1 = resp.data.slice(0, 4);
+            } else if (resp.code == 4000) {
+              this.$Message.success(this.$t("common.logintip"));
+              this.$router.push("/login");
+            } else {
+              // this.$Message.error(resp.message);
+            }
+          });
       }
-
-    }
+    },
   },
   created: function() {
     this.init();
   },
-}
+};
 </script>
 <style>
 .morebox {
@@ -217,7 +263,7 @@ export default {
 }
 
 .index-bot {
-  background: #F9F9FB;
+  background: #f9f9fb;
   padding: 80px 0;
 }
 
@@ -228,7 +274,7 @@ export default {
 
 .bot_item h5 {
   font-size: 20px;
-  color: #0B0D1B;
+  color: #0b0d1b;
   line-height: 50px;
   margin-top: 40px;
 }
@@ -263,11 +309,11 @@ export default {
 }
 
 .card-item:hover .user-avatar-public {
-  box-shadow: 0 1px 5px 0 #F55F45;
+  box-shadow: 0 1px 5px 0 #f55f45;
 }
 
-.adv_box .user-avatar-public>.user-avatar-in {
-  background: #131F31;
+.adv_box .user-avatar-public > .user-avatar-in {
+  background: #131f31;
   border-radius: 50%;
   height: 110px;
   width: 110px;
@@ -278,11 +324,11 @@ export default {
   margin-right: 0;
 }
 
-.card-item:hover .user-avatar-public>.user-avatar-in {
-  background: #F55F45;
+.card-item:hover .user-avatar-public > .user-avatar-in {
+  background: #f55f45;
 }
 
-.user-avatar-public>.user-states {
+.user-avatar-public > .user-states {
   height: 14px;
   width: 14px;
   border-radius: 50%;
@@ -295,14 +341,14 @@ export default {
   align-items: center;
 }
 
-.user-avatar-public>.user-states>.circles {
+.user-avatar-public > .user-states > .circles {
   height: 8px;
   width: 8px;
   border-radius: 50%;
   background-color: #00c481;
 }
 
-.user-avatar-public>.user-states.not-online>.circles {
+.user-avatar-public > .user-states.not-online > .circles {
   background-color: #b6bab9;
 }
 
@@ -318,7 +364,7 @@ export default {
 }
 
 .trade-item .trade-body .user-info {
-  background: rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, 0.16);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -340,7 +386,7 @@ export default {
 }
 
 .trade-item {
-  color: #0D214D;
+  color: #0d214d;
   text-align: left;
 }
 
@@ -420,7 +466,8 @@ export default {
   display: inline-block;
 }
 
-#cont {}
+#cont {
+}
 
 .advBtn {
   text-align: center;
@@ -439,7 +486,7 @@ export default {
 h1.advH {
   text-align: center;
   font-size: 24px;
-  color: #0D214D;
+  color: #0d214d;
   font-weight: normal;
   line-height: 80px;
 }
@@ -454,5 +501,3 @@ h1.advH {
   padding: 0 20px;
 }
 </style>
-
-

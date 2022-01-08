@@ -89,7 +89,7 @@
     </div>
     <div class="app_bottom_reg">
         <div class="left_logo">
-          <img style="float:left;" src="../../assets/images/applogo.png"></img>
+          <img style="float:left;" src="../../assets/images/applogo.png" />
           <div style="float:left;height: 40px;line-height:40px;color:#000;">{{$t("cms.downloadslogan")}}</div>
         </div>
         <div class="right_btn_wrap"><router-link to="/app" class="right_btn">{{$t("cms.download")}}</router-link></div>

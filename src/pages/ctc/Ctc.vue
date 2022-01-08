@@ -230,7 +230,7 @@
                   <span style="color:rgb(190, 190, 190);font-size:12px;">收款码：</span>
                 </div>
                 <div style="float:left;margin-left:20px;width: 100%;margin-top: 10px;text-align:center;">
-                  <img :src="detailOrder.alipay.qrCodeUrl" style="width: 300px;height:400px;"></img>
+                  <img :src="detailOrder.alipay.qrCodeUrl" style="width: 300px;height:400px;" />
                 </div>
               </Col>
 
@@ -243,7 +243,7 @@
                   <span style="color:rgb(190, 190, 190);font-size:12px;">收款码：</span>
                 </div>
                 <div style="float:left;margin-left:20px;width: 100%;margin-top: 10px;text-align:center;">
-                  <img :src="detailOrder.wechatPay.qrWeCodeUrl" style="width: 300px;height:400px;"></img>
+                  <img :src="detailOrder.wechatPay.qrWeCodeUrl" style="width: 300px;height:400px;" />
                 </div>
               </Col>
           </Row>

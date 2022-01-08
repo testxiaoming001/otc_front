@@ -28,7 +28,7 @@
                       $t("header.exchange")
                     }}</MenuItem>
                   </router-link>
-                  <router-link to="/ctc">
+                  <!-- <router-link to="/ctc">
                     <MenuItem name="nav-ctc">{{ $t("header.ctc") }}</MenuItem>
                   </router-link>
                   <router-link to="/otc/trade/usdt" style="display:none;">
@@ -51,7 +51,7 @@
                     <MenuItem name="nav-whitepaper">{{
                       $t("header.whitepaper")
                     }}</MenuItem>
-                  </router-link>
+                  </router-link> -->
                 </Submenu>
               </Menu>
             </div>

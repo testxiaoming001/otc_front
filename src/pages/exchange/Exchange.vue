@@ -236,10 +236,10 @@
       </div>
       <div class="left plate-wrap" style="position:relative;">
         <div class="lightning-panel" v-if="showCountDown" :style="{backgroundColor:countDownBgColor}">
-          <img v-if="lang == '简体中文' && publishType=='FENTAN'" src="../../assets/images/lightning-bg.png"></img>
-          <img v-if="lang == 'English' && publishType=='FENTAN'" src="../../assets/images/lightning-bg-en.png"></img>
-          <img v-if="lang == '简体中文' && publishType=='QIANGGOU'" src="../../assets/images/lightning-bg2.png"></img>
-          <img v-if="lang == 'English' && publishType=='QIANGGOU'" src="../../assets/images/lightning-bg2-en.png"></img>
+          <img v-if="lang == '简体中文' && publishType=='FENTAN'" src="../../assets/images/lightning-bg.png" />
+          <img v-if="lang == 'English' && publishType=='FENTAN'" src="../../assets/images/lightning-bg-en.png" />
+          <img v-if="lang == '简体中文' && publishType=='QIANGGOU'" src="../../assets/images/lightning-bg2.png" />
+          <img v-if="lang == 'English' && publishType=='QIANGGOU'" src="../../assets/images/lightning-bg2-en.png" />
           <div class="l-content">
             <BZCountDown style="width:100%;margin-top:5px;"
                     :countDownBgColor.sync="countDownBgColor"

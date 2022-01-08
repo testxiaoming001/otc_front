@@ -2,7 +2,7 @@
   <div class="login_form app-download">
     <div class="login_right">
       <div style="color: #000;margin-bottom: 60px;padding-top: 160px;width: 100%;text-align:center;z-index: 10;">
-        <img src="../../assets/images/applogo.png" style="width: 22%;border-radius: 15px;"></img>
+        <img src="../../assets/images/applogo.png" style="width: 22%;border-radius: 15px;" />
         <p style="font-size:18px;">币严</p>
         <p style="font-size:12px;margin-top: 10px;color:#888;">最新版本：v{{version}}</p>
         <p style="font-size:10px;margin-top: 10px;color:#888;letter-spacing: 1px;">发布时间：{{publishTime}}</p>
@@ -44,7 +44,7 @@
       </ul>
     </div>
 
-    <div class="cover" id="cover" @click="coverClick"><img src="https://bizzan.oss-cn-hangzhou.aliyuncs.com/2019/appdowncover.png"></img></div>
+    <div class="cover" id="cover" @click="coverClick"><img src="https://bizzan.oss-cn-hangzhou.aliyuncs.com/2019/appdowncover.png" /></div>
   </div>
 </template>
 <style scoped lang="scss">
