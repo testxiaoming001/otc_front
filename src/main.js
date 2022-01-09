@@ -29,7 +29,7 @@ Vue.use(VueI18n);
 Vue.prototype.rootHost = ""; //BIZZAN
 Vue.prototype.host = ""; //BIZZAN
 
-Vue.prototype.apiHost = process.env.NODE_ENV === 'production'? "http://148.66.134.184:83/apiv1":'/v2'; //BIZZAN
+Vue.prototype.apiHost = process.env.NODE_ENV === 'production'? "http://182.254.134.147:8032/apiv1":'/v2'; //BIZZAN
 
 Vue.prototype.api = Api;
 Vue.http.options.credentials = true;

@@ -116,8 +116,7 @@
         <FormItem prop="code">
           <Input type="text" v-model="formInline.code" :placeholder="$t('uc.regist.smscode')">
           </Input>
-          <input id="sendCode" @click="sendCode();" type="Button" :value="sendcodeValue" :disabled="codeIsSending">
-          </input>
+          <input id="sendCode" @click="sendCode();" type="Button" :value="sendcodeValue" :disabled="codeIsSending" />
         </FormItem>
         <FormItem>
           <Input type="password" v-model="formInline.fundpwd" :placeholder="$t('otc.chat.msg7')"></Input>
@@ -572,7 +571,6 @@ export default {
         display: block;
         margin-right: 0;
         a {
-          display: inline-block;
           color: #f0a70a;
           width: 160px;
           height: 40px;

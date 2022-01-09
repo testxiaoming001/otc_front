@@ -473,6 +473,7 @@ module.exports = {
             zfb: 'Alipay',
             wx: 'Wechat',
             unionpay: 'UnionPay',
+            other: 'other',
             submit_failure: 'Failure!',
             submittip1: 'Please proceed with a series of certifications such as real names',
             submittip2: 'Please conduct a series of certifications such as mobile phones',

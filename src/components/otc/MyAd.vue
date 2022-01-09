@@ -49,6 +49,12 @@ export default {
           align: "center",
         },
         {
+          title: self.$t("otc.publishad.title"),
+          key: "title",
+          width: 100,
+          align: "center",
+        },
+        {
           title: self.$t("otc.myad.type"),
           key: "ad_type",
           width: 90,
@@ -74,23 +80,26 @@ export default {
             ]);
           },
         },
+        // {
+        //   title: self.$t("otc.myad.remain"),
+        //   key: "remainAmount",
+        //   width: 90,
+        //   align: "center",
+        // },
+        // {
+        //   title: self.$t("otc.myad.coin"),
+        //   key: "coinUnit",
+        //   width: 100,
+        //   align: "center",
+        // },
         {
-          title: self.$t("otc.myad.remain"),
-          key: "remainAmount",
-          width: 90,
-          align: "center",
-        },
-        {
-          title: self.$t("otc.myad.coin"),
-          key: "coinUnit",
+          title: self.$t("otc.publishad.isEnable"),
+          key: "is_able",
           width: 100,
           align: "center",
-        },
-        {
-          title: self.$t("otc.myad.created"),
-          key: "createTime",
-          width: 160,
-          align: "center",
+          render: (h, params) => {
+            return h("div", [h("p", params.row.is_able ? "启用" : "禁用")]);
+          },
         },
         {
           title: self.$t("otc.myad.operate"),
@@ -109,10 +118,7 @@ export default {
                       } else {
                         self.$router.push({
                           path: "/uc/ad/update",
-                          query: {
-                            id: params.row.trade_ad_id,
-                            row: params.row,
-                          },
+                          query: params.row,
                         });
                       }
                     },
@@ -133,62 +139,62 @@ export default {
                   ),
                 ]
               ),
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "primary",
-                    size: "small",
-                  },
-                  style: {
-                    marginRight: "8px",
-                  },
-                  on: {
-                    click: () => {
-                      //要上架
-                      if (params.row.status == 1) {
-                        let canshu = {};
-                        canshu["id"] = params.row.id;
-                        // canshu['status'] = params.row.status == 0 ? 1 : 0
-                        self.$http
-                          .post(self.host + "/otc/advertise/on/shelves", canshu)
-                          .then((response) => {
-                            var resp = response.body;
-                            if (resp.code == 0) {
-                              self.$Message.success(resp.message);
-                              // self.$router.go(0)
-                              self.getAd();
-                            } else {
-                              self.$Message.error(resp.message);
-                            }
-                          });
-                      } else if (params.row.status == 0) {
-                        let canshu = {};
-                        canshu["id"] = params.row.id;
-                        // canshu['status'] = params.row.status == 0 ? 1 : 0
-                        self.$http
-                          .post(
-                            self.host + "/otc/advertise/off/shelves",
-                            canshu
-                          )
-                          .then((response) => {
-                            var resp = response.body;
-                            if (resp.code == 0) {
-                              self.$Message.success(resp.message);
-                              // self.$router.go(0)
-                              self.getAd();
-                            } else {
-                              self.$Message.error(resp.message);
-                            }
-                          });
-                      }
-                    },
-                  },
-                },
-                params.row.status == 0
-                  ? self.$t("otc.myad.dropoff")
-                  : self.$t("otc.myad.shelf")
-              ),
+              // h(
+              //   "Button",
+              //   {
+              //     props: {
+              //       type: "primary",
+              //       size: "small",
+              //     },
+              //     style: {
+              //       marginRight: "8px",
+              //     },
+              //     on: {
+              //       click: () => {
+              //         //要上架
+              //         if (params.row.status == 1) {
+              //           let canshu = {};
+              //           canshu["id"] = params.row.id;
+              //           // canshu['status'] = params.row.status == 0 ? 1 : 0
+              //           self.$http
+              //             .post(self.host + "/otc/advertise/on/shelves", canshu)
+              //             .then((response) => {
+              //               var resp = response.body;
+              //               if (resp.code == 0) {
+              //                 self.$Message.success(resp.message);
+              //                 // self.$router.go(0)
+              //                 self.getAd();
+              //               } else {
+              //                 self.$Message.error(resp.message);
+              //               }
+              //             });
+              //         } else if (params.row.status == 0) {
+              //           let canshu = {};
+              //           canshu["id"] = params.row.id;
+              //           // canshu['status'] = params.row.status == 0 ? 1 : 0
+              //           self.$http
+              //             .post(
+              //               self.host + "/otc/advertise/off/shelves",
+              //               canshu
+              //             )
+              //             .then((response) => {
+              //               var resp = response.body;
+              //               if (resp.code == 0) {
+              //                 self.$Message.success(resp.message);
+              //                 // self.$router.go(0)
+              //                 self.getAd();
+              //               } else {
+              //                 self.$Message.error(resp.message);
+              //               }
+              //             });
+              //         }
+              //       },
+              //     },
+              //   },
+              //   params.row.status == 0
+              //     ? self.$t("otc.myad.dropoff")
+              //     : self.$t("otc.myad.shelf")
+              // ),
               h(
                 "Button",
                 {
@@ -198,30 +204,31 @@ export default {
                   },
                   on: {
                     click: () => {
-                      let canshu = {};
-                      canshu["id"] = params.row.id;
-
-                      if (params.row.status == 1) {
+                      let reqData = {
+                        id: params.row.trade_ad_id,
+                        token: localStorage.getItem("TOKEN"),
+                      };
+                      // if (params.row.status == 1) {
                         self.$Modal.confirm({
                           title: self.$t("common.tip"),
                           content: "<p>" + self.$t("common.delete") + "</p>",
                           onOk: () => {
                             self.$http
-                              .post(self.host + "/otc/advertise/delete", canshu)
+                              .post(self.apiHost + "/user/del_adv", reqData)
                               .then((response) => {
                                 var resp = response.body;
-                                if (resp.code == 0) {
-                                  self.$Message.success(resp.message);
+                                if (resp.code == 1) {
+                                  self.$Message.success(resp.msg);
                                   self.remove(params.index);
                                 } else {
-                                  self.$Message.error(resp.message);
+                                  self.$Message.error(resp.msg);
                                 }
                               });
                           },
                         });
-                      } else {
-                        self.$Message.error("下架广告后才可以删除！");
-                      }
+                      // } else {
+                      //   self.$Message.error("下架广告后才可以删除！");
+                      // }
                     },
                   },
                 },

@@ -5,15 +5,23 @@
         <div class="to_business">
           <h3>法币交易</h3>
           <span>便捷、安全、快速买卖数字货币</span>
-          <a href="javascript:void(0)" @click="goBusiness">成为商家</a>
+          <!-- <a href="javascript:void(0)" @click="goBusiness">成为商家</a> -->
           <!-- <router-link to="/identbusiness">成为商家</router-link> -->
         </div>
       </div>
       <div class="content">
-        <Menu ref="navMenu" mode="horizontal" width="auto" :active-name="activeMenuName" @on-select="menuSelected" class='tradelist'>
+        <Menu
+          ref="navMenu"
+          mode="horizontal"
+          width="auto"
+          :active-name="activeMenuName"
+          @on-select="menuSelected"
+          class="tradelist"
+        >
           <MenuGroup>
-            <template v-for="(coin,index) in coins">
-              <MenuItem :name="'coin-'+index"> {{coin.unit}}
+            <template v-for="(coin, index) in coins">
+              <MenuItem :name="'coin-' + index" :key="index">
+                {{ coin.unit }}
               </MenuItem>
             </template>
           </MenuGroup>
@@ -23,24 +31,40 @@
       <div class="advantage">
         <ul>
           <li>
-            <div class="image"><img src="../../assets/images/price.png" alt=""></div>
+            <div class="image">
+              <img src="../../assets/images/price.png" alt="" />
+            </div>
             <div class="title">市场一口价</div>
             <div class="content1">根据市场价格实时波动</div>
           </li>
           <li>
-            <div class="image"><img src="../../assets/images/poundage.png" alt=""></div>
+            <div class="image">
+              <img src="../../assets/images/poundage.png" alt="" />
+            </div>
             <div class="title">完全免手续费</div>
-            <div class="content1">用户所见即所得，买卖价格外，无需任何平台手续费</div>
-            <li>
-              <div class="image"><img src="../../assets/images/instant.png" alt=""></div>
-              <div class="title">即时成交</div>
-              <div class="content1">引入平台服务商家，智能匹配，成交订单，无须等待撮合</div>
-            </li>
-            <li>
-              <div class="image"><img src="../../assets/images/platedanbao.png" alt=""></div>
-              <div class="title">平台担保</div>
-              <div class="content1">平台认证商家，安全有保障，24小时客服为交易保驾护航</div>
-            </li>
+            <div class="content1">
+              用户所见即所得，买卖价格外，无需任何平台手续费
+            </div>
+          </li>
+
+          <li>
+            <div class="image">
+              <img src="../../assets/images/instant.png" alt="" />
+            </div>
+            <div class="title">即时成交</div>
+            <div class="content1">
+              引入平台服务商家，智能匹配，成交订单，无须等待撮合
+            </div>
+          </li>
+          <li>
+            <div class="image">
+              <img src="../../assets/images/platedanbao.png" alt="" />
+            </div>
+            <div class="title">平台担保</div>
+            <div class="content1">
+              平台认证商家，安全有保障，24小时客服为交易保驾护航
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -176,23 +200,23 @@ export default {
   data() {
     return {
       coins: [],
-      activeMenuName: "coin-1"
+      activeMenuName: "coin-1",
     };
   },
   computed: {
     isLogin: function() {
       return this.$store.getters.isLogin;
-    }
+    },
   },
-  watch:{
+  watch: {
     $route(to, from) {
       this.activeMenu();
-    }
+    },
   },
   methods: {
     init() {
       this.$store.commit("navigate", "nav-otc");
-      this.$http.post(this.host + this.api.otc.coin).then(response => {
+      this.$http.post(this.host + this.api.otc.coin).then((response) => {
         if (response.body.code == 0) {
           this.coins = response.body.data;
           this.activeMenu();
@@ -205,7 +229,7 @@ export default {
     goBusiness() {
       if (this.isLogin) {
         this.$router.push({
-          path: "/identbusiness"
+          path: "/identbusiness",
         });
       } else {
         this.$Message.warning("请先登录");
@@ -222,17 +246,17 @@ export default {
     activeMenu() {
       let coin = this.$route.params[0] || "USDT";
       coin = coin.toUpperCase();
-      let index=0;
-      this.coins.forEach((v,i)=>{
-        if(v.unit===coin){
-          index=i;
+      let index = 0;
+      this.coins.forEach((v, i) => {
+        if (v.unit === coin) {
+          index = i;
         }
-      })
+      });
       this.activeMenuName = `coin-${index}`;
       this.$nextTick(function() {
         this.$refs.navMenu.updateActiveName();
       });
-    }
+    },
   },
   created: function() {
     this.init();
@@ -240,6 +264,6 @@ export default {
     // this.$nextTick(function() {
     //   this.$refs.navMenu.updateActiveName();
     // });
-  }
+  },
 };
 </script>

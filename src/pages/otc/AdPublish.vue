@@ -192,7 +192,18 @@
                   >
                 </Select>
               </FormItem>
-
+              <FormItem
+                :label="$t('otc.publishad.usdtprice')"
+                prop="price"
+                class="ivu-form-item-required"
+              >
+                <Input
+                  v-model="form.price"
+                  :placeholder="$t('otc.publishad.usdtprice')"
+                >
+                  <span slot="append">{{ form.rmb }}</span>
+                </Input>
+              </FormItem>
               <FormItem :label="$t('otc.publishad.minlimit')" prop="minLimit">
                 <Input
                   v-model="form.minLimit"
@@ -216,6 +227,12 @@
                   :autosize="{ minRows: 4, maxRows: 6 }"
                   :placeholder="$t('otc.publishad.tip5')"
                 ></Input>
+              </FormItem>
+              <FormItem :label="$t('otc.publishad.isEnable')" prop="is_able">
+                <RadioGroup v-model="form.is_able">
+                  <Radio label="1">{{ $t("otc.publishad.enable") }}</Radio>
+                  <Radio label="0">{{ $t("otc.publishad.noEnable") }}</Radio>
+                </RadioGroup>
               </FormItem>
               <!--
               <FormItem :label="$t('otc.publishad.openautoreply')">
@@ -302,10 +319,18 @@ export default {
       }
     };
     const maxCheck = (rule, value, callback) => {
-      let priceNow =
-        (this.price + "").replace(/,/g, "").replace(/[^\d|.]/g, "") - 0;
-      priceNow = this.round(this.mul(priceNow, this.form.number), 8);
-
+      let priceNow;
+      // TODO 这里逻辑奇奇怪怪，先屏蔽报错，之后bugfix修复
+      try {
+        priceNow =
+          (this.price || 0 + "").replace(/,/g, "").replace(/[^\d|.]/g, "") - 0;
+        priceNow = this.round(
+          this.mul(priceNow || 0, this.form.number || 0),
+          8
+        );
+      } catch (error) {
+        console.log(error);
+      }
       if (!value || value == 0) {
         return callback(new Error(this.$t("otc.publishad.warning3")));
       } else if (!/^[0-9]+(.[0-9]{2})?$/.test(value)) {
@@ -398,6 +423,8 @@ export default {
         remark: "",
         priceW: "",
         autoword: "",
+        is_able: "1",
+        price:''
       },
       ruleValidate: {
         advertiseType: [{ required: true, trigger: "change" }],
@@ -473,18 +500,23 @@ export default {
       },
       payModeList: [
         {
-          value: this.$t("otc.publishad.zfb"),
+          value: "zfb",
           label: this.$t("otc.publishad.zfb"),
           isOpen: true,
         },
         {
-          value: this.$t("otc.publishad.wx"),
+          value: "wx",
           label: this.$t("otc.publishad.wx"),
           isOpen: true,
         },
         {
-          value: this.$t("otc.publishad.unionpay"),
+          value: "bank",
           label: this.$t("otc.publishad.unionpay"),
+          isOpen: true,
+        },
+        {
+          value: "other",
+          label: this.$t("otc.publishad.other"),
           isOpen: true,
         },
       ],
@@ -545,7 +577,7 @@ export default {
         if (valid) {
           this.disAllowBtn = true;
           let form = this.form;
-          //创建
+          //创建 or 修改
           var params = {
             token: localStorage.getItem("TOKEN"),
             title: form.title,
@@ -553,43 +585,21 @@ export default {
             high_limit: form.maxLimit,
             low_limit: form.minLimit,
             text: form.remark,
-            payMode: form.payMode,
+            pay_way_zfb: form.payMode.includes("zfb") ? 1 : 0,
+            pay_way_wx: form.payMode.includes("wx") ? 1 : 0,
+            pay_way_bank: form.payMode.includes("bank") ? 1 : 0,
+            pay_way_other: form.payMode.includes("other") ? 1 : 0,
+            is_able: form.is_able,
+            note: form.remark,
+            price: form.price,
           };
-          console.clear();
-          console.log(this.form);
-          //修改
-          var isIdparams = {
-            token: localStorage.getItem("TOKEN"),
-          };
-          isIdparams["id"] = this.$route.query.id;
-          isIdparams["advertiseType"] = this.form.advertiseType;
-          isIdparams["price"] = (this.price + "").replace(/[^\d|.]/g, "") - 0;
-          isIdparams["coin.id"] = this.form.coin;
-          isIdparams["minLimit"] = this.form.minLimit;
-          isIdparams["maxLimit"] = this.form.maxLimit;
-          isIdparams["timeLimit"] = this.form.timeLimit;
-          isIdparams["country"] = this.form.country;
-          if (this.form.fixed == true) {
-            isIdparams["priceType"] = 0;
-          } else if (this.form.fixed == false) {
-            isIdparams["priceType"] = 1;
+          if (this.isId) {
+            params.id = this.$route.query.trade_ad_id;
           }
-          isIdparams["premiseRate"] = this.form.premisePrice;
-          isIdparams["remark"] = this.form.remark;
-          isIdparams["number"] = this.form.number;
-          isIdparams["pay"] = this.form.payMode;
-          isIdparams["jyPassword"] = this.form.priceW;
-          if (this.form.autoReply == true) {
-            isIdparams["auto"] = 1;
-          } else if (this.form.autoReply == false) {
-            isIdparams["auto"] = 0;
-          }
-          isIdparams["autoword"] = this.form.autoword;
-
           this.$http
             .post(
               this.apiHost + (this.isId ? "/user/edit_advs" : "/user/add_advs"),
-              this.isId ? isIdparams : params
+              params
             )
             .then((response) => {
               var resp = response.body;
@@ -708,47 +718,34 @@ export default {
           }
         });
     },
+    // TODO
     getDetailAd() {
       this.isId = true;
       this.isSpinShow = false;
-      this.form = Object.assign({}, this.$route.query.row);
-      // this.$http
-      //   .post(this.apiHost + "/user/adv_lists ", { id: this.$route.query.id })
-      //   .then((response) => {
-      //     var resp = response.body;
-      //     if (resp.code == 0) {
-      //       this.form.coin = resp.data.coinId + "";
-      //       this.form.country = resp.data.country.zhName;
-      //       this.cankao = resp.data.marketPrice + "";
-      //       if (resp.data.priceType == 0) {
-      //         this.form.fixed = true;
-      //         this.form.fixedPrice = resp.data.price;
-      //       } else if (resp.data.priceType == 1) {
-      //         this.form.fixed = false;
-      //       }
-      //       this.price = resp.data.price;
-      //       this.symbol = resp.data.coinUnit;
-      //       // this.price = resp.data.price + ' CNY/' + resp.data.coinUnit;
-      //       this.form.advertiseType = resp.data.advertiseType + "";
-      //       this.form.minLimit = resp.data.minLimit;
-      //       this.form.maxLimit = resp.data.maxLimit;
-      //       this.form.remark = resp.data.remark;
-      //       this.form.timeLimit = resp.data.timeLimit;
-      //       this.form.premisePrice = resp.data.premiseRate;
-      //       this.form.payMode = (resp.data.payMode + "").split(",");
-      //       // console.log(this.form.payMode)
-      //       this.form.number = resp.data.number;
-      //       if (resp.data.auto == 1) {
-      //         this.form.autoReply = true;
-      //       } else if (resp.data.auto == 0) {
-      //         this.form.autoReply = false;
-      //       }
-      //       this.form.autoword = resp.data.autoword;
-      //     } else {
-      //       // this.$Message.error(resp.message);
-      //     }
-      //     this.isSpinShow = false;
-      //   });
+      let row = this.$route.query;
+      let payMode = [];
+      if (+row.pay_way_zfb) {
+        payMode.push("zfb");
+      }
+      if (+row.pay_way_wx) {
+        payMode.push("wx");
+      }
+      if (+row.pay_way_bank) {
+        payMode.push("bank");
+      }
+      if (+row.pay_way_other) {
+        payMode.push("other");
+      }
+      this.form = Object.assign(
+        {
+          advertiseType: "1",
+          payMode,
+          minLimit: +row.low_limit,
+          maxLimit: +row.high_limit,
+          remark: row.note,
+        },
+        row
+      );
     },
   },
   mounted() {},
@@ -776,7 +773,6 @@ export default {
     premisePriceHistory(newValue, oldValue) {
       // let lv = (1 + newValue / 100).toFixed(4);
       // let cankoNew = this.cankao.replace(/,/g, "").replace(/[^\d|.]/g, "") - 0;
-
       // // this.price = (cankoNew * lv).toLocaleString() + ' CNY/' + this.findCoin(this.form.coin);
       // // this.price = this.round(this.mul(cankoNew, lv), 2).toLocaleString() + ' CNY/' + this.findCoin(this.form.coin);
       // this.price = this.round(this.mul(cankoNew, lv), 2).toLocaleString();
@@ -801,7 +797,7 @@ export default {
     this.cankao = 100;
     this.price = 100;
     this.symbol = "USDT";
-    if (this.$route.query.id) {
+    if (this.$route.query.trade_ad_id) {
       this.getDetailAd();
     }
     this.isSpinShow = false;

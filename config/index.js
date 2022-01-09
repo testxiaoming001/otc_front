@@ -67,12 +67,12 @@ module.exports = {
 
     build: {
         // Template for index.html
-        index: path.resolve(__dirname, '../webFront/index.html'),
+        index: path.resolve(__dirname, '../dist/index.html'),
 
         // Paths
-        assetsRoot: path.resolve(__dirname, '../webFront'),
+        assetsRoot: path.resolve(__dirname, '../dist'),
         assetsSubDirectory: './assets/',
-        assetsPublicPath: '/webFront/',
+        assetsPublicPath: '/',
 
         /**
          * Source Maps

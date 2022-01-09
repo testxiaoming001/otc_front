@@ -28,12 +28,13 @@
                       $t("header.exchange")
                     }}</MenuItem>
                   </router-link>
-                  <!-- <router-link to="/ctc">
+                <!-- <router-link to="/ctc">
                     <MenuItem name="nav-ctc">{{ $t("header.ctc") }}</MenuItem>
-                  </router-link>
-                  <router-link to="/otc/trade/usdt" style="display:none;">
+                  </router-link> -->
+                  <router-link to="/otc/trade/usdt">
                     <MenuItem name="nav-otc">{{ $t("header.otc") }}</MenuItem>
                   </router-link>
+                     <!--
                   <router-link to="/lab" style="position:relative;">
                     <MenuItem name="nav-lab">{{ $t("header.lab") }}</MenuItem>
                   </router-link>

@@ -227,6 +227,7 @@
         input50tips: "请输入50~50000之间的数字",
         bank: "银行卡",
         alipay: "支付宝",
+        other: "其他",
         wechatpay: "微信",
         payaccountset: "付款账户设置",
         useselfaccount: "请务必使用与您本人实名认证相符的收款/付款账户",
@@ -405,6 +406,7 @@
             warning5: '请按要求填写订单',
         },
         publishad: {
+            usdtprice:'USDT价格',
             createad: '创建一个广告交易',
             msg1: '如果您经常进行交易，您可以创建自己的交易广告。如果您只是偶尔交易，我们建议您直接搜索',
             msg2: '创建一则交易广告是',
@@ -476,6 +478,10 @@
             zfb: '支付宝',
             wx: '微信',
             unionpay: '银联',
+            other: '其他',
+            isEnable:'是否启用',
+            noEnable:'禁用',
+            enable:'启用',
             submit_failure: '提交失败!',
             submit_success: '',
             submittip1: '为了您的资金安全，请先进行【实名认证】！',
@@ -998,6 +1004,8 @@
             promotion: '邀请码(选填)'
         },
         safe: {
+            tgusername:'纸飞机',
+            tgusernametip:'纸飞机用户绑定',
             safelevel_low: '安全等级：低',
             safelevel_high: '安全等级：高',
             safelevel_medium: '安全等级：中',

@@ -134,7 +134,7 @@
                     </FormItem>
                     <div class="slider-wrap">
                       <Slider class="silder-buy" v-model="sliderBuyLimitPercent" :step="25" show-tip="always" :tip-format="tipFormat" :disabled="sliderBuyDisabled"></Slider>
-                      <div class="slider-stop" v-for="item in sliderStep" :style="'left: '+item+'%;'" @click="silderGo('sliderBuyLimitPercent',item)">
+                      <div class="slider-stop" v-for="(item,itemIndex) in sliderStep" :key="itemIndex" :style="'left: '+item+'%;'" @click="silderGo('sliderBuyLimitPercent',item)">
                         <div class="slider-block"></div>
                       </div>
                     </div>
@@ -160,7 +160,7 @@
                     </FormItem>
                     <div class="slider-wrap">
                       <Slider class="silder-buy" v-model="sliderBuyMarketPercent" :step="25" show-tip="always" :tip-format="tipFormat" :disabled="sliderBuyDisabled"></Slider>
-                      <div class="slider-stop" v-for="item in sliderStep" :style="'left: '+item+'%;'" @click="silderGo('sliderBuyMarketPercent',item)">
+                      <div class="slider-stop" v-for="(item,index2) in sliderStep" :key="index2" :style="'left: '+item+'%;'" @click="silderGo('sliderBuyMarketPercent',item)">
                         <div class="slider-block"></div>
                       </div>
                     </div>
@@ -194,7 +194,7 @@
                     </FormItem>
                     <div class="slider-wrap">
                       <Slider class="silder-sell" v-model="sliderSellLimitPercent" :step="25" show-tip="always" :tip-format="tipFormat" :disabled="sliderSellDisabled"></Slider>
-                      <div class="slider-stop" v-for="item in sliderStep" :style="'left: '+item+'%;'" @click="silderGo('sliderSellLimitPercent',item)">
+                      <div class="slider-stop" v-for="(item,index3) in sliderStep" :key="index3" :style="'left: '+item+'%;'" @click="silderGo('sliderSellLimitPercent',item)">
                         <div class="slider-block"></div>
                       </div>
                     </div>
@@ -220,7 +220,7 @@
                     </FormItem>
                     <div class="slider-wrap">
                       <Slider class="silder-sell" v-model="sliderSellMarketPercent" :step="25" show-tip="always" :tip-format="tipFormat" :disabled="sliderSellDisabled"></Slider>
-                      <div class="slider-stop" v-for="item in sliderStep" :style="'left: '+item+'%;'" @click="silderGo('sliderSellMarketPercent',item)">
+                      <div class="slider-stop" v-for="(item,index4) in sliderStep" :key="index4" :style="'left: '+item+'%;'" @click="silderGo('sliderSellMarketPercent',item)">
                         <div class="slider-block"></div>
                       </div>
                     </div>

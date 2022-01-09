@@ -10,20 +10,54 @@
       <Tabs :value="tabPage" v-model="tabPage">
         <TabPane :label="$t('otc.buyin')" name="buy">
           <div class="table-responsive list-table">
-            <Table :no-data-text="$t('common.nodata')" :border="showBorder" :stripe="showStripe" :show-header="showHeader" :height="fixedHeader ? 250 : ''" :size="tableSize" :data="advertiment.ask.rows" :columns="advertiment.columns" :loading="loading" :disabled-hover="true"></Table>
+            <Table
+              :no-data-text="$t('common.nodata')"
+              :border="showBorder"
+              :stripe="showStripe"
+              :show-header="showHeader"
+              :height="fixedHeader ? 250 : ''"
+              :size="tableSize"
+              :data="advertiment.ask.rows"
+              :columns="advertiment.columns"
+              :loading="loading"
+              :disabled-hover="true"
+            ></Table>
             <div class="page_change">
               <div style="float: right;">
-                <Page v-if="advertiment.ask.totalElement > 0" :pageSize="advertiment.ask.pageNumber" :total="advertiment.ask.totalElement" :current="advertiment.ask.currentPage" @on-change="changePage"></Page>
+                <Page
+                  v-if="advertiment.ask.totalElement > 0"
+                  :pageSize="advertiment.ask.pageNumber"
+                  :total="advertiment.ask.totalElement"
+                  :current="advertiment.ask.currentPage"
+                  @on-change="changePage"
+                ></Page>
               </div>
             </div>
           </div>
         </TabPane>
         <TabPane :label="$t('otc.sellout')" name="sell">
           <div class="table-responsive list-table">
-            <Table :no-data-text="$t('common.nodata')" :border="showBorder" :stripe="showStripe" :show-header="showHeader" :height="fixedHeader ? 250 : ''" :size="tableSize" :data="advertiment.bid.rows" :columns="advertiment.columns" :loading="loading" :disabled-hover="true"></Table>
+            <Table
+              :no-data-text="$t('common.nodata')"
+              :border="showBorder"
+              :stripe="showStripe"
+              :show-header="showHeader"
+              :height="fixedHeader ? 250 : ''"
+              :size="tableSize"
+              :data="advertiment.bid.rows"
+              :columns="advertiment.columns"
+              :loading="loading"
+              :disabled-hover="true"
+            ></Table>
             <div class="page_change">
               <div style="float: right;">
-                <Page v-if="advertiment.bid.totalElement > 0" :pageSize="advertiment.bid.pageNumber" :total="advertiment.bid.totalElement" :current="advertiment.bid.currentPage" @on-change="changePage"></Page>
+                <Page
+                  v-if="advertiment.bid.totalElement > 0"
+                  :pageSize="advertiment.bid.pageNumber"
+                  :total="advertiment.bid.totalElement"
+                  :current="advertiment.bid.currentPage"
+                  @on-change="changePage"
+                ></Page>
               </div>
             </div>
           </div>
@@ -32,7 +66,6 @@
     </section>
   </div>
 </template>
-
 
 <style scoped lang="scss">
 #List .nav-right {
@@ -51,7 +84,7 @@
     color: #fff;
     .ivu-tabs {
       .ivu-tabs-bar {
-        border-bottom:none;
+        border-bottom: none;
         .ivu-tabs-nav-container {
           .ivu-tabs-nav-wrap {
             .ivu-tabs-nav-scroll {
@@ -74,24 +107,24 @@
         .ivu-tabs-tabpane {
           .ivu-table-wrapper {
             border: none;
-            .ivu-table-body{
-              .ivu-table-tbody{
-                .ivu-table-row{
-                  .ivu-table-cell.ivu-table-cell-ellipsis{
-                    .user-face.user-avatar-public{
-                      span{
-                        background:#f0ac19;
+            .ivu-table-body {
+              .ivu-table-tbody {
+                .ivu-table-row {
+                  .ivu-table-cell.ivu-table-cell-ellipsis {
+                    .user-face.user-avatar-public {
+                      span {
+                        background: #f0ac19;
                       }
                     }
-                    p a{
-                      color:#f0ac19;
+                    p a {
+                      color: #f0ac19;
                     }
                   }
                 }
               }
             }
           }
-          .page_change{
+          .page_change {
             margin: 10px;
             overflow: hidden;
           }
@@ -248,7 +281,7 @@
 //   height: 17px;
 //   width: 67px;
 //   display: inline-block;
-  /* background: url("../../images/comm/merchant-flag.png") no-repeat; */
+/* background: url("../../images/comm/merchant-flag.png") no-repeat; */
 // }
 
 // #List .nav-right .list-content .list-table .price p {
@@ -691,7 +724,7 @@
 }
 
 .ivu-table-cell .user-avatar-public {
-  width:45px;
+  width: 45px;
   display: inline-block;
   margin: 10px 10px 10px 0;
   vertical-align: middle;
@@ -734,8 +767,6 @@
 // }
 </style>
 
-
-
 <script>
 export default {
   components: {},
@@ -759,7 +790,7 @@ export default {
           currentPage: 1,
           totalPage: 1,
           pageNumber: 10,
-          totalElement: 0
+          totalElement: 0,
         },
         //买入的广告数据
         bid: {
@@ -767,152 +798,178 @@ export default {
           currentPage: 1,
           totalPage: 1,
           pageNumber: 10,
-          totalElement: 0
+          totalElement: 0,
         },
         columns: [
           {
             title: self.$t("otc.merchant"),
-            key: "memberName",
+            // key: "memberName",
+            key: "user_id",
             // width: 160,
-            ellipsis: true,
-            render: function(h, params) {
-              var avatar = params.row.avatar,
-                haveAvatar = false;
-              var innerCNT = [];
-              if (avatar != null && avatar != "") {
-                innerCNT[0] = h(
-                  "div",
-                  {
-                    attrs: {
-                      class: "user-face user-avatar-public"
-                    }
-                  },
-                  [
-                    h("img", {
-                      attrs: {
-                        src: avatar,
-                        width: "45px",
-                        height: "45px"
-                      },
-                      style: {
-                        "border-radius": "50%"
-                      }
-                    })
-                  ]
-                );
-              } else {
-                innerCNT[0] = h(
-                  "div",
-                  {
-                    attrs: {
-                      class: "user-face user-avatar-public"
-                    }
-                  },
-                  [
-                    h(
-                      "span",
-                      {
-                        attrs: {
-                          class: "user-avatar-in"
-                        }
-                      },
-                      params.row.memberName
-                        .replace(/^\s+|\s+$/g, "")
-                        .slice(0, 1)
-                    )
-                  ]
-                );
-              }
-              innerCNT[1] = h("p", [
-                h(
-                  "a",
-                  {
-                    style: {
-                      marginRight: "8px",
-                      cursor: "pointer",
-                      paddingTop: "5px"
-                    },
-                    class: {
-                      // renzhengA: params.row.renzheng
-                    },
-                    on: {
-                      click: function() {
-                        if (self.isLogin) {
-                          self.$router.push(
-                            "/checkuser?id=" + params.row.memberName
-                          );
-                        } else {
-                          self.$router.push("/login");
-                        }
-                      }
-                    }
-                  },
-                  params.row.memberName
-                  // self.strpro(params.row.memberName)
-                ),
-                h(
-                  "div",
-                  {
-                    class: {
-                      // renzheng: params.row.renzheng
-                    }
-                  },
-                  ""
-                )
-              ]);
-              if (params.row.level == 2)
-                innerCNT[2] = h(
-                  "div",
-                  {
-                    attrs: {
-                      class: "user-business-v"
-                    },
-                    style: {
-                      display: "inline-block",
-                      "vertical-align": "text-top"
-                    }
-                  },
-                  [
-                    h("img", {
-                      attrs: {
-                        src: require("../../assets/images/business_v.png")
-                      }
-                    })
-                  ]
-                );
-              return h("div", innerCNT);
-            }
+            // ellipsis: true,
+            // render: function(h, params) {
+            //   var avatar = params.row.avatar,
+            //     haveAvatar = false;
+            //   var innerCNT = [];
+            //   if (avatar != null && avatar != "") {
+            //     innerCNT[0] = h(
+            //       "div",
+            //       {
+            //         attrs: {
+            //           class: "user-face user-avatar-public",
+            //         },
+            //       },
+            //       [
+            //         h("img", {
+            //           attrs: {
+            //             src: avatar,
+            //             width: "45px",
+            //             height: "45px",
+            //           },
+            //           style: {
+            //             "border-radius": "50%",
+            //           },
+            //         }),
+            //       ]
+            //     );
+            //   } else {
+            //     innerCNT[0] = h(
+            //       "div",
+            //       {
+            //         attrs: {
+            //           class: "user-face user-avatar-public",
+            //         },
+            //       },
+            //       [
+            //         h(
+            //           "span",
+            //           {
+            //             attrs: {
+            //               class: "user-avatar-in",
+            //             },
+            //           },
+            //           params.row.memberName
+            //             .replace(/^\s+|\s+$/g, "")
+            //             .slice(0, 1)
+            //         ),
+            //       ]
+            //     );
+            //   }
+            //   innerCNT[1] = h("p", [
+            //     h(
+            //       "a",
+            //       {
+            //         style: {
+            //           marginRight: "8px",
+            //           cursor: "pointer",
+            //           paddingTop: "5px",
+            //         },
+            //         class: {
+            //           // renzhengA: params.row.renzheng
+            //         },
+            //         on: {
+            //           click: function() {
+            //             if (self.isLogin) {
+            //               self.$router.push(
+            //                 "/checkuser?id=" + params.row.memberName
+            //               );
+            //             } else {
+            //               self.$router.push("/login");
+            //             }
+            //           },
+            //         },
+            //       },
+            //       params.row.memberName
+            //       // self.strpro(params.row.memberName)
+            //     ),
+            //     h(
+            //       "div",
+            //       {
+            //         class: {
+            //           // renzheng: params.row.renzheng
+            //         },
+            //       },
+            //       ""
+            //     ),
+            //   ]);
+            //   if (params.row.level == 2)
+            //     innerCNT[2] = h(
+            //       "div",
+            //       {
+            //         attrs: {
+            //           class: "user-business-v",
+            //         },
+            //         style: {
+            //           display: "inline-block",
+            //           "vertical-align": "text-top",
+            //         },
+            //       },
+            //       [
+            //         h("img", {
+            //           attrs: {
+            //             src: require("../../assets/images/business_v.png"),
+            //           },
+            //         }),
+            //       ]
+            //     );
+            //   return h("div", innerCNT);
+            // },
           },
           {
             title: self.$t("otc.volume"),
             key: "transactions",
-            width:100,
-            align:"center"
+            width: 100,
+            align: "center",
+            render: (h, params) => {
+              return h("div", {}, 1);
+            },
           },
           {
             title: self.$t("otc.paymethod"),
             key: "payMode",
-            align:"center",
+            align: "center",
+            render: (h, params) => {
+              return h(
+                "div",
+                {},
+                params.row.pay_way_zfb
+                  ? "支付宝"
+                  : "" + "-" + params.row.pay_way_wx
+                  ? "微信支付"
+                  : "" + params.row.pay_way_bank
+                  ? "银行卡"
+                  : "" + params.row.pay_way_other
+                  ? "其他"
+                  : ""
+              );
+            },
             // width:130
           },
           {
-            align:"center",
+            align: "center",
             title: self.$t("otc.amount"),
-            key: "remainAmount"
+            key: "remainAmount",
+            render: (h, params) => {
+              return h("div", {}, 1);
+            },
           },
           {
-            title:"限额",
-            align:'center',
-            render:(h, params)=>{
-              return h('div',{},params.row.minLimit + "-" + params.row.maxLimit + "CNY")
-            }
+            title: "限额",
+            align: "center",
+            render: (h, params) => {
+              return h(
+                "div",
+                {},
+                params.row.low_limit + "-" + params.row.high_limit + "CNY"
+              );
+            },
           },
           {
-            title:"单价",
-            align:'center',
-            render:(h, params)=>{
-              return h('div',{},params.row.price + "CNY")
-            }
+            title: "单价",
+            align: "center",
+            render: (h, params) => {
+              return h("div", {}, params.row.price + "CNY");
+            },
           },
           // {
           //   title: self.$t("otc.price_coin"),
@@ -944,33 +1001,36 @@ export default {
           {
             title: self.$t("otc.operate"),
             key: "buyBtn",
-            width:70,
-            align:"center",
+            width: 70,
+            align: "center",
             render: function(h, params) {
               return h("p", [
                 h(
                   "a",
                   {
                     style: {
-                      color: params.row.advertiseType == 0 ? "#f15057" : "#00b275",
+                      color:
+                        params.row.advertiseType == 0 ? "#f15057" : "#00b275",
                     },
                     on: {
                       click: () => {
                         if (!self.isLogin) {
                           self.$router.push("/login");
-                        } else if (!self.member.realName) {
-                          //                                            } else if (!self.member.memberLevel) {
-                          self.$Message.error(self.$t("otc.validate"));
-                          setTimeout(() => {
-                            self.$router.push("/uc/safe");
-                          }, 2000);
-                        } else {
+                        }
+                        // else if (!self.member.realName) {
+                        //   //                                            } else if (!self.member.memberLevel) {
+                        //   self.$Message.error(self.$t("otc.validate"));
+                        //   setTimeout(() => {
+                        //     self.$router.push("/uc/safe");
+                        //   }, 2000);
+                        // }
+                        else {
                           self.$router.push(
-                            "/otc/tradeInfo?tradeId=" + params.row.advertiseId
+                            "/otc/tradeInfo?tradeId=" + params.row.trade_ad_id
                           );
                         }
-                      }
-                    }
+                      },
+                    },
                   },
                   // [
                   //   h(
@@ -986,17 +1046,17 @@ export default {
                   //         width: "80%",
                   //       }
                   //     },
-                      params.row.advertiseType == 0
-                        ? self.$t("otc.sell")
-                        : self.$t("otc.buy")
-                    // )
+                  params.row.advertiseType == 0
+                    ? self.$t("otc.sell")
+                    : self.$t("otc.buy")
+                  // )
                   // ]
-                )
+                ),
               ]);
-            }
-          }
-        ]
-      }
+            },
+          },
+        ],
+      },
     };
   },
   computed: {
@@ -1011,7 +1071,7 @@ export default {
     },
     lang: function() {
       return this.$store.state.lang;
-    }
+    },
   },
   watch: {
     coin: function() {
@@ -1019,7 +1079,7 @@ export default {
     },
     lang: function() {
       this.updateLangData();
-    }
+    },
   },
   methods: {
     updateLangData() {
@@ -1031,29 +1091,53 @@ export default {
       this.advertiment.columns[2].title = this.$t("otc.operate");
     },
     loadAd(pageNo, advertiseType, table) {
-      //获取广告
-      let params = {};
-      table.rows = [];
-      table.totalElement = 0;
-      table.currentPage = pageNo;
-      params["pageNo"] = pageNo;
-      params["pageSize"] = table.pageNumber;
-      params["advertiseType"] = advertiseType;
-      params["unit"] = this.coin;
-      this.$http
-        .post(this.host + this.api.otc.advertise, params)
-        .then(response => {
-          var resp = response.body;
-          if (resp.code == 0) {
-            if (resp.data.context) {
-              table.rows = resp.data.context;
-              table.totalElement = resp.data.totalElement;
+      if (advertiseType === 0) {
+        //获取广告
+        let params = {};
+        table.rows = [];
+        table.totalElement = 0;
+        table.currentPage = pageNo;
+        params["pageNo"] = pageNo;
+        params["pageSize"] = table.pageNumber;
+        params["advertiseType"] = advertiseType;
+        params["unit"] = this.coin;
+        params["token"] = localStorage.getItem("TOKEN");
+        this.$http
+          .post(this.apiHost + "/user/adv_lists", params)
+          .then((response) => {
+            var resp = response.body;
+            if (resp.code == 1) {
+              table.rows = resp.data;
+              table.totalElement = resp.data.length;
+            } else {
+              this.$Message.error(resp.msg);
             }
-          } else {
-            // this.$Message.error(resp.message);
-          }
-          this.loading = false;
-        });
+            this.loading = false;
+          });
+      } else {
+        //获取广告
+        let params = {};
+        table.rows = [];
+        table.totalElement = 0;
+        table.currentPage = pageNo;
+        params["pageNo"] = pageNo;
+        params["pageSize"] = table.pageNumber;
+        params["advertiseType"] = advertiseType;
+        params["unit"] = this.coin;
+        params["token"] = localStorage.getItem("TOKEN");
+        this.$http
+          .post(this.apiHost + "/Usdt_order/order_list", params)
+          .then((response) => {
+            var resp = response.body;
+            if (resp.code == 1) {
+              table.rows = resp.data;
+              table.totalElement = resp.data.length;
+            } else {
+              this.$Message.error(resp.msg);
+            }
+            this.loading = false;
+          });
+      }
     },
     changePage(page) {
       if (this.tabPage == "sell") {
@@ -1079,10 +1163,10 @@ export default {
         return result;
       });
       return newStr.slice(0, 1) + str2;
-    }
+    },
   },
   created() {
     this.reloadAd();
-  }
+  },
 };
 </script>

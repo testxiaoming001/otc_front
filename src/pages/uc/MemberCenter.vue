@@ -537,7 +537,6 @@ export default {
   },
   watch: {
     $route(to, form) {
-      console.log(to.path);
       this.heightLightMenu(to.path);
     },
   },

@@ -1,152 +1,208 @@
 <template>
-    <div class="content-wrap">
-            <div class="container" id="List">
-                <Row>
-                    <Col span="4">
-                    <div class="leftmenu left-box">
-                        <div class="user-info">
-                            <div class="avatar-box">
-                                <div class="user-face user-avatar-public">
-                                    <span class="user-avatar-in">{{usernameS}}</span>
-                                    <!-- <span class="online-status-box user-states ">
+  <div class="content-wrap">
+    <div class="container" id="List">
+      <Row>
+        <Col span="4">
+          <div class="leftmenu left-box">
+            <div class="user-info">
+              <div class="avatar-box">
+                <div class="user-face user-avatar-public">
+                  <span class="user-avatar-in">{{ usernameS }}</span>
+                  <!-- <span class="online-status-box user-states ">
                                                     <span class="circles"></span>
                                                 </span> -->
-                                </div>
-                                <div class="user-name">
-                                </div>
-                            </div>
-                            <!-- 个人姓名改为昵称 -->
-                            <span class="ml10" style="width: 105px;">{{strpro(user.username)}}</span>
-                        </div>
-                        <div class="deal-market-info">
-                            <p v-if="user.emailVerified==1">
-                                <i class="iconfont icon-youxiang111"></i>
-                                <span class="unmarket">{{$t('otc.tradeinfo.emaildone')}}</span>
-                            </p>
-                            <p v-else>
-                                <i class="iconfont icon-youxiang"></i>
-                                <span class="unmarket">{{$t('otc.tradeinfo.emailundo')}}</span>
-                            </p>
-                            <p v-if="user.phoneVerified==1">
-                                <i class="iconfont icon-dianhua111"></i>
-                                <span class="">{{$t('otc.tradeinfo.teldone')}}</span>
-                            </p>
-                            <p v-else>
-                                <i class="iconfont icon-dianhua"></i>
-                                <span class="">{{$t('otc.tradeinfo.telundo')}}</span>
-                            </p>
-                            <p v-if="user.idCardVerified==1">
-                                <i class="iconfont icon-renzheng111"></i>
-                                <span class="">{{$t('otc.tradeinfo.idcarddone')}}</span>
-                            </p>
-                            <p v-else>
-                                <i class="iconfont icon-renzheng"></i>
-                                <span class="unmarket">{{$t('otc.tradeinfo.idcardundo')}}</span>
-                            </p>
-                        </div>
-                        <div class="deal-user-trade-info">
-                            <p>{{$t('otc.tradeinfo.exchangetimes')}}：
-                                <em class="trade-times">{{user.transactions}}</em>
-                            </p>
-                            <!-- <p>平均放行：
+                </div>
+                <div class="user-name"></div>
+              </div>
+              <!-- 个人姓名改为昵称 -->
+              <span class="ml10" style="width: 105px;">{{
+                strpro(user.username)
+              }}</span>
+            </div>
+            <div class="deal-market-info">
+              <p v-if="user.emailVerified == 1">
+                <i class="iconfont icon-youxiang111"></i>
+                <span class="unmarket">{{
+                  $t("otc.tradeinfo.emaildone")
+                }}</span>
+              </p>
+              <p v-else>
+                <i class="iconfont icon-youxiang"></i>
+                <span class="unmarket">{{
+                  $t("otc.tradeinfo.emailundo")
+                }}</span>
+              </p>
+              <p v-if="user.phoneVerified == 1">
+                <i class="iconfont icon-dianhua111"></i>
+                <span class="">{{ $t("otc.tradeinfo.teldone") }}</span>
+              </p>
+              <p v-else>
+                <i class="iconfont icon-dianhua"></i>
+                <span class="">{{ $t("otc.tradeinfo.telundo") }}</span>
+              </p>
+              <p v-if="user.idCardVerified == 1">
+                <i class="iconfont icon-renzheng111"></i>
+                <span class="">{{ $t("otc.tradeinfo.idcarddone") }}</span>
+              </p>
+              <p v-else>
+                <i class="iconfont icon-renzheng"></i>
+                <span class="unmarket">{{
+                  $t("otc.tradeinfo.idcardundo")
+                }}</span>
+              </p>
+            </div>
+            <div class="deal-user-trade-info">
+              <p>
+                {{ $t("otc.tradeinfo.exchangetimes") }}：
+                <em class="trade-times">{{ user.transactions }}</em>
+              </p>
+              <!-- <p>平均放行：
                                 <em>0.21 分钟</em>
                             </p> -->
-                        </div>
-                    </div>
-                    </Col>
-                    <Col span="20">
-                    <div class="right-safe">
-                        <div class="trade-right-box">
-                            <div class="trade-price">
-                                <p>
-                                    <label>{{$t('otc.tradeinfo.price')}}</label>
-                                    <span>{{user.price}} CNY / {{user.unit}}</span>
-                                    <!-- <span @click="update">
+            </div>
+          </div>
+        </Col>
+        <Col span="20">
+          <div class="right-safe">
+            <div class="trade-right-box">
+              <div class="trade-price">
+                <p>
+                  <label>{{ $t("otc.tradeinfo.price") }}</label>
+                  <span>{{ user.price }} CNY / {{ user.unit }}</span>
+                  <!-- <span @click="update">
                                                                                                                             <a href="javascript:;">刷新</a>
                                                                                                                         </span> -->
-                                </p>
-                                <p>
-                                    <label>{{$t('otc.tradeinfo.num')}}</label>
-                                    <span>{{user.number}}&nbsp;{{user.unit}}</span>
-                                </p>
-                                <p>
-                                    <label>{{$t('otc.tradeinfo.paymethod')}}</label>
-                                    <span>{{user.payMode}}</span>
-                                </p>
-                                <p>
-                                    <label>{{$t('otc.tradeinfo.exchangelimitamount')}}</label>
-                                    <span>{{user.minLimit}} - {{user.maxLimit}} CNY</span>
-                                </p>
-                                <p>
-                                    <label>{{$t('otc.tradeinfo.location')}}</label>
-                                    <span>{{$t('otc.tradeinfo.location_text')}}</span>
-                                </p>
-                                <p>
-                                    <label>{{$t('otc.tradeinfo.exchangeperiod')}}</label>
-                                    <span>{{user.timeLimit}}{{$t('otc.tradeinfo.minute')}}</span>
-                                </p>
-                            </div>
-                            <div class="trade-operation">
-                                <div class="trade-price-input">
-                                    <p class="price-input-list">
-                                        <Poptip trigger="focus" :content="text1" style="width: 100%;">
-                                            <Input @on-change="transform1" v-model="buyPrice" size="large" :placeholder="$t('otc.tradeinfo.amounttip')" style="width: 420px">
-                                            <span slot="prepend">CNY</span>
-                                            </Input>
-                                        </Poptip>
-                                    </p>
-                                    <span class="exchange1">
-                                        <Icon type="md-swap" />
-                                    </span>
-                                    <p class="price-input-list">
-                                        <Poptip trigger="focus" :content="text2" style="width: 100%;">
-                                            <Input @on-change="transform2" v-model="nuyNum" size="large" :placeholder="$t('otc.tradeinfo.numtip')" style="width: 420px">
-                                            <span slot="prepend">{{user.unit}}</span>
-                                            </Input>
-                                        </Poptip>
-                                    </p>
-                                </div>
-                                <div class="price-box">
-                                    <p class="show-price">
-                                        <em>{{type}}:</em>
-                                        <span>&nbsp;&nbsp;{{buyPrice}} CNY / {{nuyNum}} {{user.unit}}</span>
-                                    </p>
-                                    <button class="btn-trade-in" @click="submit" :disabled="btnDisabled">{{btnType}}</button>
-                                </div>
-                            </div>
-                            <div class="trade-remark">
-                                <h5 class="titles">
-                                    <span>{{$t('otc.tradeinfo.remarktitle')}}</span>
-                                </h5>
-                                <p class="content">
-                                    {{user.remark}}
-                                </p>
-                                <h5 class="titles">
-                                    <span>{{$t('otc.tradeinfo.exchangetitle')}}</span>
-                                </h5>
-                                <div class="content">
-                                    <p>{{$t('otc.tradeinfo.exchange_tip1')}}</p>
-                                    <p>{{$t('otc.tradeinfo.exchange_tip2')}}</p>
-                                    <p>{{$t('otc.tradeinfo.exchange_tip3')}}</p>
-                                    <p>{{$t('otc.tradeinfo.exchange_tip4')}}</p>
-                                    <p>{{$t('otc.tradeinfo.exchange_tip5')}}</p>
-                                </div>
-                            </div>
-                            <div class="modal">
-                                <!---->
-                            </div>
-                        </div>
-                    </div>
-                    </Col>
-                </Row>
+                </p>
+                <p>
+                  <label>{{ $t("otc.tradeinfo.num") }}</label>
+                  <span>{{ user.number }}&nbsp;{{ user.unit }}</span>
+                </p>
+                <p>
+                  <label>{{ $t("otc.tradeinfo.paymethod") }}</label>
+                  <span>{{ user.payMode }}</span>
+                </p>
+                <p>
+                  <label>{{ $t("otc.tradeinfo.exchangelimitamount") }}</label>
+                  <span>{{ user.minLimit }} - {{ user.maxLimit }} CNY</span>
+                </p>
+                <p>
+                  <label>{{ $t("otc.tradeinfo.location") }}</label>
+                  <span>{{ $t("otc.tradeinfo.location_text") }}</span>
+                </p>
+                <p>
+                  <label>{{ $t("otc.tradeinfo.exchangeperiod") }}</label>
+                  <span
+                    >{{ user.timeLimit }}{{ $t("otc.tradeinfo.minute") }}</span
+                  >
+                </p>
+              </div>
+              <div class="trade-operation">
+                <div class="trade-price-input">
+                  <p class="price-input-list">
+                    <!-- <Poptip
+                      trigger="focus"
+                      :content="text1"
+                      style="width: 100%;"
+                    > -->
+                    <Input
+                      @on-change="transform1"
+                      v-model="buy_amout"
+                      size="large"
+                      :placeholder="$t('otc.tradeinfo.amounttip')"
+                      style="width: 420px"
+                    >
+                      <span slot="prepend">CNY</span>
+                    </Input>
+                    <!-- </Poptip> -->
+                  </p>
+                  <p style="width:40%;">
+                    <label
+                      class="before"
+                      style="float:left;line-height:40px;margin-left:30px"
+                      >{{ $t("ctc.payType") }}：</label
+                    >
+                    <Select
+                      v-model="payType"
+                      style="width:70%;float:left;height:40px;"
+                      size="large"
+                    >
+                      <Option
+                        v-for="item in payTypeList"
+                        :value="item.value"
+                        :key="item.value"
+                        >{{ item.label }}</Option
+                      >
+                    </Select>
+                  </p>
+                  <!-- <span class="exchange1">
+                    <Icon type="md-swap" />
+                  </span>
+                  <p class="price-input-list">
+                    <Poptip
+                      trigger="focus"
+                      :content="text2"
+                      style="width: 100%;"
+                    >
+                      <Input
+                        @on-change="transform2"
+                        v-model="nuyNum"
+                        size="large"
+                        :placeholder="$t('otc.tradeinfo.numtip')"
+                        style="width: 420px"
+                      >
+                        <span slot="prepend">{{ user.unit }}</span>
+                      </Input>
+                    </Poptip>
+                  </p> -->
+                </div>
+                <div class="price-box">
+                  <p class="show-price">
+                    <em>{{ type }}:</em>
+                    <span>&nbsp;&nbsp;{{ buy_amout }} CNY</span>
+                  </p>
+                  <button
+                    class="btn-trade-in"
+                    @click="submit"
+                    :disabled="btnDisabled"
+                  >
+                    {{ btnType }}
+                  </button>
+                </div>
+              </div>
+              <div class="trade-remark">
+                <h5 class="titles">
+                  <span>{{ $t("otc.tradeinfo.remarktitle") }}</span>
+                </h5>
+                <p class="content">
+                  {{ user.remark }}
+                </p>
+                <h5 class="titles">
+                  <span>{{ $t("otc.tradeinfo.exchangetitle") }}</span>
+                </h5>
+                <div class="content">
+                  <p>{{ $t("otc.tradeinfo.exchange_tip1") }}</p>
+                  <p>{{ $t("otc.tradeinfo.exchange_tip2") }}</p>
+                  <p>{{ $t("otc.tradeinfo.exchange_tip3") }}</p>
+                  <p>{{ $t("otc.tradeinfo.exchange_tip4") }}</p>
+                  <p>{{ $t("otc.tradeinfo.exchange_tip5") }}</p>
+                </div>
+              </div>
+              <div class="modal">
+                <!---->
+              </div>
             </div>
+          </div>
+        </Col>
+      </Row>
     </div>
+  </div>
 </template>
 <script>
 export default {
   components: {},
   data() {
     return {
+      buy_amout:0,
       usernameS: "",
       text1: "",
       text2: "",
@@ -154,8 +210,33 @@ export default {
       submitBtn: false,
       btnType: "",
       type: "",
+      payType: "alipay",
+      payTypeList: [
+        {
+          label: this.$t("ctc.bank"),
+          value: "bank",
+        },
+        {
+          label: this.$t("ctc.alipay"),
+          value: "zfb",
+        },
+        {
+          label: this.$t("ctc.wechatpay"),
+          value: "wx",
+        },
+        {
+          label: this.$t("ctc.other"),
+          value: "other",
+        },
+      ],
+      receiveTypeList: [
+        {
+          label: this.$t("ctc.bank"),
+          value: "bank",
+        },
+      ],
       user: {
-          username:"aaa"
+        username: "aaa",
       },
       // price: '',
       buyPrice: "",
@@ -163,7 +244,7 @@ export default {
       minLimit: 100,
       maxLimit: 1000,
       // number:0.6,
-      advertiseType: 1
+      advertiseType: 1,
     };
   },
   methods: {
@@ -172,75 +253,83 @@ export default {
       // this.user.advertiseType=1
     },
     transform1() {
-      if (!Number.isNaN(Number(this.buyPrice))) {
-        this.nuyNum = this.round(this.div(this.buyPrice, this.priceNow), 8);
-        if (/^\d+(\.\d{1,2})?$/.test(this.buyPrice)) {
-          this.submitBtn = true;
-        } else {
-          this.submitBtn = false;
-          this.text1 = this.$t("otc.tradeinfo.warning1");
-        }
-      } else {
-        this.text1 =
-          this.$t("otc.tradeinfo.warning2") +
-          this.user.minLimit +
-          "~" +
-          this.user.maxLimit;
-        this.submitBtn = false;
-        return false;
-      }
+      // if (!Number.isNaN(Number(this.buyPrice))) {
+      //   this.nuyNum = this.round(this.div(this.buyPrice, this.priceNow), 8);
+      //   if (/^\d+(\.\d{1,2})?$/.test(this.buyPrice)) {
+      //     this.submitBtn = true;
+      //   } else {
+      //     this.submitBtn = false;
+      //     this.text1 = this.$t("otc.tradeinfo.warning1");
+      //   }
+      // } else {
+      //   this.text1 =
+      //     this.$t("otc.tradeinfo.warning2") +
+      //     this.user.minLimit +
+      //     "~" +
+      //     this.user.maxLimit;
+      //   this.submitBtn = false;
+      //   return false;
+      // }
     },
     transform2() {
-      if (!Number.isNaN(Number(this.nuyNum))) {
-        this.buyPrice = this.round(this.mul(this.nuyNum, this.priceNow), 8);
-        if (this.nuyNum <= this.user.number) {
-          if (/^\d+(\.\d{1,8})?$/.test(this.nuyNum)) {
-            this.submitBtn = true;
-          } else {
-            this.submitBtn = false;
-            this.text2 = this.$t("otc.tradeinfo.warning3");
-          }
-        } else {
-          this.submitBtn = false;
-          return false;
-        }
-      } else {
-        this.text2 =
-          this.$t("otc.tradeinfo.warning4") +
-          this.minNum +
-          "~" +
-          this.user.number;
-        this.submitBtn = false;
-        return false;
-      }
+      // if (!Number.isNaN(Number(this.nuyNum))) {
+      //   this.buyPrice = this.round(this.mul(this.nuyNum, this.priceNow), 8);
+      //   if (this.nuyNum <= this.user.number) {
+      //     if (/^\d+(\.\d{1,8})?$/.test(this.nuyNum)) {
+      //       this.submitBtn = true;
+      //     } else {
+      //       this.submitBtn = false;
+      //       this.text2 = this.$t("otc.tradeinfo.warning3");
+      //     }
+      //   } else {
+      //     this.submitBtn = false;
+      //     return false;
+      //   }
+      // } else {
+      //   this.text2 =
+      //     this.$t("otc.tradeinfo.warning4") +
+      //     this.minNum +
+      //     "~" +
+      //     this.user.number;
+      //   this.submitBtn = false;
+      //   return false;
+      // }
     },
     getIdAdv() {
       //获取id广告信息
       this.$http
-        .post(this.host + "/otc/order/pre", { id: this.$route.query.tradeId })
-        .then(response => {
+        .post(this.apiHost + "/user/adv_lists", {
+          token: localStorage.getItem("TOKEN"),
+        })
+        .then((response) => {
           var resp = response.body;
-          if (resp.code == 0) {
-            this.user = resp.data;
-            this.text1 =
-              this.$t("otc.tradeinfo.warning2") +
-              this.user.minLimit +
-              "~" +
-              this.user.maxLimit;
+          if (resp.code == 1) {
+            this.user = resp.data.filter(
+              (v) => +v.trade_ad_id === +this.$route.query.tradeId
+            )[0];
+            !this.user.username && (this.user.username = "");
+            // this.text1 =
+            //   this.$t("otc.tradeinfo.warning2") +
+            //   this.user.low_limit +
+            //   "~" +
+            //   this.user.high_limit;
             // this.minNum = (this.user.minLimit/this.user.price).toFixed(8);
-            this.text2 =
-              this.$t("otc.tradeinfo.warning4") +
-              this.minNum +
-              "~" +
-              this.user.number;
-            // console.log(this.user)
-            if (this.user.advertiseType == 1) {
-              this.btnType = this.$t("otc.tradeinfo.confirmbuyin");
-              this.type = this.$t("otc.tradeinfo.buyin");
-            } else if (this.user.advertiseType == 0) {
-              this.btnType = this.$t("otc.tradeinfo.confirmsellout");
-              this.type = this.$t("otc.tradeinfo.sellout");
-            }
+            // this.text2 =
+            //   this.$t("otc.tradeinfo.warning4") +
+            //   (this.minNum || 1) +
+            //   "~" +
+            //   (this.user.number || 1);
+            // // console.log(this.user)
+            this.btnType = this.$t("otc.tradeinfo.confirmbuyin");
+            this.type = this.$t("otc.tradeinfo.buyin");
+
+            // if (this.user.low_limit == 1) {
+            //   this.btnType = this.$t("otc.tradeinfo.confirmbuyin");
+            //   this.type = this.$t("otc.tradeinfo.buyin");
+            // } else if (this.user.low_limit == 0) {
+            //   this.btnType = this.$t("otc.tradeinfo.confirmsellout");
+            //   this.type = this.$t("otc.tradeinfo.sellout");
+            // }
             this.usernameS = (this.user.username + "")
               .replace(/^\s+|\s+$/g, "")
               .slice(0, 1);
@@ -250,57 +339,57 @@ export default {
         });
     },
     submit() {
-      if (this.submitBtn) {
-        this.btnDisabled = true;
-        if (this.user.advertiseType == 1) {
-          let param = {};
-          param["id"] = this.$route.query.tradeId;
-          param["coinId"] = this.user.otcCoinId;
-          param["price"] = this.user.price;
-          param["money"] = this.buyPrice;
-          param["amount"] = this.nuyNum;
-          this.$http
-            .post(this.host + "/otc/order/buy", param)
-            .then(response => {
-              this.btnDisabled = false;
-              var resp = response.body;
-              if (resp.code == 0) {
-                this.$Message.success(resp.message);
+      // if (this.submitBtn) {
+      //   this.btnDisabled = true;
+      //   let param = {};
+      //   param["ad_id"] = this.$route.query.tradeId;
+      //   param["buyer_address"] = 'CN';
+      //   param["buy_amout"] = this.buy_amout;
+      //   param["token"] = localStorage.getItem("TOKEN");
+      //   param["pay_way"] = this.payType
+        
+      //   this.$http
+      //     .post(this.apiHost + "/Usdt_order/create_order", param)
+      //     .then((response) => {
+      //       this.btnDisabled = false;
+      //       var resp = response.body;
+      //       if (resp.code == 1) {
+      //         this.$Message.success(resp.msg);
 
-                let self = this;
-                setTimeout(() => {
-                  self.$router.push("/chat?tradeId=" + resp.data);
-                }, 2000);
-              } else {
-                // this.$Message.error(resp.message);
-              }
-            });
-        } else if (this.user.advertiseType == 0) {
-          let param = {};
-          param["id"] = this.$route.query.tradeId;
-          param["coinId"] = this.user.otcCoinId;
-          param["price"] = this.user.price;
-          param["money"] = this.buyPrice;
-          param["amount"] = this.nuyNum;
-          this.$http
-            .post(this.host + "/otc/order/sell", param)
-            .then(response => {
-              this.btnDisabled = false;
-              var resp = response.body;
-              if (resp.code == 0) {
-                this.$Message.success(resp.message);
-                let self = this;
-                setTimeout(() => {
-                  self.$router.push("/chat?tradeId=" + resp.data);
-                }, 2000);
-              } else {
-                // this.$Message.error(resp.message);
-              }
-            });
-        }
-      } else {
-        this.$Message.error(this.$t("otc.tradeinfo.warning5"));
-      }
+      //         let self = this;
+      //         setTimeout(() => {
+      //           self.$router.push("/chat?tradeId=" + resp.data);
+      //         }, 2000);
+      //       } else {
+      //         this.$Message.error(resp.msg);
+      //       }
+      //     });
+      // } else {
+      //   this.$Message.error(this.$t("otc.tradeinfo.warning5"));
+      // }
+       this.btnDisabled = true;
+        let param = {};
+        param["ad_id"] = this.$route.query.tradeId;
+        param["buyer_address"] = 'CN';
+        param["buy_amout"] = this.buy_amout;
+        param["token"] = localStorage.getItem("TOKEN");
+        param["pay_way"] = this.payType
+        
+        this.$http
+          .post(this.apiHost + "/Usdt_order/create_order", param)
+          .then((response) => {
+            this.btnDisabled = false;
+            var resp = response.body;
+            if (resp.code == 1) {
+              this.$Message.success(resp.msg);
+              let self = this;
+              setTimeout(() => {
+                self.$router.push("/chat?tradeId=" + resp.data);
+              }, 2000);
+            } else {
+              this.$Message.error(resp.msg);
+            }
+          });
     },
     sendMsg() {
       // this.$http.post(this.host + '/otc/order/sell', param).then(response => {
@@ -327,8 +416,7 @@ export default {
         c += e.split(".")[1].length;
       } catch (f) {}
       return (
-        Number(d.replace(".", "")) *
-        Number(e.replace(".", "")) /
+        (Number(d.replace(".", "")) * Number(e.replace(".", ""))) /
         Math.pow(10, c)
       );
     },
@@ -367,7 +455,7 @@ export default {
         return result;
       });
       return newStr.slice(0, 1) + str2;
-    }
+    },
   },
   created() {
     // console.log(this.$route.query)
@@ -382,12 +470,12 @@ export default {
       );
     },
     minNum: function() {
-      return (this.user.minLimit / this.priceNow).toFixed(8);
+      return ((this.user.minLimit || 100) / (this.priceNow || 100)).toFixed(8);
     },
     maxNum: function() {
-      return this.user.maxLimit / this.priceNow;
-    }
-  }
+      return (this.user.maxLimit || 1000) / (this.priceNow || 100);
+    },
+  },
 };
 </script>
 
@@ -715,5 +803,3 @@ export default {
   color: #fff;
 }
 </style>
-
-
