@@ -742,7 +742,10 @@ export default {
       // });
       this.$store.commit("setMember", null);
       localStorage.setItem("TOKEN", null);
-      location.href = "/login";
+      // location.href = "/login";
+      this.$router.push({
+        name:'login'
+      })
     },
     checkLogin() {
       // this.$http.post(this.host + "/uc/check/login", {}).then(response => {
