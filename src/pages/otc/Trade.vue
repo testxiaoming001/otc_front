@@ -1120,10 +1120,9 @@ export default {
         table.rows = [];
         table.totalElement = 0;
         table.currentPage = pageNo;
-        params["pageNo"] = pageNo;
-        params["pageSize"] = table.pageNumber;
-        params["advertiseType"] = advertiseType;
-        params["unit"] = this.coin;
+        params["page"] = pageNo;
+        params["limit"] = table.pageNumber;
+        // params["advertiseType"] = advertiseType;
         params["token"] = localStorage.getItem("TOKEN");
         this.$http
           .post(this.apiHost + "/Usdt_order/order_list", params)

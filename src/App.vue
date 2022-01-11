@@ -28,13 +28,12 @@
                       $t("header.exchange")
                     }}</MenuItem>
                   </router-link>
-                <!-- <router-link to="/ctc">
+                <router-link to="/ctc">
                     <MenuItem name="nav-ctc">{{ $t("header.ctc") }}</MenuItem>
-                  </router-link> -->
+                  </router-link>
                   <router-link to="/otc/trade/usdt">
                     <MenuItem name="nav-otc">{{ $t("header.otc") }}</MenuItem>
                   </router-link>
-                     <!--
                   <router-link to="/lab" style="position:relative;">
                     <MenuItem name="nav-lab">{{ $t("header.lab") }}</MenuItem>
                   </router-link>
@@ -52,7 +51,7 @@
                     <MenuItem name="nav-whitepaper">{{
                       $t("header.whitepaper")
                     }}</MenuItem>
-                  </router-link> -->
+                  </router-link>
                 </Submenu>
               </Menu>
             </div>
@@ -2183,9 +2182,9 @@ fieldset[disabled] .ivu-input {
   // box-shadow: 0 0 0 1px #f0ac19 inset;
   box-shadow: none;
   color: #f0ac19;
-  &:after {
+  // &:after {
     // background: #27313e;
-  }
+  // }
 }
 .ivu-date-picker-cells-cell {
   color: #fff;
