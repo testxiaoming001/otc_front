@@ -371,7 +371,7 @@ export default {
         let param = {};
         param["ad_id"] = this.$route.query.tradeId;
         param["buyer_address"] = 'CN';
-        param["buy_amout"] = this.buy_amout;
+        param["amount"] = this.buy_amout;
         param["token"] = localStorage.getItem("TOKEN");
         param["pay_way"] = this.payType
         
