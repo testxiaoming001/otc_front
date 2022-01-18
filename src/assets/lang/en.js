@@ -274,6 +274,8 @@ module.exports = {
             delete: 'delete',
         },
         myorder: 'My Order',
+        sellerorder: 'seller order',
+        buyerorder: 'buyer order',
         chatline: {
             status_1: 'The buyer did not pay and waited for the buyer to pay！',
             status_2: 'The buyer has paid and waits for the seller to release！',

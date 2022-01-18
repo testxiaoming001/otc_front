@@ -275,7 +275,8 @@
             dropoff: '下架',
             delete: '删除',
         },
-        myorder: '我的订单',
+        myorder: '售出订单', // TODO
+        sellerorder: '购买订单',
         chatline: {
             status_1: '买家未付款，等待买家付款！',
             status_2: '买家已付款，等待卖家放行！',

@@ -1080,6 +1080,13 @@ export default {
     lang: function() {
       this.updateLangData();
     },
+    tabPage(){
+       if (this.tabPage == "sell") {
+        this.loadAd( this.advertiment.ask.currentPage, 0, this.advertiment.bid);
+      } else {
+        this.loadAd( this.advertiment.ask.currentPage, 1, this.advertiment.ask);
+      }
+    }
   },
   methods: {
     updateLangData() {
@@ -1091,7 +1098,6 @@ export default {
       this.advertiment.columns[2].title = this.$t("otc.operate");
     },
     loadAd(pageNo, advertiseType, table) {
-      if (advertiseType === 0) {
         //获取广告
         let params = {};
         table.rows = [];
@@ -1099,7 +1105,7 @@ export default {
         table.currentPage = pageNo;
         params["pageNo"] = pageNo;
         params["pageSize"] = table.pageNumber;
-        params["advertiseType"] = advertiseType;
+        params["ad_type"] = advertiseType;
         params["unit"] = this.coin;
         params["token"] = localStorage.getItem("TOKEN");
         this.$http
@@ -1113,30 +1119,7 @@ export default {
               this.$Message.error(resp.msg);
             }
             this.loading = false;
-          });
-      } else {
-        //获取广告
-        let params = {};
-        table.rows = [];
-        table.totalElement = 0;
-        table.currentPage = pageNo;
-        params["page"] = pageNo;
-        params["limit"] = table.pageNumber;
-        // params["advertiseType"] = advertiseType;
-        params["token"] = localStorage.getItem("TOKEN");
-        this.$http
-          .post(this.apiHost + "/Usdt_order/order_list", params)
-          .then((response) => {
-            var resp = response.body;
-            if (resp.code == 1) {
-              table.rows = resp.data;
-              table.totalElement = resp.data.length;
-            } else {
-              this.$Message.error(resp.msg);
-            }
-            this.loading = false;
-          });
-      }
+        });
     },
     changePage(page) {
       if (this.tabPage == "sell") {

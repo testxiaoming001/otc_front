@@ -122,6 +122,10 @@ export default [
             component: resolve => (require(["../components/uc/myorder"], resolve))
         },
         {
+            path: 'myBuyOrder',
+            component: resolve => (require(["../components/uc/myBuyOrder"], resolve))
+        },
+        {
             path: 'entrust/current',
             component: resolve => (require(["../components/uc/EntrustCurrent"], resolve))
         },

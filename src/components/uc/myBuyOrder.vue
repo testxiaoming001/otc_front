@@ -177,7 +177,7 @@ export default {
          params.token = localStorage.getItem("TOKEN")
       this.currentPage = pageNo + 1;
       this.$http
-        .post(this.apiHost + "/Usdt_order/seller_order_list", params)
+        .post(this.apiHost + "/Usdt_order/buyer_order_list", params)
         .then((response) => {
           var resp = response.body;
           if (resp.code == 1) {

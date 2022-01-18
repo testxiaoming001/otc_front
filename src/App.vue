@@ -743,7 +743,7 @@ export default {
       localStorage.setItem("TOKEN", null);
       // location.href = "/login";
       this.$router.push({
-        name:'login'
+        path:'/login'
       })
     },
     checkLogin() {

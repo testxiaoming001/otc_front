@@ -276,6 +276,11 @@
                   $t("otc.myorder")
                 }}</router-link>
               </MenuItem>
+                 <MenuItem name="4-5">
+                <router-link to="/uc/myBuyOrder">{{
+                  $t("otc.sellerorder")
+                }}</router-link>
+              </MenuItem>
             </Submenu>
             <!-- 我的推广 -->
             <!-- <Submenu name="5">
@@ -453,6 +458,7 @@ export default {
         "/uc/entrust/history": "3-2",
         "/uc/ad": "4-1",
         "/uc/order": "4-2",
+        "/uc/myBuyOrder": "4-5",
         "/uc/withdraw/address": "2-4",
         "/uc/ad/create": "4-3",
         "/uc/ad/update": "4-4",
