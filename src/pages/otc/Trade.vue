@@ -803,117 +803,7 @@ export default {
         columns: [
           {
             title: self.$t("otc.merchant"),
-            // key: "memberName",
-            key: "user_id",
-            // width: 160,
-            // ellipsis: true,
-            // render: function(h, params) {
-            //   var avatar = params.row.avatar,
-            //     haveAvatar = false;
-            //   var innerCNT = [];
-            //   if (avatar != null && avatar != "") {
-            //     innerCNT[0] = h(
-            //       "div",
-            //       {
-            //         attrs: {
-            //           class: "user-face user-avatar-public",
-            //         },
-            //       },
-            //       [
-            //         h("img", {
-            //           attrs: {
-            //             src: avatar,
-            //             width: "45px",
-            //             height: "45px",
-            //           },
-            //           style: {
-            //             "border-radius": "50%",
-            //           },
-            //         }),
-            //       ]
-            //     );
-            //   } else {
-            //     innerCNT[0] = h(
-            //       "div",
-            //       {
-            //         attrs: {
-            //           class: "user-face user-avatar-public",
-            //         },
-            //       },
-            //       [
-            //         h(
-            //           "span",
-            //           {
-            //             attrs: {
-            //               class: "user-avatar-in",
-            //             },
-            //           },
-            //           params.row.memberName
-            //             .replace(/^\s+|\s+$/g, "")
-            //             .slice(0, 1)
-            //         ),
-            //       ]
-            //     );
-            //   }
-            //   innerCNT[1] = h("p", [
-            //     h(
-            //       "a",
-            //       {
-            //         style: {
-            //           marginRight: "8px",
-            //           cursor: "pointer",
-            //           paddingTop: "5px",
-            //         },
-            //         class: {
-            //           // renzhengA: params.row.renzheng
-            //         },
-            //         on: {
-            //           click: function() {
-            //             if (self.isLogin) {
-            //               self.$router.push(
-            //                 "/checkuser?id=" + params.row.memberName
-            //               );
-            //             } else {
-            //               self.$router.push("/login");
-            //             }
-            //           },
-            //         },
-            //       },
-            //       params.row.memberName
-            //       // self.strpro(params.row.memberName)
-            //     ),
-            //     h(
-            //       "div",
-            //       {
-            //         class: {
-            //           // renzheng: params.row.renzheng
-            //         },
-            //       },
-            //       ""
-            //     ),
-            //   ]);
-            //   if (params.row.level == 2)
-            //     innerCNT[2] = h(
-            //       "div",
-            //       {
-            //         attrs: {
-            //           class: "user-business-v",
-            //         },
-            //         style: {
-            //           display: "inline-block",
-            //           "vertical-align": "text-top",
-            //         },
-            //       },
-            //       [
-            //         h("img", {
-            //           attrs: {
-            //             src: require("../../assets/images/business_v.png"),
-            //           },
-            //         }),
-            //       ]
-            //     );
-            //   return h("div", innerCNT);
-            // },
+            key: "title",
           },
           {
             title: self.$t("otc.volume"),
@@ -1105,11 +995,11 @@ export default {
         table.currentPage = pageNo;
         params["pageNo"] = pageNo;
         params["pageSize"] = table.pageNumber;
-        params["ad_type"] = advertiseType;
+        params["ad_type"] = advertiseType?1:2;
         params["unit"] = this.coin;
         params["token"] = localStorage.getItem("TOKEN");
         this.$http
-          .post(this.apiHost + "/user/adv_lists", params)
+          .post(this.apiHost + "/index/adv_lists", params)
           .then((response) => {
             var resp = response.body;
             if (resp.code == 1) {

@@ -373,7 +373,8 @@ export default {
         param["buyer_address"] = 'CN';
         param["amount"] = this.buy_amout;
         param["token"] = localStorage.getItem("TOKEN");
-        param["pay_way"] = this.payType
+        // param["pay_way"] = this.payType
+        param["pay_way"] = 'trc20'
         
         this.$http
           .post(this.apiHost + "/Usdt_order/create_order", param)

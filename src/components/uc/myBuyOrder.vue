@@ -183,8 +183,13 @@ export default {
           if (resp.code == 1) {
             console.log(resp);
             this.tableOrder = resp.data.data;
+            console.log(resp.data.data);
             this.totalPage = resp.data.total;
             this.totalNum = resp.data.total;
+
+            this.$http.post(this.apiHost + "/Usdt_order/order_info", {
+              token : localStorage.getItem("TOKEN"),
+              order_id:this.tableOrder[0].order_id})
           } else {
             this.$Message.error(resp.msg);
           }
@@ -258,34 +263,34 @@ export default {
       let columns = [];
       columns.push({
         title: this.$t("uc.otcorder.orderno"),
-        key: "orderSn",
+        key: "order_id",
         minWidth: 60,
         align: "center",
-        render: function(h, params) {
-          return h("p", [
-            h(
-              "a",
-              {
-                on: {
-                  click: function() {
-                    self.$router.push("/chat?tradeId=" + params.row.orderSn);
-                  },
-                },
-              },
-              params.row.orderSn
-            ),
-          ]);
-        },
+        // render: function(h, params) {
+        //   return h("p", [
+        //     h(
+        //       "a",
+        //       {
+        //         on: {
+        //           click: function() {
+        //             self.$router.push("/chat?tradeId=" + params.row.orderSn);
+        //           },
+        //         },
+        //       },
+        //       params.row.orderSn
+        //     ),
+        //   ]);
+        // },
       });
-      columns.push({
-        title: this.$t("uc.otcorder.created"),
-        key: "createTime",
-        minWidth: 90,
-        align: "center",
-      });
+      // columns.push({
+      //   title: this.$t("uc.otcorder.created"),
+      //   key: "createTime",
+      //   minWidth: 90,
+      //   align: "center",
+      // });
       columns.push({
         title: this.$t("uc.otcorder.symbol"),
-        key: "unit",
+        key: "pay_address_type",
         // width: 80,
         align: "center",
       });
@@ -306,7 +311,7 @@ export default {
       });
       columns.push({
         title: this.$t("uc.otcorder.tradename"),
-        key: "name",
+        key: "seller_address",
         // width: 80,
         ellipsis: "true",
         align: "center",
@@ -317,28 +322,29 @@ export default {
               {
                 on: {
                   click: function() {
-                    self.$router.push("/checkuser?id=" + params.row.name);
+                    self.$router.push("/checkuser?id=" + params.row.seller_id);
                   },
                 },
               },
-              params.row.name
+              params.row.seller_address
             ),
           ]);
         },
       });
       columns.push({
         title: this.$t("uc.otcorder.amount"),
-        key: "amount",
+        key: "btc_number",
         align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.money"),
-        key: "money",
+        key: "order_price",
         align: "center",
       });
       columns.push({
-        title: this.$t("uc.otcorder.fee"),
-        key: "commission",
+        // title: this.$t("uc.otcorder.fee"),
+        title: '订单状态',
+        key: "order_status",
         align: "center",
       });
 

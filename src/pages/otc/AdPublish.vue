@@ -178,19 +178,24 @@
                 style="padding-left: 90px;color:#f0ac19;"
                 >{{ $t("otc.publishad.tip2") }}</router-link
               >
+              <!-- TODO 收款方式 -->
               <FormItem
-                :label="$t('otc.publishad.paymode')"
+                :label="$t('otc.index.unpaymode')"
                 style="margin-top:10px"
-                prop="payMode"
               >
-                <Select v-model="form.payMode" multiple>
-                  <Option
-                    v-for="item in payModeList"
-                    :value="item.value"
-                    :key="item.value"
-                    >{{ item.label }}</Option
-                  >
-                </Select>
+               <CheckboxGroup v-model="form.payMode">
+                  <Checkbox :label="v.value" v-for="v in payModeList" :key="v">{{
+                   v.label
+                  }}</Checkbox>
+                </CheckboxGroup>
+              </FormItem>
+              <!-- TODO -->
+              <!-- 付款方式 -->
+              <FormItem
+                :label="$t('otc.jybz')"
+                style="margin-top:10px"
+              >
+                  <Radio :true-value="'trc20'" :false-value="'trc20'" v-model="form.pay_way">USDT</Radio>
               </FormItem>
               <FormItem
                 :label="$t('otc.publishad.usdtprice')"
@@ -424,7 +429,8 @@ export default {
         priceW: "",
         autoword: "",
         is_able: "1",
-        price:''
+        price: "",
+        pay_way:'trc20'
       },
       ruleValidate: {
         advertiseType: [{ required: true, trigger: "change" }],
@@ -585,6 +591,7 @@ export default {
             high_limit: form.maxLimit,
             low_limit: form.minLimit,
             text: form.remark,
+            pay_way:'trc20',
             pay_way_zfb: form.payMode.includes("zfb") ? 1 : 0,
             pay_way_wx: form.payMode.includes("wx") ? 1 : 0,
             pay_way_bank: form.payMode.includes("bank") ? 1 : 0,
