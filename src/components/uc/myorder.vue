@@ -131,6 +131,13 @@
         </div>
       </div>
     </div>
+       <Modal v-model="modal" title="选择付款地址" @on-ok="confirm">
+      <p>
+        <Select v-model="bank_id" style="width:200px">
+        <Option v-for="item in bankList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+    </Select>
+      </p>
+    </Modal>
   </div>
 </template>
 <script>
@@ -138,6 +145,9 @@ export default {
   components: {},
   data() {
     return {
+      bank_id: "",
+      bankList: [],
+      modal: false,
       ordKeyword: "",
       choseBtn: 0,
       whichItem: 1,
@@ -147,12 +157,38 @@ export default {
       pageSize: 10,
       totalNum: 0,
       currentPage: 1,
+      order_id: null,
       loginmsg: this.$t("common.logintip"),
     };
   },
   methods: {
-    // 获取历史记录信息
-    handleListApproveHistory() {},
+    confirm() {
+      this.$http
+        .post(this.apiHost + "/Usdt_order/set_order_bank", {
+          token: localStorage.getItem("TOKEN"),
+          bank_id: this.bank_id,
+          order_id: this.order_id,
+        })
+        .then((resp) => {
+          console.log(resp);
+        });
+    },
+    setPay() {
+      this.modal = true;
+      this.$http
+        .post(this.apiHost + "/user/card_info_list", {
+          token: localStorage.getItem("TOKEN"),
+        })
+        .then((resp) => {
+          var resp = response.body;
+          if (resp.code == 1) {
+            this.bankList = resp.data.data;
+          } else {
+            this.$Message.error(resp.msg);
+          }
+          console.log(resp);
+        });
+    },
     changePage(pageNo) {
       if (pageNo > 0) pageNo = pageNo - 1;
       if (this.whichItem == 1) {
@@ -174,7 +210,7 @@ export default {
       params["status"] = status;
       params["pageNo"] = pageNo;
       params["pageSize"] = this.pageSize;
-         params.token = localStorage.getItem("TOKEN")
+      params.token = localStorage.getItem("TOKEN");
       this.currentPage = pageNo + 1;
       this.$http
         .post(this.apiHost + "/Usdt_order/seller_order_list", params)
@@ -189,9 +225,10 @@ export default {
             this.$Message.error(resp.msg);
           }
           this.loading = false;
-        }).catch(()=>{
-          this.loading = false;
         })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     init() {},
     handleSearch() {
@@ -258,41 +295,18 @@ export default {
       let columns = [];
       columns.push({
         title: this.$t("uc.otcorder.orderno"),
-        key: "orderSn",
+        key: "order_id",
         minWidth: 60,
-        align: "center",
-        render: function(h, params) {
-          return h("p", [
-            h(
-              "a",
-              {
-                on: {
-                  click: function() {
-                    self.$router.push("/chat?tradeId=" + params.row.orderSn);
-                  },
-                },
-              },
-              params.row.orderSn
-            ),
-          ]);
-        },
-      });
-      columns.push({
-        title: this.$t("uc.otcorder.created"),
-        key: "createTime",
-        minWidth: 90,
         align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.symbol"),
-        key: "unit",
-        // width: 80,
+        key: "pay_address_type",
         align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.type"),
         key: "type",
-        // width: 90,
         align: "center",
         render: (h, params) => {
           let text = "";
@@ -306,8 +320,7 @@ export default {
       });
       columns.push({
         title: this.$t("uc.otcorder.tradename"),
-        key: "name",
-        // width: 80,
+        key: "seller_address",
         ellipsis: "true",
         align: "center",
         render: function(h, params) {
@@ -317,37 +330,94 @@ export default {
               {
                 on: {
                   click: function() {
-                    self.$router.push("/checkuser?id=" + params.row.name);
+                    self.$router.push("/checkuser?id=" + params.row.seller_id);
                   },
                 },
               },
-              params.row.name
+              params.row.seller_address
             ),
           ]);
         },
       });
       columns.push({
         title: this.$t("uc.otcorder.amount"),
-        key: "amount",
+        key: "btc_number",
         align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.money"),
-        key: "money",
+        key: "order_price",
         align: "center",
       });
       columns.push({
-        title: this.$t("uc.otcorder.fee"),
-        key: "commission",
+        title: "订单状态",
+        key: "order_status",
         align: "center",
+        render: function(h, params) {
+          return h("p", [
+            h(
+              "span",
+              params.row.seller_address === 1 ? "未付款" : "已付款到平台"
+            ),
+          ]);
+        },
       });
-
+      columns.push({
+        title: "操作", // 国际化
+        ellipsis: "true",
+        align: "center",
+        width: 230,
+        render: function(h, params) {
+          return h("p", [
+            h(
+              "a",
+              {
+                on: {
+                  click: function() {
+                    self.$router.push(
+                      "/uc/adOrderDetail?id=" + params.row.order_id
+                    );
+                  },
+                },
+              },
+              "详情"
+            ),
+            h(
+              "a",
+              {
+                on: {
+                  click: function() {
+                    self.$router.push(
+                      "/uc/adOrderDetail?id=" + params.row.order_id
+                    );
+                  },
+                },
+              },
+              "放行"
+            ),
+            h(
+              "a",
+              {
+                on: {
+                  click: function() {
+                    self.setPay();
+                  },
+                },
+              },
+              "设置收款方式"
+            ),
+          ]);
+        },
+      });
       return columns;
     },
   },
 };
 </script>
 <style scoped>
+/deep/ .ivu-table-column-center p > a {
+  margin-right: 10px;
+}
 .bill_box_order {
   width: 99%;
   padding-left: 20px;

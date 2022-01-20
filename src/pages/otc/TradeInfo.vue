@@ -165,7 +165,7 @@
                     @click="submit"
                     :disabled="btnDisabled"
                   >
-                    {{ btnType }}
+                    {{ btnType|| '立即下单' }}
                   </button>
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default {
               this.$Message.success(resp.msg);
               let self = this;
               setTimeout(() => {
-                self.$router.push("/chat?tradeId=" + resp.data);
+                self.$router.push("/otc/trade/usdt");
               }, 2000);
             } else {
               this.$Message.error(resp.msg);

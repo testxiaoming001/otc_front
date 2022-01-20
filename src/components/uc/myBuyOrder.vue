@@ -174,29 +174,24 @@ export default {
       params["status"] = status;
       params["pageNo"] = pageNo;
       params["pageSize"] = this.pageSize;
-         params.token = localStorage.getItem("TOKEN")
+      params.token = localStorage.getItem("TOKEN");
       this.currentPage = pageNo + 1;
       this.$http
         .post(this.apiHost + "/Usdt_order/buyer_order_list", params)
         .then((response) => {
           var resp = response.body;
           if (resp.code == 1) {
-            console.log(resp);
             this.tableOrder = resp.data.data;
-            console.log(resp.data.data);
             this.totalPage = resp.data.total;
             this.totalNum = resp.data.total;
-
-            this.$http.post(this.apiHost + "/Usdt_order/order_info", {
-              token : localStorage.getItem("TOKEN"),
-              order_id:this.tableOrder[0].order_id})
           } else {
             this.$Message.error(resp.msg);
           }
           this.loading = false;
-        }).catch(()=>{
-          this.loading = false;
         })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     init() {},
     handleSearch() {
@@ -266,38 +261,15 @@ export default {
         key: "order_id",
         minWidth: 60,
         align: "center",
-        // render: function(h, params) {
-        //   return h("p", [
-        //     h(
-        //       "a",
-        //       {
-        //         on: {
-        //           click: function() {
-        //             self.$router.push("/chat?tradeId=" + params.row.orderSn);
-        //           },
-        //         },
-        //       },
-        //       params.row.orderSn
-        //     ),
-        //   ]);
-        // },
       });
-      // columns.push({
-      //   title: this.$t("uc.otcorder.created"),
-      //   key: "createTime",
-      //   minWidth: 90,
-      //   align: "center",
-      // });
       columns.push({
         title: this.$t("uc.otcorder.symbol"),
         key: "pay_address_type",
-        // width: 80,
         align: "center",
       });
       columns.push({
         title: this.$t("uc.otcorder.type"),
         key: "type",
-        // width: 90,
         align: "center",
         render: (h, params) => {
           let text = "";
@@ -312,7 +284,6 @@ export default {
       columns.push({
         title: this.$t("uc.otcorder.tradename"),
         key: "seller_address",
-        // width: 80,
         ellipsis: "true",
         align: "center",
         render: function(h, params) {
@@ -342,12 +313,32 @@ export default {
         align: "center",
       });
       columns.push({
-        // title: this.$t("uc.otcorder.fee"),
-        title: '订单状态',
+        title: "订单状态",
         key: "order_status",
         align: "center",
       });
-
+      columns.push({
+        title: "操作", // 国际化
+        ellipsis: "true",
+        align: "center",
+        render: function(h, params) {
+          return h("p", [
+            h(
+              "a",
+              {
+                on: {
+                  click: function() {
+                    self.$router.push(
+                      "/uc/adOrderDetail?id=" + params.row.order_id
+                    );
+                  },
+                },
+              },
+              "详情"
+            ),
+          ]);
+        },
+      });
       return columns;
     },
   },
